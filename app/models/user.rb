@@ -10,4 +10,7 @@ class User < ActiveRecord::Base
     username
   end
 
+  def to_s
+    username
+  end
 end

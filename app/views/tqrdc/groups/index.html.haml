@@ -13,7 +13,6 @@
     %thead
       %tr
         %th= t('action')
-        %th= t('attributes.id')
         %th= t('attributes.name')
         %th= t('attributes.description')
         %th= t('attributes.score')
@@ -28,13 +27,12 @@
             |
             = link_to t('delete'), tqrdc_group, :method => :delete, :data => { :confirm => t('confirm_delete')}
 
-          %td= tqrdc_group.id
-          %td= tqrdc_group.name
+          %td= link_to tqrdc_group.name , tqrdc_group
           %td= tqrdc_group.description
           %td= tqrdc_group.score
-          %td= tqrdc_group.owner_id
-          %td= tqrdc_group.creator_id
-          %td= tqrdc_group.updater_id
+          %td= tqrdc_group.owner #_id
+          %td= tqrdc_group.creator
+          %td= tqrdc_group.updater
 
 %h5
   = link_to t('new_tqrdc_group'), new_tqrdc_group_path
