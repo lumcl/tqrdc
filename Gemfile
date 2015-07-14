@@ -22,6 +22,7 @@ gem 'simple_form'
 gem 'thin'
 gem 'kaminari'
 gem 'paperclip', '~> 4.3.0'
+gem 'tzinfo-data'
 
 group :development do
   gem 'better_errors'
