@@ -2931,3 +2931,1249 @@ Processing by UsersController#index as HTML
   Rendered layouts/_navigation.html.haml (1.1ms)
   Rendered layouts/_messages.html.haml (0.1ms)
 Completed 200 OK in 37ms (Views: 25.8ms | ActiveRecord: 9.1ms)
+  [1m[36m (859.3ms)[0m  [1mCREATE TABLE "SCHEMA_MIGRATIONS" ("VERSION" VARCHAR2(255) NOT NULL) [0m
+OracleEnhanced shortened default index name index_schema_migrations_on_version to i_schema_migrations_version
+  [1m[35m (74.1ms)[0m              SELECT 1 FROM all_indexes i
+            WHERE i.owner = 'RUBY2'
+               AND i.table_owner = 'RUBY2'
+               AND i.table_name = 'SCHEMA_MIGRATIONS'
+               AND i.index_name = 'UNIQUE_SCHEMA_MIGRATIONS'
+
+  [1m[36m (244.9ms)[0m  [1mCREATE UNIQUE INDEX "UNIQUE_SCHEMA_MIGRATIONS" ON "SCHEMA_MIGRATIONS" ("VERSION") [0m
+  [1m[35m (247.9ms)[0m  ALTER TABLE "SCHEMA_MIGRATIONS" ADD CONSTRAINT "UNIQUE_SCHEMA_MIGRATIONS" UNIQUE ("VERSION")
+  [1m[36mActiveRecord::SchemaMigration Load (47.8ms)[0m  [1mSELECT "SCHEMA_MIGRATIONS".* FROM "SCHEMA_MIGRATIONS"[0m
+  [1m[35m (244.5ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'SCHEMA_MIGRATIONS' AND hidden_column = 'NO' ORDER BY column_id
+Migrating to DeviseCreateUsers (20150502054724)
+DEPRECATION WARNING: `#timestamps` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/Lum/Development/rails/tqrdc/db/migrate/20150502054724_devise_create_users.rb:34)
+  [1m[36m (1704.6ms)[0m  [1mCREATE TABLE "USER" ("ID" NUMBER(38) NOT NULL PRIMARY KEY, "EMAIL" VARCHAR2(255) DEFAULT '' NOT NULL, "ENCRYPTED_PASSWORD" VARCHAR2(255) DEFAULT '' NOT NULL, "RESET_PASSWORD_TOKEN" VARCHAR2(255), "RESET_PASSWORD_SENT_AT" DATE, "REMEMBER_CREATED_AT" DATE, "SIGN_IN_COUNT" NUMBER(38) DEFAULT 0 NOT NULL, "CURRENT_SIGN_IN_AT" DATE, "LAST_SIGN_IN_AT" DATE, "CURRENT_SIGN_IN_IP" VARCHAR2(255), "LAST_SIGN_IN_IP" VARCHAR2(255), "CREATED_AT" DATE, "UPDATED_AT" DATE) [0m
+  [1m[35m (718.9ms)[0m  CREATE SEQUENCE "USER_SEQ" START WITH 1 NOCACHE INCREMENT BY 1
+  [1m[36m (44.7ms)[0m  [1m            SELECT 1 FROM all_indexes i
+            WHERE i.owner = 'RUBY2'
+               AND i.table_owner = 'RUBY2'
+               AND i.table_name = 'USER'
+               AND i.index_name = 'INDEX_USER_ON_EMAIL'
+[0m
+  [1m[35m (149.2ms)[0m  CREATE UNIQUE INDEX "INDEX_USER_ON_EMAIL" ON "USER" ("EMAIL") 
+  [1m[36m (249.1ms)[0m  [1mALTER TABLE "USER" ADD CONSTRAINT "INDEX_USER_ON_EMAIL" UNIQUE ("EMAIL")[0m
+OracleEnhanced shortened default index name index_user_on_reset_password_token to i_user_reset_password_token
+  [1m[35m (44.8ms)[0m              SELECT 1 FROM all_indexes i
+            WHERE i.owner = 'RUBY2'
+               AND i.table_owner = 'RUBY2'
+               AND i.table_name = 'USER'
+               AND i.index_name = 'I_USER_RESET_PASSWORD_TOKEN'
+
+  [1m[36m (71.0ms)[0m  [1mCREATE UNIQUE INDEX "I_USER_RESET_PASSWORD_TOKEN" ON "USER" ("RESET_PASSWORD_TOKEN") [0m
+  [1m[35m (71.8ms)[0m  ALTER TABLE "USER" ADD CONSTRAINT "I_USER_RESET_PASSWORD_TOKEN" UNIQUE ("RESET_PASSWORD_TOKEN")
+  [1m[36mSQL (115.7ms)[0m  [1mINSERT INTO "SCHEMA_MIGRATIONS" ("VERSION") VALUES (:a1)[0m  [["version", "20150502054724"]]
+Migrating to AddNameToUsers (20150502054727)
+  [1m[35m (96.8ms)[0m  ALTER TABLE "USER" ADD "USERNAME" VARCHAR2(255)
+  [1m[36m (79.6ms)[0m  [1mALTER TABLE "USER" ADD "ROLE" VARCHAR2(255)[0m
+  [1m[35m (134.3ms)[0m  ALTER TABLE "USER" ADD "SUPPLIER_ID" NUMBER(38)
+  [1m[36m (133.5ms)[0m  [1mALTER TABLE "USER" ADD "TERRITORY" VARCHAR2(255)[0m
+  [1m[35m (49.1ms)[0m              SELECT 1 FROM all_indexes i
+            WHERE i.owner = 'RUBY2'
+               AND i.table_owner = 'RUBY2'
+               AND i.table_name = 'USER'
+               AND i.index_name = 'INDEX_USER_ON_USERNAME'
+
+  [1m[36m (2032.3ms)[0m  [1mCREATE UNIQUE INDEX "INDEX_USER_ON_USERNAME" ON "USER" ("USERNAME") [0m
+  [1m[35m (113.8ms)[0m  ALTER TABLE "USER" ADD CONSTRAINT "INDEX_USER_ON_USERNAME" UNIQUE ("USERNAME")
+  [1m[36mSQL (61.7ms)[0m  [1mINSERT INTO "SCHEMA_MIGRATIONS" ("VERSION") VALUES (:a1)[0m  [["version", "20150502054727"]]
+  [1m[35mActiveRecord::SchemaMigration Load (48.3ms)[0m  SELECT "SCHEMA_MIGRATIONS".* FROM "SCHEMA_MIGRATIONS"
+  [1m[36m (182.7ms)[0m  [1mSELECT DECODE(table_name, UPPER(table_name), LOWER(table_name), table_name) FROM all_tables WHERE owner = SYS_CONTEXT('userenv', 'session_user') AND secondary = 'N'[0m
+  [1m[35m (101.8ms)[0m  SELECT LOWER(mview_name) FROM all_mviews WHERE owner = SYS_CONTEXT('userenv', 'session_user')
+  [1m[36m (917.9ms)[0m  [1mSELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'USER' AND hidden_column = 'NO' ORDER BY column_id[0m
+  [1m[35mSequence (57.2ms)[0m  select us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'
+  [1m[36mPrimary Key (517.1ms)[0m  [1mSELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name[0m
+  [1m[35m (87.3ms)[0m  SELECT temporary FROM user_tables WHERE table_name = 'USER'
+  [1m[36m (72.7ms)[0m  [1mSELECT LOWER(default_tablespace) FROM user_users WHERE username = SYS_CONTEXT('userenv', 'session_user')[0m
+  [1m[35m (2004.6ms)[0m  SELECT LOWER(i.table_name) AS table_name, LOWER(i.index_name) AS index_name, i.uniqueness, i.index_type, i.ityp_owner, i.ityp_name, i.parameters, LOWER(i.tablespace_name) AS tablespace_name, LOWER(c.column_name) AS column_name, e.column_expression, atc.virtual_column FROM all_indexes i JOIN all_ind_columns c ON c.index_name = i.index_name AND c.index_owner = i.owner LEFT OUTER JOIN all_ind_expressions e ON e.index_name = i.index_name AND e.index_owner = i.owner AND e.column_position = c.column_position LEFT OUTER JOIN all_tab_cols atc ON i.table_name = atc.table_name AND c.column_name = atc.column_name AND i.owner = atc.owner AND atc.hidden_column = 'NO' WHERE i.owner = 'RUBY2' AND i.table_owner = 'RUBY2' AND NOT EXISTS (SELECT uc.index_name FROM all_constraints uc WHERE uc.index_name = i.index_name AND uc.owner = i.owner AND uc.constraint_type = 'P') ORDER BY i.index_name, c.column_position
+  [1m[36mPrimary Key Trigger (217.1ms)[0m  [1m          SELECT trigger_name
+          FROM all_triggers
+          WHERE owner = 'RUBY2'
+            AND trigger_name = 'USER_PKT'
+            AND table_owner = 'RUBY2'
+            AND table_name = 'USER'
+            AND status = 'ENABLED'
+[0m
+  [1m[35mForeign Keys (6722.8ms)[0m              SELECT r.table_name to_table
+                  ,rc.column_name references_column
+                  ,cc.column_name
+                  ,c.constraint_name name
+                  ,c.delete_rule
+              FROM user_constraints c, user_cons_columns cc,
+                   user_constraints r, user_cons_columns rc
+             WHERE c.owner = 'RUBY2'
+               AND c.table_name = 'USER'
+               AND c.constraint_type = 'R'
+               AND cc.owner = c.owner
+               AND cc.constraint_name = c.constraint_name
+               AND r.constraint_name = c.r_constraint_name
+               AND r.owner = c.owner
+               AND rc.owner = r.owner
+               AND rc.constraint_name = r.constraint_name
+               AND rc.position = cc.position
+            ORDER BY name, to_table, column_name, references_column
+
+  [1m[36m (60.6ms)[0m  [1mSELECT synonym_name, table_owner, table_name, db_link FROM user_synonyms[0m
+  [1m[36mActiveRecord::SchemaMigration Load (68.7ms)[0m  [1mSELECT "SCHEMA_MIGRATIONS".* FROM "SCHEMA_MIGRATIONS"[0m
+  [1m[35m (132.9ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'SCHEMA_MIGRATIONS' AND hidden_column = 'NO' ORDER BY column_id
+Migrating to CreateTqrdcGroup (20150714025103)
+  [1m[36m (610.7ms)[0m  [1mCREATE TABLE "TQRDC_GROUP" ("ID" NUMBER(38) NOT NULL PRIMARY KEY, "NAME" VARCHAR2(255), "DESCRIPTION" CLOB, "SCORE" BINARY_FLOAT, "OWNER_ID" NUMBER(38), "CREATOR_ID" NUMBER(38), "UPDATER_ID" NUMBER(38), "CREATED_AT" DATE NOT NULL, "UPDATED_AT" DATE NOT NULL) [0m
+  [1m[35m (278.3ms)[0m  CREATE SEQUENCE "TQRDC_GROUP_SEQ" START WITH 1 NOCACHE INCREMENT BY 1
+  [1m[36m (44.7ms)[0m  [1m            SELECT 1 FROM all_indexes i
+            WHERE i.owner = 'RUBY2'
+               AND i.table_owner = 'RUBY2'
+               AND i.table_name = 'TQRDC_GROUP'
+               AND i.index_name = 'INDEX_TQRDC_GROUP_ON_NAME'
+[0m
+  [1m[35m (558.0ms)[0m  CREATE  INDEX "INDEX_TQRDC_GROUP_ON_NAME" ON "TQRDC_GROUP" ("NAME") 
+  [1m[36mSQL (7451.3ms)[0m  [1mINSERT INTO "SCHEMA_MIGRATIONS" ("VERSION") VALUES (:a1)[0m  [["version", "20150714025103"]]
+  [1m[35mActiveRecord::SchemaMigration Load (56.9ms)[0m  SELECT "SCHEMA_MIGRATIONS".* FROM "SCHEMA_MIGRATIONS"
+  [1m[36m (86.1ms)[0m  [1mSELECT DECODE(table_name, UPPER(table_name), LOWER(table_name), table_name) FROM all_tables WHERE owner = SYS_CONTEXT('userenv', 'session_user') AND secondary = 'N'[0m
+  [1m[35m (50.7ms)[0m  SELECT LOWER(mview_name) FROM all_mviews WHERE owner = SYS_CONTEXT('userenv', 'session_user')
+  [1m[36m (590.1ms)[0m  [1mSELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'TQRDC_GROUP' AND hidden_column = 'NO' ORDER BY column_id[0m
+  [1m[35mSequence (48.2ms)[0m  select us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'TQRDC_GROUP_SEQ'
+  [1m[36mPrimary Key (60.0ms)[0m  [1mSELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'TQRDC_GROUP' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name[0m
+  [1m[35m (57.9ms)[0m  SELECT temporary FROM user_tables WHERE table_name = 'TQRDC_GROUP'
+  [1m[36m (57.1ms)[0m  [1mSELECT LOWER(default_tablespace) FROM user_users WHERE username = SYS_CONTEXT('userenv', 'session_user')[0m
+  [1m[35m (484.2ms)[0m  SELECT LOWER(i.table_name) AS table_name, LOWER(i.index_name) AS index_name, i.uniqueness, i.index_type, i.ityp_owner, i.ityp_name, i.parameters, LOWER(i.tablespace_name) AS tablespace_name, LOWER(c.column_name) AS column_name, e.column_expression, atc.virtual_column FROM all_indexes i JOIN all_ind_columns c ON c.index_name = i.index_name AND c.index_owner = i.owner LEFT OUTER JOIN all_ind_expressions e ON e.index_name = i.index_name AND e.index_owner = i.owner AND e.column_position = c.column_position LEFT OUTER JOIN all_tab_cols atc ON i.table_name = atc.table_name AND c.column_name = atc.column_name AND i.owner = atc.owner AND atc.hidden_column = 'NO' WHERE i.owner = 'RUBY2' AND i.table_owner = 'RUBY2' AND NOT EXISTS (SELECT uc.index_name FROM all_constraints uc WHERE uc.index_name = i.index_name AND uc.owner = i.owner AND uc.constraint_type = 'P') ORDER BY i.index_name, c.column_position
+  [1m[36mPrimary Key Trigger (47.9ms)[0m  [1m          SELECT trigger_name
+          FROM all_triggers
+          WHERE owner = 'RUBY2'
+            AND trigger_name = 'TQRDC_GROUP_PKT'
+            AND table_owner = 'RUBY2'
+            AND table_name = 'TQRDC_GROUP'
+            AND status = 'ENABLED'
+[0m
+  [1m[35m (1153.9ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'USER' AND hidden_column = 'NO' ORDER BY column_id
+  [1m[36mSequence (53.8ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'[0m
+  [1m[35mPrimary Key (76.7ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  [1m[36m (63.6ms)[0m  [1mSELECT temporary FROM user_tables WHERE table_name = 'USER'[0m
+  [1m[35mPrimary Key Trigger (45.4ms)[0m            SELECT trigger_name
+          FROM all_triggers
+          WHERE owner = 'RUBY2'
+            AND trigger_name = 'USER_PKT'
+            AND table_owner = 'RUBY2'
+            AND table_name = 'USER'
+            AND status = 'ENABLED'
+
+  [1m[36mForeign Keys (92.4ms)[0m  [1m            SELECT r.table_name to_table
+                  ,rc.column_name references_column
+                  ,cc.column_name
+                  ,c.constraint_name name
+                  ,c.delete_rule
+              FROM user_constraints c, user_cons_columns cc,
+                   user_constraints r, user_cons_columns rc
+             WHERE c.owner = 'RUBY2'
+               AND c.table_name = 'TQRDC_GROUP'
+               AND c.constraint_type = 'R'
+               AND cc.owner = c.owner
+               AND cc.constraint_name = c.constraint_name
+               AND r.constraint_name = c.r_constraint_name
+               AND r.owner = c.owner
+               AND rc.owner = r.owner
+               AND rc.constraint_name = r.constraint_name
+               AND rc.position = cc.position
+            ORDER BY name, to_table, column_name, references_column
+[0m
+  [1m[35mForeign Keys (48.6ms)[0m              SELECT r.table_name to_table
+                  ,rc.column_name references_column
+                  ,cc.column_name
+                  ,c.constraint_name name
+                  ,c.delete_rule
+              FROM user_constraints c, user_cons_columns cc,
+                   user_constraints r, user_cons_columns rc
+             WHERE c.owner = 'RUBY2'
+               AND c.table_name = 'USER'
+               AND c.constraint_type = 'R'
+               AND cc.owner = c.owner
+               AND cc.constraint_name = c.constraint_name
+               AND r.constraint_name = c.r_constraint_name
+               AND r.owner = c.owner
+               AND rc.owner = r.owner
+               AND rc.constraint_name = r.constraint_name
+               AND rc.position = cc.position
+            ORDER BY name, to_table, column_name, references_column
+
+  [1m[36m (50.4ms)[0m  [1mSELECT synonym_name, table_owner, table_name, db_link FROM user_synonyms[0m
+
+
+Started GET "/" for 127.0.0.1 at 2015-07-14 10:58:19 +0800
+  [1m[36mActiveRecord::SchemaMigration Load (55.9ms)[0m  [1mSELECT "SCHEMA_MIGRATIONS".* FROM "SCHEMA_MIGRATIONS"[0m
+  [1m[35m (211.3ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'SCHEMA_MIGRATIONS' AND hidden_column = 'NO' ORDER BY column_id
+Processing by VisitorsController#index as HTML
+Completed 401 Unauthorized in 23ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2015-07-14 10:58:20 +0800
+Processing by Devise::SessionsController#new as HTML
+  [1m[36m (960.8ms)[0m  [1mSELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'USER' AND hidden_column = 'NO' ORDER BY column_id[0m
+  [1m[35m (104.9ms)[0m  SELECT DECODE(table_name, UPPER(table_name), LOWER(table_name), table_name) FROM all_tables WHERE owner = SYS_CONTEXT('userenv', 'session_user') AND secondary = 'N'
+  [1m[36mSequence (51.3ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'[0m
+  [1m[35mPrimary Key (1038.0ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  Rendered devise/sessions/new.html.haml within layouts/application (272.2ms)
+  Rendered layouts/_navigation_links.html.haml (2.0ms)
+  Rendered layouts/_navigation.html.haml (5.8ms)
+  Rendered layouts/_messages.html.haml (1.7ms)
+Completed 200 OK in 3414ms (Views: 697.1ms | ActiveRecord: 2155.0ms)
+
+
+Started GET "/assets/application.self-7464f420c1802c1f3b72bd803b7ec13392331a1e53050699329dbd883e988ca1.css?body=1" for 127.0.0.1 at 2015-07-14 10:58:24 +0800
+  [1m[36m (1051.2ms)[0m  [1mSELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'USER' AND hidden_column = 'NO' ORDER BY column_id[0m
+  [1m[35m (97.4ms)[0m  SELECT DECODE(table_name, UPPER(table_name), LOWER(table_name), table_name) FROM all_tables WHERE owner = SYS_CONTEXT('userenv', 'session_user') AND secondary = 'N'
+  [1m[36mSequence (44.6ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'[0m
+  [1m[35mPrimary Key (67.9ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  [1m[36mSequence (44.7ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'[0m
+  [1m[35mPrimary Key (47.1ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  [1m[36mPrimary Key Trigger (44.7ms)[0m  [1m          SELECT trigger_name
+          FROM all_triggers
+          WHERE owner = 'RUBY2'
+            AND trigger_name = 'USER_PKT'
+            AND table_owner = 'RUBY2'
+            AND table_name = 'USER'
+            AND status = 'ENABLED'
+[0m
+  [1m[35mSQL (716.0ms)[0m  INSERT INTO "USER" ("EMAIL", "USERNAME", "ENCRYPTED_PASSWORD", "CREATED_AT", "UPDATED_AT", "ID") VALUES (:a1, :a2, :a3, :a4, :a5, :a6)  [["email", "admin.l-e-i.com"], ["username", "admin"], ["encrypted_password", "$2a$10$Ub3nKn4SCuy.tIJI5HbBU.A8jtBFY8woWvUguCdxM0rSCr7vS6hIG"], ["created_at", 2015-07-14 10:59:43 +0800], ["updated_at", 2015-07-14 10:59:43 +0800], ["id", 1]]
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:00:03 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"fnqctBshpB6FHHakv6Ny2MqU8XCe5oYgB9W14ixUdQ7ljb0CwSxpcd1gjyphetQWJXIpxnpqp7yqMDp6GeNtRg==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[36mUser Load (55.2ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["email", "admin@l-e-i.com"]]
+Completed 401 Unauthorized in 66ms (ActiveRecord: 55.2ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"fnqctBshpB6FHHakv6Ny2MqU8XCe5oYgB9W14ixUdQ7ljb0CwSxpcd1gjyphetQWJXIpxnpqp7yqMDp6GeNtRg==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+Unpermitted parameter: remember_me
+  Rendered devise/sessions/new.html.haml within layouts/application (265.3ms)
+  Rendered layouts/_navigation_links.html.haml (0.5ms)
+  Rendered layouts/_navigation.html.haml (2.1ms)
+  Rendered layouts/_messages.html.haml (0.4ms)
+Completed 200 OK in 364ms (Views: 288.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:00:07 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"vbcx8t5GOawOAhnP4eUvEFtdUFbc7pHORNUiOdY7Lt4mQBBEBEv0w1Z+4EE/PInetLuI4DhisFLpMK2h44w2lg==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[35mUser Load (44.4ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["email", "admin@l-e-i.com"]]
+Completed 401 Unauthorized in 46ms (ActiveRecord: 44.4ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"vbcx8t5GOawOAhnP4eUvEFtdUFbc7pHORNUiOdY7Lt4mQBBEBEv0w1Z+4EE/PInetLuI4DhisFLpMK2h44w2lg==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+Unpermitted parameter: remember_me
+  Rendered devise/sessions/new.html.haml within layouts/application (256.7ms)
+  Rendered layouts/_navigation_links.html.haml (0.3ms)
+  Rendered layouts/_navigation.html.haml (1.2ms)
+  Rendered layouts/_messages.html.haml (0.3ms)
+Completed 200 OK in 344ms (Views: 271.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:00:12 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"zMUBKM+AfGeBdpKfdZjTjW79sxOOwW87yaj8TLxE93VXMiCeFY2xCNkKaxGrQXVDgRtrpWpNTqdkTXPUifPvPQ==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[36mUser Load (45.3ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["email", "admin@l-e-i.com"]]
+Completed 401 Unauthorized in 47ms (ActiveRecord: 45.3ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"zMUBKM+AfGeBdpKfdZjTjW79sxOOwW87yaj8TLxE93VXMiCeFY2xCNkKaxGrQXVDgRtrpWpNTqdkTXPUifPvPQ==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+Unpermitted parameter: remember_me
+  Rendered devise/sessions/new.html.haml within layouts/application (182.3ms)
+  Rendered layouts/_navigation_links.html.haml (0.2ms)
+  Rendered layouts/_navigation.html.haml (1.0ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 268ms (Views: 195.1ms | ActiveRecord: 0.0ms)
+  [1m[36mSQL (3641.0ms)[0m  [1mUPDATE "USER" SET "ENCRYPTED_PASSWORD" = :a1, "UPDATED_AT" = :a2 WHERE "USER"."ID" = :a3[0m  [["encrypted_password", "$2a$10$wxPh/EEAUsax6wcanBRdHu7kFYZEB8TL7uROD.u1ftdy4KwqGkGtW"], ["updated_at", Tue, 14 Jul 2015 11:00:40 CST +08:00], ["id", 1]]
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:00:51 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wDfQvCkvgJ9Cx2Nzj6RVIoekPtQWkwoiOp70euYqA1tbwPEK8yJN8Bq7mv1RffPsaELmYvIfK76Xe3vi050bEw==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[35mUser Load (62.2ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["email", "admin@l-e-i.com"]]
+Completed 401 Unauthorized in 64ms (ActiveRecord: 62.2ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wDfQvCkvgJ9Cx2Nzj6RVIoekPtQWkwoiOp70euYqA1tbwPEK8yJN8Bq7mv1RffPsaELmYvIfK76Xe3vi050bEw==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+Unpermitted parameter: remember_me
+  Rendered devise/sessions/new.html.haml within layouts/application (262.4ms)
+  Rendered layouts/_navigation_links.html.haml (0.3ms)
+  Rendered layouts/_navigation.html.haml (1.4ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 358ms (Views: 284.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:01:09 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UGGM+a6prGLlHnzr03j9N2v0LW+2E2+BqEpgvPUpfSjLlq1PdKRhDb1ihWUNoVv5hBL12VKfTh0Fr+8kwJ5lYA==", "user"=>{"email"=>"admin", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[36mUser Load (183.0ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["email", "admin"]]
+Completed 401 Unauthorized in 185ms (ActiveRecord: 183.0ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UGGM+a6prGLlHnzr03j9N2v0LW+2E2+BqEpgvPUpfSjLlq1PdKRhDb1ihWUNoVv5hBL12VKfTh0Fr+8kwJ5lYA==", "user"=>{"email"=>"admin", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+Unpermitted parameter: remember_me
+  Rendered devise/sessions/new.html.haml within layouts/application (259.2ms)
+  Rendered layouts/_navigation_links.html.haml (0.6ms)
+  Rendered layouts/_navigation.html.haml (2.0ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 355ms (Views: 282.1ms | ActiveRecord: 0.0ms)
+  [1m[35mSQL (48.0ms)[0m  UPDATE "USER" SET "ENCRYPTED_PASSWORD" = :a1, "UPDATED_AT" = :a2 WHERE "USER"."ID" = :a3  [["encrypted_password", "$2a$10$5oMn2Q8Yy0Wu9ifUvzMBGOTj7kFVMmPBzCZfvoJfVrN/tdSfwEvM2"], ["updated_at", Tue, 14 Jul 2015 11:03:42 CST +08:00], ["id", 1]]
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:04:00 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IlUHhqC1bIZC1qS1IDjhM7pKTEogAkfpTFPeAYxyaZe5oiYwerih6RqqXTv+4Uf9VayU/MSOZnXhtlGZucVx3w==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[35mUser Load (99.6ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["email", "admin@l-e-i.com"]]
+Completed 401 Unauthorized in 102ms (ActiveRecord: 99.6ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IlUHhqC1bIZC1qS1IDjhM7pKTEogAkfpTFPeAYxyaZe5oiYwerih6RqqXTv+4Uf9VayU/MSOZnXhtlGZucVx3w==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+Unpermitted parameter: remember_me
+  Rendered devise/sessions/new.html.haml within layouts/application (192.3ms)
+  Rendered layouts/_navigation_links.html.haml (0.3ms)
+  Rendered layouts/_navigation.html.haml (1.5ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 287ms (Views: 214.6ms | ActiveRecord: 0.0ms)
+  [1m[36m (6054.7ms)[0m  [1mSELECT COUNT(*) FROM "USER"[0m
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:07:24 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"EkGTx8wWFaxGJD6uyVoDu5VC/ezOWLfmYAzi1wgiGbGJtrJxFhvYwx5YxyAXg6V1eqQlWirUlnrN6W1PPZUB+Q==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[36mUser Load (43.3ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["email", "admin@l-e-i.com"]]
+Completed 401 Unauthorized in 45ms (ActiveRecord: 43.3ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"EkGTx8wWFaxGJD6uyVoDu5VC/ezOWLfmYAzi1wgiGbGJtrJxFhvYwx5YxyAXg6V1eqQlWirUlnrN6W1PPZUB+Q==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+Unpermitted parameter: remember_me
+  Rendered devise/sessions/new.html.haml within layouts/application (247.4ms)
+  Rendered layouts/_navigation_links.html.haml (0.4ms)
+  Rendered layouts/_navigation.html.haml (1.6ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 343ms (Views: 270.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:08:36 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"k53AfIDktk+xpNe54jTH6w/NK39HJMQ5odx0xB8GoDIIauHKWul7IOnYLjc87WEl4CvzyaOo5aUMOftcKrG4eg==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[35mUser Load (45.3ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["email", "admin@l-e-i.com"]]
+Completed 401 Unauthorized in 47ms (ActiveRecord: 45.3ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"k53AfIDktk+xpNe54jTH6w/NK39HJMQ5odx0xB8GoDIIauHKWul7IOnYLjc87WEl4CvzyaOo5aUMOftcKrG4eg==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+Unpermitted parameter: remember_me
+  Rendered devise/sessions/new.html.haml within layouts/application (258.0ms)
+  Rendered layouts/_navigation_links.html.haml (0.4ms)
+  Rendered layouts/_navigation.html.haml (1.2ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 345ms (Views: 272.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:09:22 +0800
+Processing by Devise::SessionsController#new as HTML
+  [1m[36m (805.1ms)[0m  [1mSELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'USER' AND hidden_column = 'NO' ORDER BY column_id[0m
+  [1m[35m (92.2ms)[0m  SELECT DECODE(table_name, UPPER(table_name), LOWER(table_name), table_name) FROM all_tables WHERE owner = SYS_CONTEXT('userenv', 'session_user') AND secondary = 'N'
+  [1m[36mSequence (44.6ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'[0m
+  [1m[35mPrimary Key (47.7ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  Rendered devise/sessions/new.html.haml within layouts/application (248.4ms)
+  Rendered layouts/_navigation_links.html.haml (0.4ms)
+  Rendered layouts/_navigation.html.haml (1.4ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 1629ms (Views: 264.4ms | ActiveRecord: 989.6ms)
+
+
+Started GET "/tqrdc/group" for 127.0.0.1 at 2015-07-14 11:09:37 +0800
+
+ActionController::RoutingError (No route matches [GET] "/tqrdc/group"):
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.1.3) lib/web_console/middleware.rb:37:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  thin (1.6.3) lib/thin/connection.rb:86:in `block in pre_process'
+  thin (1.6.3) lib/thin/connection.rb:84:in `catch'
+  thin (1.6.3) lib/thin/connection.rb:84:in `pre_process'
+  thin (1.6.3) lib/thin/connection.rb:53:in `process'
+  thin (1.6.3) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.7) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.7) lib/eventmachine.rb:187:in `run'
+  thin (1.6.3) lib/thin/backends/base.rb:73:in `start'
+  thin (1.6.3) lib/thin/server.rb:162:in `start'
+  rack (1.6.4) lib/rack/handler/thin.rb:19:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.3) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.3) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<main>'
+
+
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.8ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.0ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/routes/_table.html.erb (3.0ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.4ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/actionpack-4.2.3/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (47.9ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/web-console-2.1.3/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/web-console-2.1.3/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/web-console-2.1.3/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/web-console-2.1.3/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/web-console-2.1.3/lib/web_console/templates/console.js.erb within layouts/javascript (20.8ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/web-console-2.1.3/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/web-console-2.1.3/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/Lum/.rvm/gems/ruby-2.0.0-p247/gems/web-console-2.1.3/lib/web_console/templates/index.html.erb (44.5ms)
+
+
+Started GET "/tqrdc/groups" for 127.0.0.1 at 2015-07-14 11:09:41 +0800
+Processing by Tqrdc::GroupsController#index as HTML
+  Rendered tqrdc/groups/index.html.haml within layouts/application (78.2ms)
+Completed 500 Internal Server Error in 83ms (ActiveRecord: 0.0ms)
+
+NoMethodError - undefined method `company' for nil:NilClass:
+  app/views/tqrdc/groups/index.html.haml:7:in `block in _app_views_tqrdc_groups_index_html_haml___348306119805183429_70286823965120'
+  haml (4.0.6) lib/haml/helpers/action_view_mods.rb:118:in `block (2 levels) in form_tag_with_haml'
+  haml (4.0.6) lib/haml/helpers.rb:278:in `with_tabs'
+  haml (4.0.6) lib/haml/helpers/action_view_mods.rb:118:in `block in form_tag_with_haml'
+  haml (4.0.6) lib/haml/helpers.rb:631:in `block in haml_bind_proc'
+  haml (4.0.6) lib/haml/helpers.rb:368:in `block in capture_haml'
+  haml (4.0.6) lib/haml/helpers.rb:608:in `with_haml_buffer'
+  haml (4.0.6) lib/haml/helpers.rb:364:in `capture_haml'
+  haml (4.0.6) lib/haml/helpers/xss_mods.rb:61:in `capture_haml_with_haml_xss'
+  haml (4.0.6) lib/haml/helpers/action_view_mods.rb:45:in `capture_with_haml'
+  actionview (4.2.3) lib/action_view/helpers/form_tag_helper.rb:70:in `form_tag'
+  haml (4.0.6) lib/haml/helpers/action_view_mods.rb:121:in `form_tag_with_haml'
+  haml (4.0.6) lib/haml/helpers/action_view_xss_mods.rb:18:in `form_tag_with_haml_xss'
+  app/views/tqrdc/groups/index.html.haml:6:in `_app_views_tqrdc_groups_index_html_haml___348306119805183429_70286823965120'
+  actionview (4.2.3) lib/action_view/template.rb:145:in `block in render'
+  activesupport (4.2.3) lib/active_support/notifications.rb:166:in `instrument'
+  actionview (4.2.3) lib/action_view/template.rb:333:in `instrument'
+  actionview (4.2.3) lib/action_view/template.rb:143:in `render'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:54:in `block (2 levels) in render_template'
+  actionview (4.2.3) lib/action_view/renderer/abstract_renderer.rb:39:in `block in instrument'
+  activesupport (4.2.3) lib/active_support/notifications.rb:164:in `block in instrument'
+  activesupport (4.2.3) lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+  activesupport (4.2.3) lib/active_support/notifications.rb:164:in `instrument'
+  actionview (4.2.3) lib/action_view/renderer/abstract_renderer.rb:39:in `instrument'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:53:in `block in render_template'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:61:in `render_with_layout'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:52:in `render_template'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:14:in `render'
+  actionview (4.2.3) lib/action_view/renderer/renderer.rb:42:in `render_template'
+  actionview (4.2.3) lib/action_view/renderer/renderer.rb:23:in `render'
+  actionview (4.2.3) lib/action_view/rendering.rb:100:in `_render_template'
+  actionpack (4.2.3) lib/action_controller/metal/streaming.rb:217:in `_render_template'
+  actionview (4.2.3) lib/action_view/rendering.rb:83:in `render_to_body'
+  actionpack (4.2.3) lib/action_controller/metal/rendering.rb:32:in `render_to_body'
+  actionpack (4.2.3) lib/action_controller/metal/renderers.rb:37:in `render_to_body'
+  actionpack (4.2.3) lib/abstract_controller/rendering.rb:25:in `render'
+  actionpack (4.2.3) lib/action_controller/metal/rendering.rb:16:in `render'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+  activesupport (4.2.3) lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+  /Users/Lum/.rvm/rubies/ruby-2.0.0-p247/lib/ruby/2.0.0/benchmark.rb:296:in `realtime'
+  activesupport (4.2.3) lib/active_support/core_ext/benchmark.rb:12:in `ms'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+  activerecord (4.2.3) lib/active_record/railties/controller_runtime.rb:25:in `cleanup_view_runtime'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:43:in `render'
+  actionpack (4.2.3) lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+  actionpack (4.2.3) lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+  actionpack (4.2.3) lib/abstract_controller/base.rb:198:in `process_action'
+  actionpack (4.2.3) lib/action_controller/metal/rendering.rb:10:in `process_action'
+  actionpack (4.2.3) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:115:in `call'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:553:in `block (2 levels) in compile'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:503:in `call'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:88:in `run_callbacks'
+  actionpack (4.2.3) lib/abstract_controller/callbacks.rb:19:in `process_action'
+  actionpack (4.2.3) lib/action_controller/metal/rescue.rb:29:in `process_action'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+  activesupport (4.2.3) lib/active_support/notifications.rb:164:in `block in instrument'
+  activesupport (4.2.3) lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+  activesupport (4.2.3) lib/active_support/notifications.rb:164:in `instrument'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+  actionpack (4.2.3) lib/action_controller/metal/params_wrapper.rb:250:in `process_action'
+  activerecord (4.2.3) lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+  actionpack (4.2.3) lib/abstract_controller/base.rb:137:in `process'
+  actionview (4.2.3) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.3) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.3) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.3) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.3) lib/action_dispatch/routing/route_set.rb:76:in `dispatch'
+  actionpack (4.2.3) lib/action_dispatch/routing/route_set.rb:45:in `serve'
+  actionpack (4.2.3) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.3) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.3) lib/action_dispatch/routing/route_set.rb:821:in `call'
+  warden (1.2.3) lib/warden/manager.rb:35:in `block in call'
+  warden (1.2.3) lib/warden/manager.rb:34:in `call'
+  rack (1.6.4) lib/rack/etag.rb:24:in `call'
+  rack (1.6.4) lib/rack/conditionalget.rb:25:in `call'
+  rack (1.6.4) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/flash.rb:260:in `call'
+  rack (1.6.4) lib/rack/session/abstract/id.rb:225:in `context'
+  rack (1.6.4) lib/rack/session/abstract/id.rb:220:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/cookies.rb:560:in `call'
+  activerecord (4.2.3) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.3) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.3) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:84:in `run_callbacks'
+  actionpack (4.2.3) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:84:in `protected_app_call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:79:in `better_errors_call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:57:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.1.3) lib/web_console/middleware.rb:37:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  thin (1.6.3) lib/thin/connection.rb:86:in `block in pre_process'
+  thin (1.6.3) lib/thin/connection.rb:84:in `pre_process'
+  thin (1.6.3) lib/thin/connection.rb:53:in `process'
+  thin (1.6.3) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.7) lib/eventmachine.rb:187:in `run'
+  thin (1.6.3) lib/thin/backends/base.rb:73:in `start'
+  thin (1.6.3) lib/thin/server.rb:162:in `start'
+  rack (1.6.4) lib/rack/handler/thin.rb:19:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.3) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.3) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `<main>'
+
+
+
+Started POST "/__better_errors/d2fd9d29f01330d8/variables" for 127.0.0.1 at 2015-07-14 11:09:41 +0800
+  [1m[36mTqrdc::Group Load (119.7ms)[0m  [1mSELECT "TQRDC_GROUP".* FROM "TQRDC_GROUP"[0m
+  [1m[35m (505.3ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'TQRDC_GROUP' AND hidden_column = 'NO' ORDER BY column_id
+
+
+Started GET "/tqrdc/groups" for 127.0.0.1 at 2015-07-14 11:10:42 +0800
+Processing by Tqrdc::GroupsController#index as HTML
+  [1m[36mTqrdc::Group Load (125.9ms)[0m  [1mSELECT "TQRDC_GROUP".* FROM "TQRDC_GROUP"[0m
+  Rendered tqrdc/groups/index.html.haml within layouts/application (135.2ms)
+  Rendered layouts/_navigation_links.html.haml (0.5ms)
+  Rendered layouts/_navigation.html.haml (1.5ms)
+  Rendered layouts/_messages.html.haml (0.4ms)
+Completed 200 OK in 156ms (Views: 29.4ms | ActiveRecord: 125.9ms)
+
+
+Started GET "/users/" for 127.0.0.1 at 2015-07-14 11:10:56 +0800
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (65.8ms)[0m  
+              SELECT * FROM (
+                SELECT raw_sql_.*, rownum raw_rnum_
+                FROM (SELECT  "USER".* FROM "USER" WHERE (username like '%%') ) raw_sql_
+                WHERE rownum <= 25
+              )
+              WHERE raw_rnum_ > 0
+  [1m[36m (48.7ms)[0m  [1mSELECT COUNT(*) FROM "USER" WHERE (username like '%%')[0m
+  Rendered users/index.html.haml within layouts/application (126.4ms)
+  Rendered layouts/_navigation_links.html.haml (0.6ms)
+  Rendered layouts/_navigation.html.haml (1.7ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 213ms (Views: 97.5ms | ActiveRecord: 114.5ms)
+
+
+Started GET "/users?utf8=%E2%9C%93&username=" for 127.0.0.1 at 2015-07-14 11:10:58 +0800
+Processing by UsersController#index as HTML
+  Parameters: {"utf8"=>"✓", "username"=>""}
+  [1m[35mUser Load (156.5ms)[0m  
+              SELECT * FROM (
+                SELECT raw_sql_.*, rownum raw_rnum_
+                FROM (SELECT  "USER".* FROM "USER" WHERE (username like '%%') ) raw_sql_
+                WHERE rownum <= 25
+              )
+              WHERE raw_rnum_ > 0
+  [1m[36m (45.8ms)[0m  [1mSELECT COUNT(*) FROM "USER" WHERE (username like '%%')[0m
+  Rendered users/index.html.haml within layouts/application (206.7ms)
+  Rendered layouts/_navigation_links.html.haml (0.4ms)
+  Rendered layouts/_navigation.html.haml (1.2ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 220ms (Views: 17.1ms | ActiveRecord: 202.2ms)
+
+
+Started GET "/users?utf8=%E2%9C%93&username=" for 127.0.0.1 at 2015-07-14 11:10:59 +0800
+Processing by UsersController#index as HTML
+  Parameters: {"utf8"=>"✓", "username"=>""}
+  [1m[35mUser Load (53.1ms)[0m  
+              SELECT * FROM (
+                SELECT raw_sql_.*, rownum raw_rnum_
+                FROM (SELECT  "USER".* FROM "USER" WHERE (username like '%%') ) raw_sql_
+                WHERE rownum <= 25
+              )
+              WHERE raw_rnum_ > 0
+  [1m[36m (45.7ms)[0m  [1mSELECT COUNT(*) FROM "USER" WHERE (username like '%%')[0m
+  Rendered users/index.html.haml within layouts/application (103.2ms)
+  Rendered layouts/_navigation_links.html.haml (0.6ms)
+  Rendered layouts/_navigation.html.haml (1.7ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 117ms (Views: 17.9ms | ActiveRecord: 98.8ms)
+
+
+Started GET "/users/1/edit" for 127.0.0.1 at 2015-07-14 11:11:01 +0800
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (54.4ms)[0m  SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1 AND ROWNUM <= 1   [["id", 1]]
+  Rendered users/_form.html.haml (458.3ms)
+  Rendered users/edit.html.haml within layouts/application (462.0ms)
+  Rendered layouts/_navigation_links.html.haml (0.4ms)
+  Rendered layouts/_navigation.html.haml (1.2ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 561ms (Views: 475.4ms | ActiveRecord: 54.4ms)
+
+
+Started PATCH "/users/1" for 127.0.0.1 at 2015-07-14 11:11:11 +0800
+Processing by UsersController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Ly7GjSx5W6YBcqOUxWGXqajXsdvWCuqkPG8/L4en1Nu02ec79nSWyVkOWhobuDFnRzFpbTKGyziRirC3shDMkw==", "user"=>{"email"=>"admin.l-e-i.com", "password"=>"[FILTERED]", "username"=>"admin", "role"=>"admin"}, "id"=>"1"}
+  [1m[36mUser Load (42.8ms)[0m  [1mSELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1 AND ROWNUM <= 1 [0m  [["id", 1]]
+  [1m[35mSQL (48.0ms)[0m  UPDATE "USER" SET "ENCRYPTED_PASSWORD" = :a1, "ROLE" = :a2, "UPDATED_AT" = :a3 WHERE "USER"."ID" = :a4  [["encrypted_password", "$2a$10$3pME4CLXLFJGtvDDC36Oh.G1sdAFNmptJpbMw638v6cE9DjdhDshi"], ["role", "admin"], ["updated_at", Tue, 14 Jul 2015 11:11:11 CST +08:00], ["id", 1]]
+Redirected to http://127.0.0.1:3000/users/1
+Completed 302 Found in 544ms (ActiveRecord: 90.8ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2015-07-14 11:11:11 +0800
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (47.3ms)[0m  [1mSELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1 AND ROWNUM <= 1 [0m  [["id", 1]]
+  Rendered layouts/_show.html.haml (79.5ms)
+  Rendered users/show.html.haml within layouts/application (82.9ms)
+  Rendered layouts/_navigation_links.html.haml (0.4ms)
+  Rendered layouts/_navigation.html.haml (1.1ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 144ms (Views: 96.3ms | ActiveRecord: 47.3ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:11:18 +0800
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/sessions/new.html.haml within layouts/application (195.0ms)
+  Rendered layouts/_navigation_links.html.haml (0.5ms)
+  Rendered layouts/_navigation.html.haml (1.2ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 210ms (Views: 209.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:11:26 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uVEcZTAprBeQ9IRlGnJCFRJxRipufftOrzilA4t1BOoipj3T6iRheMiIfevEq+Tb/ZeenIrx2tIC3SqbvsIcog==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[35mUser Load (48.3ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["email", "admin@l-e-i.com"]]
+Completed 401 Unauthorized in 51ms (ActiveRecord: 48.3ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uVEcZTAprBeQ9IRlGnJCFRJxRipufftOrzilA4t1BOoipj3T6iRheMiIfevEq+Tb/ZeenIrx2tIC3SqbvsIcog==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  Rendered devise/sessions/new.html.haml within layouts/application (266.6ms)
+  Rendered layouts/_navigation_links.html.haml (0.3ms)
+  Rendered layouts/_navigation.html.haml (1.1ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 358ms (Views: 281.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:11:31 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"z8YktaVVNqS7PZe21A9jyhVN03rCC3LcBhzeqoKZCiNUMQUDf1j7y+NBbjgK1sUE+qsLzCaHU0Cr+VEyty4Saw==", "user"=>{"email"=>"admin", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[36mUser Load (95.5ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["email", "admin"]]
+Completed 401 Unauthorized in 97ms (ActiveRecord: 95.5ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"z8YktaVVNqS7PZe21A9jyhVN03rCC3LcBhzeqoKZCiNUMQUDf1j7y+NBbjgK1sUE+qsLzCaHU0Cr+VEyty4Saw==", "user"=>{"email"=>"admin", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  Rendered devise/sessions/new.html.haml within layouts/application (267.3ms)
+  Rendered layouts/_navigation_links.html.haml (0.3ms)
+  Rendered layouts/_navigation.html.haml (1.2ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 354ms (Views: 281.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/tqrdc/groups" for 127.0.0.1 at 2015-07-14 11:11:54 +0800
+Processing by Tqrdc::GroupsController#index as HTML
+  [1m[35mTqrdc::Group Load (90.9ms)[0m  SELECT "TQRDC_GROUP".* FROM "TQRDC_GROUP"
+  Rendered tqrdc/groups/index.html.haml within layouts/application (95.8ms)
+  Rendered layouts/_navigation_links.html.haml (0.5ms)
+  Rendered layouts/_navigation.html.haml (1.3ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 110ms (Views: 19.0ms | ActiveRecord: 90.9ms)
+
+
+Started GET "/tqrdc/groups/new" for 127.0.0.1 at 2015-07-14 11:11:56 +0800
+Processing by Tqrdc::GroupsController#new as HTML
+  [1m[36mSequence (47.8ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'TQRDC_GROUP_SEQ'[0m
+  [1m[35mPrimary Key (48.5ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'TQRDC_GROUP' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  Rendered tqrdc/groups/_form.html.haml (810.8ms)
+  Rendered tqrdc/groups/new.html.haml within layouts/application (814.9ms)
+  Rendered layouts/_navigation_links.html.haml (0.5ms)
+  Rendered layouts/_navigation.html.haml (1.4ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 985ms (Views: 830.8ms | ActiveRecord: 96.3ms)
+
+
+Started POST "/tqrdc/groups" for 127.0.0.1 at 2015-07-14 11:12:22 +0800
+Processing by Tqrdc::GroupsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ulkMHjzhnaJt14bVP8hEzxOmDSJ84BtyHurlrRJq1xEhri2o5uxQzTWrf1vhEeIB/EDVlJhsOu6zD2o1J93PWQ==", "tqrdc_group"=>{"id"=>"", "name"=>"T1", "description"=>"T1", "score"=>"102.5", "owner_id"=>"", "creator_id"=>"", "updater_id"=>""}}
+  [1m[36mSequence (43.9ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'TQRDC_GROUP_SEQ'[0m
+  [1m[35mPrimary Key (49.1ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'TQRDC_GROUP' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  [1m[36mPrimary Key Trigger (44.3ms)[0m  [1m          SELECT trigger_name
+          FROM all_triggers
+          WHERE owner = 'RUBY2'
+            AND trigger_name = 'TQRDC_GROUP_PKT'
+            AND table_owner = 'RUBY2'
+            AND table_name = 'TQRDC_GROUP'
+            AND status = 'ENABLED'
+[0m
+  [1m[35mSQL (1094.2ms)[0m  INSERT INTO "TQRDC_GROUP" ("NAME", "DESCRIPTION", "SCORE", "CREATED_AT", "UPDATED_AT", "ID") VALUES (:a1, :a2, :a3, :a4, :a5, :a6)  [["name", "T1"], ["description", "T1"], ["score", 102.5], ["created_at", 2015-07-14 11:12:22 +0800], ["updated_at", 2015-07-14 11:12:22 +0800], ["id", 1]]
+Redirected to http://127.0.0.1:3000/tqrdc/groups/1
+Completed 302 Found in 2099ms (ActiveRecord: 1231.6ms)
+
+
+Started GET "/tqrdc/groups/1" for 127.0.0.1 at 2015-07-14 11:12:24 +0800
+Processing by Tqrdc::GroupsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mTqrdc::Group Load (235.2ms)[0m  [1mSELECT  "TQRDC_GROUP".* FROM "TQRDC_GROUP" WHERE "TQRDC_GROUP"."ID" = :a1 AND ROWNUM <= 1 [0m  [["id", 1]]
+  Rendered layouts/_show.html.haml (1.7ms)
+  Rendered tqrdc/groups/show.html.haml within layouts/application (5.8ms)
+  Rendered layouts/_navigation_links.html.haml (0.4ms)
+  Rendered layouts/_navigation.html.haml (1.1ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 255ms (Views: 18.4ms | ActiveRecord: 235.2ms)
+
+
+Started GET "/tqrdc/groups" for 127.0.0.1 at 2015-07-14 11:12:33 +0800
+Processing by Tqrdc::GroupsController#index as HTML
+  [1m[35mTqrdc::Group Load (223.2ms)[0m  SELECT "TQRDC_GROUP".* FROM "TQRDC_GROUP"
+  Rendered tqrdc/groups/index.html.haml within layouts/application (232.5ms)
+Completed 500 Internal Server Error in 237ms (ActiveRecord: 223.2ms)
+
+NoMethodError - undefined method `total_pages' for #<Tqrdc::Group::ActiveRecord_Relation:0x007fd9da0dac08>:
+  activerecord (4.2.3) lib/active_record/relation/delegation.rb:136:in `method_missing'
+  activerecord (4.2.3) lib/active_record/relation/delegation.rb:99:in `method_missing'
+  kaminari (0.16.3) lib/kaminari/helpers/action_view_extension.rb:18:in `paginate'
+  app/views/tqrdc/groups/index.html.haml:42:in `_app_views_tqrdc_groups_index_html_haml___348306119805183429_70286822918800'
+  actionview (4.2.3) lib/action_view/template.rb:145:in `block in render'
+  activesupport (4.2.3) lib/active_support/notifications.rb:166:in `instrument'
+  actionview (4.2.3) lib/action_view/template.rb:333:in `instrument'
+  actionview (4.2.3) lib/action_view/template.rb:143:in `render'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:54:in `block (2 levels) in render_template'
+  actionview (4.2.3) lib/action_view/renderer/abstract_renderer.rb:39:in `block in instrument'
+  activesupport (4.2.3) lib/active_support/notifications.rb:164:in `block in instrument'
+  activesupport (4.2.3) lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+  activesupport (4.2.3) lib/active_support/notifications.rb:164:in `instrument'
+  actionview (4.2.3) lib/action_view/renderer/abstract_renderer.rb:39:in `instrument'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:53:in `block in render_template'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:61:in `render_with_layout'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:52:in `render_template'
+  actionview (4.2.3) lib/action_view/renderer/template_renderer.rb:14:in `render'
+  actionview (4.2.3) lib/action_view/renderer/renderer.rb:42:in `render_template'
+  actionview (4.2.3) lib/action_view/renderer/renderer.rb:23:in `render'
+  actionview (4.2.3) lib/action_view/rendering.rb:100:in `_render_template'
+  actionpack (4.2.3) lib/action_controller/metal/streaming.rb:217:in `_render_template'
+  actionview (4.2.3) lib/action_view/rendering.rb:83:in `render_to_body'
+  actionpack (4.2.3) lib/action_controller/metal/rendering.rb:32:in `render_to_body'
+  actionpack (4.2.3) lib/action_controller/metal/renderers.rb:37:in `render_to_body'
+  actionpack (4.2.3) lib/abstract_controller/rendering.rb:25:in `render'
+  actionpack (4.2.3) lib/action_controller/metal/rendering.rb:16:in `render'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+  activesupport (4.2.3) lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+  /Users/Lum/.rvm/rubies/ruby-2.0.0-p247/lib/ruby/2.0.0/benchmark.rb:296:in `realtime'
+  activesupport (4.2.3) lib/active_support/core_ext/benchmark.rb:12:in `ms'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+  activerecord (4.2.3) lib/active_record/railties/controller_runtime.rb:25:in `cleanup_view_runtime'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:43:in `render'
+  actionpack (4.2.3) lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+  actionpack (4.2.3) lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+  actionpack (4.2.3) lib/abstract_controller/base.rb:198:in `process_action'
+  actionpack (4.2.3) lib/action_controller/metal/rendering.rb:10:in `process_action'
+  actionpack (4.2.3) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:115:in `call'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:553:in `block (2 levels) in compile'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:503:in `call'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:88:in `run_callbacks'
+  actionpack (4.2.3) lib/abstract_controller/callbacks.rb:19:in `process_action'
+  actionpack (4.2.3) lib/action_controller/metal/rescue.rb:29:in `process_action'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+  activesupport (4.2.3) lib/active_support/notifications.rb:164:in `block in instrument'
+  activesupport (4.2.3) lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+  activesupport (4.2.3) lib/active_support/notifications.rb:164:in `instrument'
+  actionpack (4.2.3) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+  actionpack (4.2.3) lib/action_controller/metal/params_wrapper.rb:250:in `process_action'
+  activerecord (4.2.3) lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+  actionpack (4.2.3) lib/abstract_controller/base.rb:137:in `process'
+  actionview (4.2.3) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.3) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.3) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.3) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.3) lib/action_dispatch/routing/route_set.rb:76:in `dispatch'
+  actionpack (4.2.3) lib/action_dispatch/routing/route_set.rb:45:in `serve'
+  actionpack (4.2.3) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.3) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.3) lib/action_dispatch/routing/route_set.rb:821:in `call'
+  warden (1.2.3) lib/warden/manager.rb:35:in `block in call'
+  warden (1.2.3) lib/warden/manager.rb:34:in `call'
+  rack (1.6.4) lib/rack/etag.rb:24:in `call'
+  rack (1.6.4) lib/rack/conditionalget.rb:25:in `call'
+  rack (1.6.4) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/flash.rb:260:in `call'
+  rack (1.6.4) lib/rack/session/abstract/id.rb:225:in `context'
+  rack (1.6.4) lib/rack/session/abstract/id.rb:220:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/cookies.rb:560:in `call'
+  activerecord (4.2.3) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.3) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.3) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.3) lib/active_support/callbacks.rb:84:in `run_callbacks'
+  actionpack (4.2.3) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:84:in `protected_app_call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:79:in `better_errors_call'
+  better_errors (2.1.1) lib/better_errors/middleware.rb:57:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.1.3) lib/web_console/middleware.rb:37:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.3) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.3) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.3) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.3) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.3) lib/rails/engine.rb:518:in `call'
+  railties (4.2.3) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  thin (1.6.3) lib/thin/connection.rb:86:in `block in pre_process'
+  thin (1.6.3) lib/thin/connection.rb:84:in `pre_process'
+  thin (1.6.3) lib/thin/connection.rb:53:in `process'
+  thin (1.6.3) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.7) lib/eventmachine.rb:187:in `run'
+  thin (1.6.3) lib/thin/backends/base.rb:73:in `start'
+  thin (1.6.3) lib/thin/server.rb:162:in `start'
+  rack (1.6.4) lib/rack/handler/thin.rb:19:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.3) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.3) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.3) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `<main>'
+
+
+
+Started POST "/__better_errors/ce1a8008845093ab/variables" for 127.0.0.1 at 2015-07-14 11:12:34 +0800
+
+
+Started GET "/tqrdc/groups" for 127.0.0.1 at 2015-07-14 11:12:55 +0800
+Processing by Tqrdc::GroupsController#index as HTML
+  [1m[36mTqrdc::Group Load (255.5ms)[0m  [1m
+              SELECT * FROM (
+                SELECT raw_sql_.*, rownum raw_rnum_
+                FROM (SELECT  "TQRDC_GROUP".* FROM "TQRDC_GROUP" ) raw_sql_
+                WHERE rownum <= 25
+              )
+              WHERE raw_rnum_ > 0[0m
+  [1m[35m (547.7ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'TQRDC_GROUP' AND hidden_column = 'NO' ORDER BY column_id
+  [1m[36m (83.4ms)[0m  [1mSELECT DECODE(table_name, UPPER(table_name), LOWER(table_name), table_name) FROM all_tables WHERE owner = SYS_CONTEXT('userenv', 'session_user') AND secondary = 'N'[0m
+  [1m[35mSequence (49.7ms)[0m  select us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'TQRDC_GROUP_SEQ'
+  [1m[36mPrimary Key (52.2ms)[0m  [1mSELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'TQRDC_GROUP' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name[0m
+  [1m[35m (44.8ms)[0m  SELECT COUNT(*) FROM "TQRDC_GROUP"
+  Rendered tqrdc/groups/index.html.haml within layouts/application (1171.4ms)
+  Rendered layouts/_navigation_links.html.haml (0.8ms)
+  Rendered layouts/_navigation.html.haml (1.9ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 1190ms (Views: 154.8ms | ActiveRecord: 1033.3ms)
+
+
+Started GET "/assets/application.self-7464f420c1802c1f3b72bd803b7ec13392331a1e53050699329dbd883e988ca1.css?body=1" for 127.0.0.1 at 2015-07-14 11:12:57 +0800
+
+
+Started GET "/assets/application.self-b0fd7b6b1005da4ab62c0d14071c7d8072431b63aba07c27a8b7cdc7252e101f.js?body=1" for 127.0.0.1 at 2015-07-14 11:12:57 +0800
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:24:03 +0800
+  [1m[36mActiveRecord::SchemaMigration Load (47.4ms)[0m  [1mSELECT "SCHEMA_MIGRATIONS".* FROM "SCHEMA_MIGRATIONS"[0m
+  [1m[35m (166.1ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'SCHEMA_MIGRATIONS' AND hidden_column = 'NO' ORDER BY column_id
+Processing by Devise::SessionsController#new as HTML
+  [1m[36m (819.1ms)[0m  [1mSELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'USER' AND hidden_column = 'NO' ORDER BY column_id[0m
+  [1m[35m (81.7ms)[0m  SELECT DECODE(table_name, UPPER(table_name), LOWER(table_name), table_name) FROM all_tables WHERE owner = SYS_CONTEXT('userenv', 'session_user') AND secondary = 'N'
+  [1m[36mSequence (45.3ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'[0m
+  [1m[35mPrimary Key (51.9ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  Rendered devise/sessions/new.html.haml within layouts/application (319.4ms)
+  Rendered layouts/_navigation_links.html.haml (2.3ms)
+  Rendered layouts/_navigation.html.haml (6.1ms)
+  Rendered layouts/_messages.html.haml (1.5ms)
+Completed 200 OK in 38536ms (Views: 566.1ms | ActiveRecord: 998.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:25:13 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"e5GtJZVuF8MEtsw/rZYFcJTZ3AC59YUUlnEiRd72jczgZoyTT2ParFzKNbFzT6O+ez8Etl15pIg7lK3d60GVhA==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[36mUser Load (65.6ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["email", "admin@l-e-i.com"]]
+Completed 401 Unauthorized in 139ms (ActiveRecord: 65.6ms)
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"e5GtJZVuF8MEtsw/rZYFcJTZ3AC59YUUlnEiRd72jczgZoyTT2ParFzKNbFzT6O+ez8Etl15pIg7lK3d60GVhA==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  Rendered devise/sessions/new.html.haml within layouts/application (191.5ms)
+  Rendered layouts/_navigation_links.html.haml (0.3ms)
+  Rendered layouts/_navigation.html.haml (1.5ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 286ms (Views: 210.2ms | ActiveRecord: 0.0ms)
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.4ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to DeviseCreateUsers (20150502054724)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+DEPRECATION WARNING: `#timestamps` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/Lum/Development/rails/tqrdc/db/migrate/20150502054724_devise_create_users.rb:34)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "user" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.9ms)[0m  [1mCREATE UNIQUE INDEX "index_user_on_email" ON "user" ("email")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_user_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_user_on_email' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE UNIQUE INDEX "index_user_on_reset_password_token" ON "user" ("reset_password_token")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150502054724"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+Migrating to AddNameToUsers (20150502054727)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "user" ADD "username" varchar[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "user" ADD "role" varchar
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "user" ADD "supplier_id" integer[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "user" ADD "territory" varchar
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_user_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_user_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_user_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_user_on_email' AND type='index'
+
+  [1m[36m (0.4ms)[0m  [1mCREATE UNIQUE INDEX "index_user_on_username" ON "user" ("username")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150502054727"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+Migrating to CreateTqrdcGroup (20150714025103)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "tqrdc_group" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" text, "score" float, "owner_id" integer, "creator_id" integer, "updater_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_tqrdc_group_on_name" ON "tqrdc_group" ("name")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150714025103"]]
+  [1m[35m (0.9ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_tqrdc_group_on_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_tqrdc_group_on_name' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_user_on_username' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_user_on_username' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_user_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_user_on_reset_password_token' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_user_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_user_on_email' AND type='index'
+[0m
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "user".* FROM "user"  ORDER BY "user"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (1.3ms)[0m  [1mINSERT INTO "user" ("email", "encrypted_password", "username", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["email", "admin@l-e-i.com"], ["encrypted_password", "$2a$10$8B77xcOhUzU7oJ2bUm.s6u813rSz5GX.rebXwjsV8WdK1CwvaNQ0C"], ["username", "admin"], ["created_at", "2015-07-14 11:28:54.468976"], ["updated_at", "2015-07-14 11:28:54.468976"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "user"[0m
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:29:25 +0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/sessions/new.html.haml within layouts/application (326.4ms)
+  Rendered layouts/_navigation_links.html.haml (2.0ms)
+  Rendered layouts/_navigation.html.haml (5.8ms)
+  Rendered layouts/_messages.html.haml (1.4ms)
+Completed 200 OK in 617ms (Views: 574.9ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 11:29:29 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"D9ZcslWejw2tbpipo/PNVInF5NQ/dcRkLO1whYiy9k6UIX0Ej5NCYvUSYSd9KmuaZiM8Ytv55fiBCP8dvQXuBg==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "user".* FROM "user" WHERE "user"."email" = ?  ORDER BY "user"."id" ASC LIMIT 1  [["email", "admin@l-e-i.com"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "user" SET "last_sign_in_at" = ?, "current_sign_in_at" = ?, "last_sign_in_ip" = ?, "current_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "user"."id" = ?  [["last_sign_in_at", "2015-07-14 11:29:29.894369"], ["current_sign_in_at", "2015-07-14 11:29:29.894369"], ["last_sign_in_ip", "127.0.0.1"], ["current_sign_in_ip", "127.0.0.1"], ["sign_in_count", 1], ["updated_at", "2015-07-14 11:29:29.895664"], ["id", 1]]
+  [1m[36m (0.9ms)[0m  [1mcommit transaction[0m
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 160ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-07-14 11:29:29 +0800
+Processing by VisitorsController#index as HTML
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "user"
+  Rendered visitors/index.html.erb within layouts/application (1.9ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "user".* FROM "user" WHERE "user"."id" = ?  ORDER BY "user"."id" ASC LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_navigation_links.html.haml (1.9ms)
+  Rendered layouts/_navigation.html.haml (2.9ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 18ms (Views: 17.5ms | ActiveRecord: 0.5ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2015-07-14 12:16:42 +0800
+  [1m[36mActiveRecord::SchemaMigration Load (45.8ms)[0m  [1mSELECT "SCHEMA_MIGRATIONS".* FROM "SCHEMA_MIGRATIONS"[0m
+  [1m[35m (145.1ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'SCHEMA_MIGRATIONS' AND hidden_column = 'NO' ORDER BY column_id
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"ZOa+OWatoecKD7rGwpuesxJOmbc5NlFos8hVu9W6n38OBP8PnOwp87TC1YYyZxllsbikI8Fa7YJ40mdcHuAQPA=="}
+  [1m[36m (97.5ms)[0m  [1mSELECT DECODE(table_name, UPPER(table_name), LOWER(table_name), table_name) FROM all_tables WHERE owner = SYS_CONTEXT('userenv', 'session_user') AND secondary = 'N'[0m
+  [1m[35mSequence (50.5ms)[0m  select us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'
+  [1m[36mPrimary Key (48.3ms)[0m  [1mSELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name[0m
+  [1m[35m (853.8ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'USER' AND hidden_column = 'NO' ORDER BY column_id
+  [1m[36mUser Load (51.3ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["id", 1]]
+Redirected to http://127.0.0.1:3000/
+Filter chain halted as :verify_signed_out_user rendered or redirected
+Completed 302 Found in 1568ms (ActiveRecord: 1101.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-07-14 12:16:44 +0800
+Processing by VisitorsController#index as HTML
+  [1m[35m (67.2ms)[0m  SELECT COUNT(*) FROM "USER"
+  Rendered visitors/index.html.erb within layouts/application (70.6ms)
+  Rendered layouts/_navigation_links.html.haml (9.1ms)
+  Rendered layouts/_navigation.html.haml (13.0ms)
+  Rendered layouts/_messages.html.haml (1.5ms)
+Completed 200 OK in 323ms (Views: 255.2ms | ActiveRecord: 67.2ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2015-07-14 12:16:47 +0800
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/sessions/new.html.haml within layouts/application (380.7ms)
+  Rendered layouts/_navigation_links.html.haml (0.6ms)
+  Rendered layouts/_navigation.html.haml (1.6ms)
+  Rendered layouts/_messages.html.haml (0.3ms)
+Completed 200 OK in 401ms (Views: 397.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 12:17:01 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ah2uKHwSP3V12kICjpYNt/ntkFdkbul0gj1UMIPEaoMA/+8ehlO3YcsXLUJ+aophWhutw5wCVZ5JJ2bXSJ7lwA==", "user"=>{"email"=>"jill.lin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[36mUser Load (52.4ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["email", "jill.lin@l-e-i.com"]]
+  [1m[35mSQL (46.3ms)[0m  UPDATE "USER" SET "CURRENT_SIGN_IN_AT" = :a1, "SIGN_IN_COUNT" = :a2, "UPDATED_AT" = :a3 WHERE "USER"."ID" = :a4  [["current_sign_in_at", Tue, 14 Jul 2015 12:17:02 CST +08:00], ["sign_in_count", 2], ["updated_at", Tue, 14 Jul 2015 12:17:02 CST +08:00], ["id", 2]]
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 248ms (ActiveRecord: 98.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-07-14 12:17:02 +0800
+Processing by VisitorsController#index as HTML
+  [1m[36m (46.8ms)[0m  [1mSELECT COUNT(*) FROM "USER"[0m
+  Rendered visitors/index.html.erb within layouts/application (47.8ms)
+  [1m[35mUser Load (47.5ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["id", 2]]
+  Rendered layouts/_navigation_links.html.haml (49.1ms)
+  Rendered layouts/_navigation.html.haml (49.9ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 110ms (Views: 15.4ms | ActiveRecord: 94.3ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2015-07-14 12:17:06 +0800
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (52.1ms)[0m  [1m
+              SELECT * FROM (
+                SELECT raw_sql_.*, rownum raw_rnum_
+                FROM (SELECT  "USER".* FROM "USER" WHERE (username like '%%') ) raw_sql_
+                WHERE rownum <= 25
+              )
+              WHERE raw_rnum_ > 0[0m
+  [1m[35m (53.3ms)[0m  SELECT COUNT(*) FROM "USER" WHERE (username like '%%')
+  Rendered users/index.html.haml within layouts/application (117.9ms)
+  [1m[36mUser Load (43.3ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["id", 2]]
+  Rendered layouts/_navigation_links.html.haml (44.9ms)
+  Rendered layouts/_navigation.html.haml (45.7ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 179ms (Views: 29.2ms | ActiveRecord: 148.6ms)
+
+
+Started DELETE "/users/1" for 127.0.0.1 at 2015-07-14 12:17:12 +0800
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"qfV7BiQ9l3f0NnXXbNsq2bjV+qzqzuombGdshUHBhl5N54x/KOHaBoOf58Gm7iWtGb1jqg28Ms/UyGvzqfL51Q==", "id"=>"1"}
+  [1m[35mUser Load (50.7ms)[0m  SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1 AND ROWNUM <= 1   [["id", 1]]
+  [1m[36mSQL (44.0ms)[0m  [1mDELETE FROM "USER" WHERE "USER"."ID" = :a1[0m  [["id", 1]]
+Redirected to http://127.0.0.1:3000/users
+Completed 302 Found in 896ms (ActiveRecord: 94.7ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2015-07-14 12:17:12 +0800
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (51.9ms)[0m  
+              SELECT * FROM (
+                SELECT raw_sql_.*, rownum raw_rnum_
+                FROM (SELECT  "USER".* FROM "USER" WHERE (username like '%%') ) raw_sql_
+                WHERE rownum <= 25
+              )
+              WHERE raw_rnum_ > 0
+  [1m[36m (46.1ms)[0m  [1mSELECT COUNT(*) FROM "USER" WHERE (username like '%%')[0m
+  Rendered users/index.html.haml within layouts/application (102.4ms)
+  [1m[35mUser Load (42.8ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["id", 2]]
+  Rendered layouts/_navigation_links.html.haml (44.2ms)
+  Rendered layouts/_navigation.html.haml (45.1ms)
+  Rendered layouts/_messages.html.haml (0.3ms)
+Completed 200 OK in 162ms (Views: 21.2ms | ActiveRecord: 140.8ms)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2015-07-14 12:17:15 +0800
+Processing by UsersController#new as HTML
+  Rendered users/_form.html.haml (500.2ms)
+  Rendered users/new.html.haml within layouts/application (503.4ms)
+  [1m[36mUser Load (51.3ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["id", 2]]
+  Rendered layouts/_navigation_links.html.haml (53.0ms)
+  Rendered layouts/_navigation.html.haml (53.8ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 570ms (Views: 518.0ms | ActiveRecord: 51.3ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2015-07-14 12:17:32 +0800
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"9thGWtLXF7E2LbdF9gzBtZ739OpFMiMavuaoPOEEltASyrEj3gtawEGEJVM8Oc7BP59t7KJA+/MGSa9KCTfpWw==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "username"=>"admin", "role"=>"admin"}}
+  [1m[35mSequence (54.3ms)[0m  select us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'
+  [1m[36mPrimary Key (47.8ms)[0m  [1mSELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name[0m
+  [1m[35mPrimary Key Trigger (44.5ms)[0m            SELECT trigger_name
+          FROM all_triggers
+          WHERE owner = 'RUBY2'
+            AND trigger_name = 'USER_PKT'
+            AND table_owner = 'RUBY2'
+            AND table_name = 'USER'
+            AND status = 'ENABLED'
+
+  [1m[36mSQL (44.9ms)[0m  [1mINSERT INTO "USER" ("EMAIL", "ENCRYPTED_PASSWORD", "USERNAME", "ROLE", "CREATED_AT", "UPDATED_AT", "ID") VALUES (:a1, :a2, :a3, :a4, :a5, :a6, :a7)[0m  [["email", "admin@l-e-i.com"], ["encrypted_password", "$2a$10$IRVgKx8Ky1HfKFuiPr.Oee4gomiYTTQQr4wvhUy/BRSuLWCWNyB8S"], ["username", "admin"], ["role", "admin"], ["created_at", 2015-07-14 12:17:32 +0800], ["updated_at", 2015-07-14 12:17:32 +0800], ["id", 3]]
+Redirected to http://127.0.0.1:3000/users/3
+Completed 302 Found in 557ms (ActiveRecord: 191.5ms)
+
+
+Started GET "/users/3" for 127.0.0.1 at 2015-07-14 12:17:33 +0800
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (42.4ms)[0m  SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1 AND ROWNUM <= 1   [["id", 3]]
+  Rendered layouts/_show.html.haml (10.6ms)
+  Rendered users/show.html.haml within layouts/application (14.3ms)
+  [1m[36mUser Load (42.8ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["id", 2]]
+  Rendered layouts/_navigation_links.html.haml (44.5ms)
+  Rendered layouts/_navigation.html.haml (45.3ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 116ms (Views: 29.5ms | ActiveRecord: 85.3ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2015-07-14 12:17:36 +0800
+Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"mVJscD03LcWByEuuX1O2g0m5mAt9K2m1v/cDwNsxUAR9QJsJMetgtPZh2biVZrn36NEBDZpZsVwHWAS2MwIvjw=="}
+  [1m[35mUser Load (43.3ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["id", 2]]
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 91ms (ActiveRecord: 43.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-07-14 12:17:36 +0800
+Processing by VisitorsController#index as HTML
+  [1m[36m (44.1ms)[0m  [1mSELECT COUNT(*) FROM "USER"[0m
+  Rendered visitors/index.html.erb within layouts/application (45.0ms)
+  Rendered layouts/_navigation_links.html.haml (0.4ms)
+  Rendered layouts/_navigation.html.haml (1.3ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 59ms (Views: 14.6ms | ActiveRecord: 44.1ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2015-07-14 12:17:38 +0800
+Processing by Devise::SessionsController#new as HTML
+  Rendered devise/sessions/new.html.haml within layouts/application (255.2ms)
+  Rendered layouts/_navigation_links.html.haml (0.6ms)
+  Rendered layouts/_navigation.html.haml (1.7ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 273ms (Views: 272.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2015-07-14 12:17:48 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"QsZRhOxPfNlIUkqiVh/wgDyAapGOSnauEqw6Se6oapyDKouvmF2eoSjaOozF3caY7/7ahY6kKekAssKaXDsT5A==", "user"=>{"email"=>"admin@l-e-i.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"系統登入"}
+  [1m[35mUser Load (103.4ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."EMAIL" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["email", "admin@l-e-i.com"]]
+  [1m[36mSQL (55.5ms)[0m  [1mUPDATE "USER" SET "LAST_SIGN_IN_AT" = :a1, "CURRENT_SIGN_IN_AT" = :a2, "LAST_SIGN_IN_IP" = :a3, "CURRENT_SIGN_IN_IP" = :a4, "SIGN_IN_COUNT" = :a5, "UPDATED_AT" = :a6 WHERE "USER"."ID" = :a7[0m  [["last_sign_in_at", Tue, 14 Jul 2015 12:17:48 CST +08:00], ["current_sign_in_at", Tue, 14 Jul 2015 12:17:48 CST +08:00], ["last_sign_in_ip", "127.0.0.1"], ["current_sign_in_ip", "127.0.0.1"], ["sign_in_count", 1], ["updated_at", Tue, 14 Jul 2015 12:17:48 CST +08:00], ["id", 3]]
+Redirected to http://127.0.0.1:3000/
+Completed 302 Found in 298ms (ActiveRecord: 158.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2015-07-14 12:17:48 +0800
+Processing by VisitorsController#index as HTML
+  [1m[35m (44.0ms)[0m  SELECT COUNT(*) FROM "USER"
+  Rendered visitors/index.html.erb within layouts/application (44.8ms)
+  [1m[36mUser Load (43.1ms)[0m  [1mSELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1[0m  [["id", 3]]
+  Rendered layouts/_navigation_links.html.haml (44.8ms)
+  Rendered layouts/_navigation.html.haml (45.6ms)
+  Rendered layouts/_messages.html.haml (0.2ms)
+Completed 200 OK in 102ms (Views: 15.0ms | ActiveRecord: 87.1ms)
+
+
+Started GET "/tqrdc/groups" for 127.0.0.1 at 2015-07-14 12:21:13 +0800
+Processing by Tqrdc::GroupsController#index as HTML
+  [1m[35m (79.6ms)[0m  SELECT DECODE(table_name, UPPER(table_name), LOWER(table_name), table_name) FROM all_tables WHERE owner = SYS_CONTEXT('userenv', 'session_user') AND secondary = 'N'
+  [1m[36mSequence (44.6ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'USER_SEQ'[0m
+  [1m[35mPrimary Key (47.3ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'USER' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  [1m[36m (856.3ms)[0m  [1mSELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'USER' AND hidden_column = 'NO' ORDER BY column_id[0m
+  [1m[35mUser Load (57.5ms)[0m  SELECT * FROM (SELECT  "USER".* FROM "USER" WHERE "USER"."ID" = :a1  ORDER BY "USER"."ID" ASC ) WHERE ROWNUM <= 1  [["id", 3]]
+  [1m[36mTqrdc::Group Load (248.2ms)[0m  [1m
+              SELECT * FROM (
+                SELECT raw_sql_.*, rownum raw_rnum_
+                FROM (SELECT  "TQRDC_GROUP".* FROM "TQRDC_GROUP" ) raw_sql_
+                WHERE rownum <= 25
+              )
+              WHERE raw_rnum_ > 0[0m
+  [1m[35m (512.2ms)[0m  SELECT column_name AS name, data_type AS sql_type, data_default, nullable, virtual_column, hidden_column, data_type_owner AS sql_type_owner, DECODE(data_type, 'NUMBER', data_precision, 'FLOAT', data_precision, 'VARCHAR2', DECODE(char_used, 'C', char_length, data_length), 'RAW', DECODE(char_used, 'C', char_length, data_length), 'CHAR', DECODE(char_used, 'C', char_length, data_length), NULL) AS limit, DECODE(data_type, 'NUMBER', data_scale, NULL) AS scale FROM all_tab_cols WHERE owner = 'RUBY2' AND table_name = 'TQRDC_GROUP' AND hidden_column = 'NO' ORDER BY column_id
+  [1m[36mSequence (44.6ms)[0m  [1mselect us.sequence_name from all_sequences us where us.sequence_owner = 'RUBY2' and us.sequence_name = 'TQRDC_GROUP_SEQ'[0m
+  [1m[35mPrimary Key (48.9ms)[0m  SELECT cc.column_name FROM all_constraints c, all_cons_columns cc WHERE c.owner = 'RUBY2' AND c.table_name = 'TQRDC_GROUP' AND c.constraint_type = 'P' AND cc.owner = c.owner AND cc.constraint_name = c.constraint_name
+  [1m[36m (52.4ms)[0m  [1mSELECT COUNT(*) FROM "TQRDC_GROUP"[0m
+  Rendered tqrdc/groups/index.html.haml within layouts/application (1111.7ms)
+  Rendered layouts/_navigation_links.html.haml (0.3ms)
+  Rendered layouts/_navigation.html.haml (1.4ms)
+  Rendered layouts/_messages.html.haml (0.1ms)
+Completed 200 OK in 2619ms (Views: 224.6ms | ActiveRecord: 1991.6ms)
