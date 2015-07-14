@@ -1,0 +1,66 @@
+%h3= t('attributes.tqrdc_qhead')
+
+%h5
+  = link_to t('new_tqrdc_qhead'), new_tqrdc_qhead_path
+
+= form_tag(tqrdc_qheads_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :name, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:name]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered
+    %thead
+      %tr
+        %th= t('action')
+
+        %th= t('attributes.id')
+
+        %th= t('attributes.name')
+
+        %th= t('attributes.description')
+
+        %th= t('attributes.group_id')
+
+        %th= t('attributes.score')
+
+        %th= t('attributes.remark')
+
+        %th= t('attributes.owner_id')
+
+        %th= t('attributes.creator_id')
+
+        %th= t('attributes.updater_id')
+
+    %tbody
+      - @tqrdc_qheads.each do |tqrdc_qhead|
+        %tr
+          %td
+            = link_to t('edit'), edit_tqrdc_qhead_path(tqrdc_qhead)
+            |
+            = link_to t('delete'), tqrdc_qhead, :method => :delete, :data => { :confirm => t('confirm_delete')}
+
+
+          %td= tqrdc_qhead.id
+
+          %td= tqrdc_qhead.name
+
+          %td= tqrdc_qhead.description
+
+          %td= tqrdc_qhead.group_id
+
+          %td= tqrdc_qhead.score
+
+          %td= tqrdc_qhead.remark
+
+          %td= tqrdc_qhead.owner_id
+
+          %td= tqrdc_qhead.creator_id
+
+          %td= tqrdc_qhead.updater_id
+
+
+%h5
+  = link_to t('new_tqrdc_qhead'), new_tqrdc_qhead_path
+
+= paginate @tqrdc_qheads unless @tqrdc_qheads.empty?
