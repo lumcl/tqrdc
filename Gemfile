@@ -12,6 +12,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 
 gem 'bootstrap-sass'
+gem 'bootstrap3_autocomplete_input', '~> 0.1.1'
 gem 'devise'
 gem 'cancan'
 gem 'figaro', '>= 1.0.0.rc1'
@@ -20,6 +21,7 @@ gem 'high_voltage'
 gem 'simple_form'
 gem 'thin'
 gem 'kaminari'
+gem 'paperclip', '~> 4.3.0'
 
 group :development do
   gem 'better_errors'
