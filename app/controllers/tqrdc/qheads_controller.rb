@@ -1,6 +1,8 @@
 class Tqrdc::QheadsController < ApplicationController
   before_action :set_tqrdc_qhead, only: [:show, :edit, :update, :destroy]
 
+
+
   # GET /tqrdc/qheads
   # GET /tqrdc/qheads.json
   def index

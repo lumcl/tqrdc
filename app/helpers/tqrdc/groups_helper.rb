@@ -1,0 +1,2 @@
+module Tqrdc::GroupsHelper
+end

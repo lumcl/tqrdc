@@ -4,13 +4,13 @@
   .form-inputs
     = f.input :name
     = f.input :description
-    = f.input :group , :as => :autocomplete, :source_query => autocomplete_group_name_groups_url , :items => 20, :minLength => 1
+    = f.input :group , :as => :autocomplete, :source_query => autocomplete_group_name_tqrdc_groups_url , :items => 20, :minLength => 1
     = f.input :score
     = f.input :remark
     = f.input :owner, :as => :autocomplete, :source_query => autocomplete_user_email_users_url, :items => 20, :minLength => 1,
       :hint => '請使用大寫輸入負責人, 1個字符后系統會給出建議清單'
 
-    = f.input :creator_id,as: :hidden
+    = f.input :creator_id, as: :hidden
     = f.input :updater_id, as: :hidden
 
   .form-actions
