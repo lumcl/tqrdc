@@ -1,0 +1,34 @@
+source 'https://ruby.taobao.org'
+#ruby '2.0.0'
+gem 'rails', '4.2.3'
+gem 'ruby-oci8'
+#gem 'activerecord-oracle_enhanced-adapter', '~> 1.5.5'
+gem 'activerecord-oracle_enhanced-adapter', github: 'rsim/oracle-enhanced', branch: 'rails42'
+gem 'sqlite3'
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'jquery-rails'
+gem 'jbuilder', '~> 2.0'
+
+gem 'bootstrap-sass'
+gem 'devise'
+gem 'cancan'
+gem 'figaro', '>= 1.0.0.rc1'
+gem 'haml-rails'
+gem 'high_voltage'
+gem 'simple_form'
+gem 'thin'
+gem 'kaminari'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller', :platforms=>[:mri_20]
+  gem 'html2haml'
+  gem 'rails_layout'
+end
+group :development, :test do
+  gem 'rubocop'
+  gem 'byebug'
+  gem 'web-console', '~> 2.0'
+end
