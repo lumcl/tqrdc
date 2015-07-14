@@ -15,10 +15,14 @@ class Tqrdc::GroupsController < ApplicationController
   # GET /tqrdc/groups/new
   def new
     @tqrdc_group = Tqrdc::Group.new
+    @tqrdc_group.owner_id = current_user.id
+    @tqrdc_group.creator_id = current_user.id
+    @tqrdc_group.updater_id = current_user.id
   end
 
   # GET /tqrdc/groups/1/edit
   def edit
+    @tqrdc_group.updater_id = current_user.id
   end
 
   # POST /tqrdc/groups
