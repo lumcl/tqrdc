@@ -4,7 +4,6 @@
   = link_to t('new_<%= singular_table_name %>'), new_<%= singular_table_name %>_path
 
 = form_tag(<%= index_helper %>_url, method: 'get', class: 'form-inline') do
-  = select_options_tag :company, Figaro.env.company.split(","), class: 'form-control input-sm', value: params[:company] || current_user.company, prompt: t('attributes.company')
   = text_field_tag :name, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:name]
   = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
     %span.glyphicon.glyphicon-search
