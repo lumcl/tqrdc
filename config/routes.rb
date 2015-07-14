@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   namespace :tqrdc do
+    resources :qheads
+  end
+  namespace :tqrdc do
     resources :groups
   end
   root to: 'visitors#index'

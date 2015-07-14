@@ -1,5 +1,6 @@
 class Tqrdc::GroupsController < ApplicationController
   before_action :set_tqrdc_group, only: [:show, :edit, :update, :destroy]
+  autocomplete :tqrdc_group, :name
 
   # GET /tqrdc/groups
   # GET /tqrdc/groups.json
