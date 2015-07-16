@@ -25,6 +25,7 @@ class Tqrdc::QheadsController < ApplicationController
   # GET /tqrdc/qheads/1/edit
   def edit
     @tqrdc_qhead.updater_id = current_user.id
+
   end
 
   # POST /tqrdc/qheads

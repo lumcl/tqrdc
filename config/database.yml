@@ -1,0 +1,38 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  adapter: oracle_enhanced
+  database: "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 172.28.18.201)(PORT = 1521)))(CONNECT_DATA = (SID =  m1)(SERVER = DEDICATED)))"
+  username: ruby2
+  password: ruby
+  pool: 5
+  timeout: 5000
+
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+production:
+  <<: *default
+  database: db/production.sqlite3
+
+sapdb:
+  adapter: oracle_enhanced
+  database: "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 172.28.66.66)(PORT = 1527)))(CONNECT_DATA = (SID = PRD)(SERVER = DEDICATED)))"
+  username: PRDD
+  password: prdd
+  pool: 50
+  timeout: 5000

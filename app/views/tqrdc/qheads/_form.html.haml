@@ -2,6 +2,7 @@
   = f.error_notification
 
   .form-inputs
+    = #f.input :id
     = f.input :name
     = f.input :description
     = f.input :group , :as => :autocomplete, :source_query => autocomplete_group_name_tqrdc_groups_url , :items => 20, :minLength => 1
