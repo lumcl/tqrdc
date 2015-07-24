@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   namespace :tqrdc do
+    resources :scores do
+      get :supplier_entry, :on => :collection
+      get :supplier_enquiry, :on => :collection
+      post :update_scores, :on => :collection
+    end
+
     resources :groups do
       get :autocomplete_group_name, :on => :collection
     end

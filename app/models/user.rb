@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   self.table_name ='users'
+  self.sequence_name = 'user_seq'
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable,:registerable,
   # :validatable

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714102951) do
+ActiveRecord::Schema.define(version: 20150724062217) do
 
   create_table "tqrdc_flow", force: :cascade do |t|
     t.string   "name"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 20150714102951) do
     t.string   "end_period"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.string   "territory"
   end
 
   add_index "tqrdc_supplier", ["supplier"], name: "i_tqrdc_supplier_supplier"
