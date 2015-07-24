@@ -3,10 +3,10 @@
     = "TQRDC - #{@order.supplier} #{@order.period} 评分"
   .panel-body
     = form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
-      - @order.order_groups.each do |group|
+      - @order.order_groups.each do |order_group|
         .panel.panel-success
           .panel-heading
-            = group.group
+            = order_group.group
           .panel-body
             .table-responsive
               %table.table.table-condensed.table-bordered.table-striped.table-hover
@@ -15,7 +15,7 @@
                     %th 题目
                     %th 分数
                 %tbody
-                  - group.order_lines.each do |order_line|
+                  - order_group.order_lines.each do |order_line|
                     %tr
                       %td= order_line.qhead
                       %td= select_tag "id_#{order_line.id}", options_from_collection_for_select(Tqrdc::Qline.where(:qhead_id => order_line.qhead.id), :id, :score_with_name), class: 'form-control'
