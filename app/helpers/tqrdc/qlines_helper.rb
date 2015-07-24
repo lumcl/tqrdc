@@ -1,0 +1,2 @@
+module Tqrdc::QlinesHelper
+end

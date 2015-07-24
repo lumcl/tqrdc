@@ -1,0 +1,78 @@
+%h3= t('attributes.tqrdc_flow')
+
+%h5
+  = link_to t('new_tqrdc_flow'), new_tqrdc_flow_path
+
+= form_tag(tqrdc_flows_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :name, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:name]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered
+    %thead
+      %tr
+        %th= t('action')
+
+        %th= t('attributes.id')
+
+        %th= t('attributes.name')
+
+        %th= t('attributes.description')
+
+        %th= t('attributes.qhead_id')
+
+        %th= t('attributes.role')
+
+        %th= t('attributes.territory')
+
+        %th= t('attributes.user_id')
+
+        %th= t('attributes.seq')
+
+        %th= t('attributes.next_seq')
+
+        %th= t('attributes.owner_id')
+
+        %th= t('attributes.creator_id')
+
+        %th= t('attributes.updater_id')
+
+    %tbody
+      - @tqrdc_flows.each do |tqrdc_flow|
+        %tr
+          %td
+            = link_to t('edit'), edit_tqrdc_flow_path(tqrdc_flow)
+            |
+            = link_to t('delete'), tqrdc_flow, :method => :delete, :data => { :confirm => t('confirm_delete')}
+
+
+          %td= tqrdc_flow.id
+
+          %td= tqrdc_flow.name
+
+          %td= tqrdc_flow.description
+
+          %td= tqrdc_flow.qhead_id
+
+          %td= tqrdc_flow.role
+
+          %td= tqrdc_flow.territory
+
+          %td= tqrdc_flow.user_id
+
+          %td= tqrdc_flow.seq
+
+          %td= tqrdc_flow.next_seq
+
+          %td= tqrdc_flow.owner_id
+
+          %td= tqrdc_flow.creator_id
+
+          %td= tqrdc_flow.updater_id
+
+
+%h5
+  = link_to t('new_tqrdc_flow'), new_tqrdc_flow_path
+
+= paginate @tqrdc_flows unless @tqrdc_flows.empty?

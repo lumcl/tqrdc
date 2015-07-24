@@ -1,0 +1,2 @@
+module Tqrdc::SuppliersHelper
+end

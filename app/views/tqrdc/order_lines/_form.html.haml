@@ -1,0 +1,79 @@
+= simple_form_for(@tqrdc_order_line) do |f|
+  = f.error_notification
+
+  .form-inputs
+
+    = #f.input :id
+
+    = f.input :order_id
+
+    = f.input :order_group_id
+
+    = f.input :status
+
+    = #f.input :qhead_id, :collection => Tqrdc::Qhead.all, :label_method => :name, :value_method => :id
+    = f.input :qhead_id, :collection => Tqrdc::Qhead.where(' id = 2'), :label_method => :name, :value_method => :id
+    = #f.input :final_score
+
+    = f.input :u1_score
+
+    = f.input :u1_user_id
+
+    = f.input :u1_comment
+
+    = f.input :u1_sign_date
+
+    = f.input :u1_ip
+
+    = f.input :u1_role
+
+    = f.input :u1_qline_id
+
+    = #f.input :u2_score
+
+    = #f.input :u2_user_id
+
+    = #f.input :u2_comment
+
+    = #f.input :u2_sign_date
+
+    = #f.input :u2_ip
+
+    = #f.input :u2_role
+
+    = #f.input :u2_qline_id
+
+    = #f.input :u3_score
+
+    = #f.input :u3_user_id
+
+    = #f.input :u3_comment
+
+    = #f.input :u3_sign_date
+
+    = #f.input :u3_ip
+
+    = #f.input :u3_role
+
+    = #f.input :u3_qline_id
+
+    = #f.input :u4_score
+
+    = #f.input :u4_user_id
+
+    = #f.input :u4_comment
+
+    = #f.input :u4_sign_date
+
+    = #f.input :u4_ip
+
+    = #f.input :u4_role
+
+    = #f.input :u4_qline_id
+
+
+  .form-actions
+    .clearfix
+    = button_tag class: 'btn btn-danger', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
+      %span.glyphicon.glyphicon-floppy-save
+      = t('save')

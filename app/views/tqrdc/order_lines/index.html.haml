@@ -1,0 +1,166 @@
+%h3= t('attributes.tqrdc_order_line')
+
+%h5
+  = link_to t('new_tqrdc_order_line'), new_tqrdc_order_line_path
+
+= form_tag(tqrdc_order_lines_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :name, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:name]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered
+    %thead
+      %tr
+        %th= t('action')
+
+        %th= t('attributes.id')
+
+        %th= t('attributes.order_id')
+
+        %th= t('attributes.order_group_id')
+
+        %th= t('attributes.status')
+
+        %th= t('attributes.qhead_id')
+
+        %th= t('attributes.final_score')
+
+        %th= t('attributes.u1_score')
+
+        %th= t('attributes.u1_user_id')
+
+        %th= t('attributes.u1_comment')
+
+        %th= t('attributes.u1_sign_date')
+
+        %th= t('attributes.u1_ip')
+
+        %th= t('attributes.u1_role')
+
+        %th= t('attributes.u1_qline_id')
+
+        %th= t('attributes.u2_score')
+
+        %th= t('attributes.u2_user_id')
+
+        %th= t('attributes.u2_comment')
+
+        %th= t('attributes.u2_sign_date')
+
+        %th= t('attributes.u2_ip')
+
+        %th= t('attributes.u2_role')
+
+        %th= t('attributes.u2_qline_id')
+
+        %th= t('attributes.u3_score')
+
+        %th= t('attributes.u3_user_id')
+
+        %th= t('attributes.u3_comment')
+
+        %th= t('attributes.u3_sign_date')
+
+        %th= t('attributes.u3_ip')
+
+        %th= t('attributes.u3_role')
+
+        %th= t('attributes.u3_qline_id')
+
+        %th= t('attributes.u4_score')
+
+        %th= t('attributes.u4_user_id')
+
+        %th= t('attributes.u4_comment')
+
+        %th= t('attributes.u4_sign_date')
+
+        %th= t('attributes.u4_ip')
+
+        %th= t('attributes.u4_role')
+
+        %th= t('attributes.u4_qline_id')
+
+    %tbody
+      - @tqrdc_order_lines.each do |tqrdc_order_line|
+        %tr
+          %td
+            = link_to t('edit'), edit_tqrdc_order_line_path(tqrdc_order_line)
+            |
+            = link_to t('delete'), tqrdc_order_line, :method => :delete, :data => { :confirm => t('confirm_delete')}
+
+
+          %td= tqrdc_order_line.id
+
+          %td= tqrdc_order_line.order_id
+
+          %td= tqrdc_order_line.order_group_id
+
+          %td= tqrdc_order_line.status
+
+          %td= tqrdc_order_line.qhead_id
+
+          %td= tqrdc_order_line.final_score
+
+          %td= tqrdc_order_line.u1_score
+
+          %td= tqrdc_order_line.u1_user_id
+
+          %td= tqrdc_order_line.u1_comment
+
+          %td= tqrdc_order_line.u1_sign_date
+
+          %td= tqrdc_order_line.u1_ip
+
+          %td= tqrdc_order_line.u1_role
+
+          %td= tqrdc_order_line.u1_qline_id
+
+          %td= tqrdc_order_line.u2_score
+
+          %td= tqrdc_order_line.u2_user_id
+
+          %td= tqrdc_order_line.u2_comment
+
+          %td= tqrdc_order_line.u2_sign_date
+
+          %td= tqrdc_order_line.u2_ip
+
+          %td= tqrdc_order_line.u2_role
+
+          %td= tqrdc_order_line.u2_qline_id
+
+          %td= tqrdc_order_line.u3_score
+
+          %td= tqrdc_order_line.u3_user_id
+
+          %td= tqrdc_order_line.u3_comment
+
+          %td= tqrdc_order_line.u3_sign_date
+
+          %td= tqrdc_order_line.u3_ip
+
+          %td= tqrdc_order_line.u3_role
+
+          %td= tqrdc_order_line.u3_qline_id
+
+          %td= tqrdc_order_line.u4_score
+
+          %td= tqrdc_order_line.u4_user_id
+
+          %td= tqrdc_order_line.u4_comment
+
+          %td= tqrdc_order_line.u4_sign_date
+
+          %td= tqrdc_order_line.u4_ip
+
+          %td= tqrdc_order_line.u4_role
+
+          %td= tqrdc_order_line.u4_qline_id
+
+
+%h5
+  = link_to t('new_tqrdc_order_line'), new_tqrdc_order_line_path
+
+= paginate @tqrdc_order_lines unless @tqrdc_order_lines.empty?

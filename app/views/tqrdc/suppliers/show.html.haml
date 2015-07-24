@@ -1,0 +1,12 @@
+%h3= t('attributes.tqrdc_supplier')
+%h5
+  = link_to t('edit'), edit_tqrdc_supplier_path(@tqrdc_supplier)
+  \|
+  = link_to t('back'), tqrdc_suppliers_path
+
+= render partial: 'layouts/show', :locals => {object: @tqrdc_supplier}
+
+%h5
+  = link_to t('edit'), edit_tqrdc_supplier_path(@tqrdc_supplier)
+  \|
+  = link_to t('back'), tqrdc_suppliers_path

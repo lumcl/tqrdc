@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: MyString
+  description: MyText
+  qhead_id: 1
+  role: MyString
+  territory: MyString
+  user_id: 1
+  seq: 1
+  next_seq: 1
+  owner_id: 1
+  creator_id: 1
+  updater_id: 1
+
+two:
+  id: 1
+  name: MyString
+  description: MyText
+  qhead_id: 1
+  role: MyString
+  territory: MyString
+  user_id: 1
+  seq: 1
+  next_seq: 1
+  owner_id: 1
+  creator_id: 1
+  updater_id: 1

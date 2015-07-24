@@ -1,0 +1,54 @@
+%h3= t('attributes.tqrdc_order')
+
+%h5
+  = link_to t('new_tqrdc_order'), new_tqrdc_order_path
+
+= form_tag(tqrdc_orders_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :name, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:name]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered
+    %thead
+      %tr
+        %th= t('action')
+
+        %th= t('attributes.id')
+
+        %th= t('attributes.supplier_id')
+
+        %th= t('attributes.period')
+
+        %th= t('attributes.status')
+
+        %th= t('attributes.territory')
+
+        %th= t('attributes.total')
+
+    %tbody
+      - @tqrdc_orders.each do |tqrdc_order|
+        %tr
+          %td
+            = link_to t('edit'), edit_tqrdc_order_path(tqrdc_order)
+            |
+            = link_to t('delete'), tqrdc_order, :method => :delete, :data => { :confirm => t('confirm_delete')}
+
+
+          %td= tqrdc_order.id
+
+          %td= tqrdc_order.supplier_id
+
+          %td= tqrdc_order.period
+
+          %td= tqrdc_order.status
+
+          %td= tqrdc_order.territory
+
+          %td= tqrdc_order.total
+
+
+%h5
+  = link_to t('new_tqrdc_order'), new_tqrdc_order_path
+
+= paginate @tqrdc_orders unless @tqrdc_orders.empty?

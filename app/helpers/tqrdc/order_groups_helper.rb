@@ -1,0 +1,2 @@
+module Tqrdc::OrderGroupsHelper
+end

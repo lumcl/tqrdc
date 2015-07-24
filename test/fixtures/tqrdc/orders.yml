@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  supplier_id: 1
+  period: MyString
+  status: MyString
+  territory: MyString
+  total: 1.5
+
+two:
+  id: 1
+  supplier_id: 1
+  period: MyString
+  status: MyString
+  territory: MyString
+  total: 1.5

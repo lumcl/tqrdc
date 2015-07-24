@@ -1,0 +1,12 @@
+%h3= t('attributes.tqrdc_order_group')
+%h5
+  = link_to t('edit'), edit_tqrdc_order_group_path(@tqrdc_order_group)
+  \|
+  = link_to t('back'), tqrdc_order_groups_path
+
+= render partial: 'layouts/show', :locals => {object: @tqrdc_order_group}
+
+%h5
+  = link_to t('edit'), edit_tqrdc_order_group_path(@tqrdc_order_group)
+  \|
+  = link_to t('back'), tqrdc_order_groups_path

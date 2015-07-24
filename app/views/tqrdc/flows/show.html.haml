@@ -1,0 +1,12 @@
+%h3= t('attributes.tqrdc_flow')
+%h5
+  = link_to t('edit'), edit_tqrdc_flow_path(@tqrdc_flow)
+  \|
+  = link_to t('back'), tqrdc_flows_path
+
+= render partial: 'layouts/show', :locals => {object: @tqrdc_flow}
+
+%h5
+  = link_to t('edit'), edit_tqrdc_flow_path(@tqrdc_flow)
+  \|
+  = link_to t('back'), tqrdc_flows_path

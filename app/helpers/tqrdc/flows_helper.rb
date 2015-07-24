@@ -1,0 +1,2 @@
+module Tqrdc::FlowsHelper
+end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  supplier: MyString
+  commodity_mgr_id: 1
+  start_period: MyString
+  end_period: MyString
+
+two:
+  id: 1
+  supplier: MyString
+  commodity_mgr_id: 1
+  start_period: MyString
+  end_period: MyString
