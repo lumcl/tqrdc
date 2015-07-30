@@ -1,24 +1,28 @@
-.panel.panel-primary
+.panel.panel-default
   .panel-heading
     = "TQRDC - #{@order.supplier} #{@order.period} 评分"
   .panel-body
     = form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
       - @order_groups.each do |order_group|
-        .panel.panel-success
+        .panel.panel-default
           .panel-heading
-            = @groups[order_group.group_id].name
+            = t(@groups[order_group.group_id].name)
           .panel-body
-            .table-responsive
-              %table.table.table-condensed.table-bordered.table-striped.table-hover
-                %thead
-                  %tr
-                    %th 题目
-                    %th 分数
-                %tbody
-                  - @order_lines.each do |order_line|
-                    - if order_line.order_group_id == order_group.id
-                      %tr
-                        %td= @qheads[order_line.qhead_id].name
-                        %td= select_tag "id_#{order_line.id}", options_from_collection_for_select(Tqrdc::Qline.where(:qhead_id => order_line.qhead.id), :id, :score_with_name), class: 'form-control'
-
-
+            - i = 0
+            - @order_lines.each do |order_line|
+              - if order_line.order_group_id == order_group.id
+                - i = i + 1
+                .panel.panel-default
+                  .panel-heading
+                    = "#{i}."
+                    = t(@qheads[order_line.qhead_id].name)
+                  .panel-body
+                    %table{:border => '0px;'}
+                      %tbody
+                        - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
+                          %tr
+                            %td{:width=>'20px'}
+                              %input{type: 'radio', class:'radio', id:"id_#{order_line.id}", name:"id_#{order_line.id}", value: qline.score.to_i}
+                            %td{:width=>'30px'}
+                              .text-center= qline.score.to_i
+                            %td= qline.name

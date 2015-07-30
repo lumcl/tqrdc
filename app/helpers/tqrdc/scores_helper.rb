@@ -1,0 +1,2 @@
+module Tqrdc::ScoresHelper
+end
