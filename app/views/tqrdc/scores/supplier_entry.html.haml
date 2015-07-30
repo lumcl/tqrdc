@@ -1,41 +1,40 @@
-.container.container-form
-  .panel.panel-default
-    .panel.panel-heading
-      .panel-title
-        %h4
-          = "TQRDC - #{@order.supplier} #{@order.period} 评分"
-      = button_tag class: 'btn btn-default small', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
-        %span.glyphicon.glyphicon-floppy-save
-        = t('save')
-      %input{:type=>'reset', :class => 'btn btn-default'}
-    .panel-body
-      = form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
-        - @order_groups.each do |order_group|
-          .panel.panel-default
-            .panel-heading.panel-title
-              = t(@groups[order_group.group_id].name)
-            .panel-body
-              - i = 0
-              - @order_lines.each do |order_line|
-                - if order_line.order_group_id == order_group.id
-                  - i = i + 1
-                  .panel.panel-default
-                    .panel-heading
-                      = "#{i}."
-                      = t(@qheads[order_line.qhead_id].name)
-                    .panel-body
-                      %table{:border => '0px;'}
-                        %tbody
-                          - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
-                            %tr
-                              %td{:width=>'20px'}
-                                %input{type: 'radio', class:'radio', id:"id_#{order_line.id}", name:"id_#{order_line.id}", value: qline.id}
-                              %td{:width=>'30px'}
-                                .text-center= qline.score.to_i
-                              %td= qline.name
-    .panel-footer
-      = button_tag class: 'btn btn-default', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
-        %span.glyphicon.glyphicon-floppy-save
-        = t('save')
-      %input{:type=>'reset', :class => 'btn btn-default'}
+.panel.panel-default
+  .panel.panel-heading
+    .panel-title
+      %h4
+        = "TQRDC - #{@order.supplier} #{@order.period} 评分"
+    = button_tag class: 'btn btn-default small', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
+      %span.glyphicon.glyphicon-floppy-save
+      = t('save')
+    %input{:type=>'reset', :class => 'btn btn-default'}
+  .panel-body
+    = form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
+      - @order_groups.each do |order_group|
+        .panel.panel-default
+          .panel-heading.panel-title
+            = t(@groups[order_group.group_id].name)
+          .panel-body
+            - i = 0
+            - @order_lines.each do |order_line|
+              - if order_line.order_group_id == order_group.id
+                - i = i + 1
+                .panel.panel-default
+                  .panel-heading
+                    = "#{i}."
+                    = t(@qheads[order_line.qhead_id].name)
+                  .panel-body
+                    %table{:border => '0px;'}
+                      %tbody
+                        - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
+                          %tr
+                            %td{:width=>'20px'}
+                              %input{type: 'radio', class:'radio', id:"id_#{order_line.id}", name:"id_#{order_line.id}", value: qline.id}
+                            %td{:width=>'30px'}
+                              .text-center= qline.score.to_i
+                            %td= qline.name
+  .panel-footer
+    = button_tag class: 'btn btn-default', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
+      %span.glyphicon.glyphicon-floppy-save
+      = t('save')
+    %input{:type=>'reset', :class => 'btn btn-default'}
 
