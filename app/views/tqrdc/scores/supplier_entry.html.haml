@@ -9,10 +9,19 @@
     %input{:type=>'reset', :class => 'btn btn-default'}
   .panel-body
     = form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
+      - ascii = 64
       - @order_groups.each do |order_group|
         .panel.panel-default
           .panel-heading.panel-title
-            = t(@groups[order_group.group_id].name)
+            .row
+              .col-lg-1.col-md-1.col-sm-1.col-xs-1
+                %h4
+                  = "#{(ascii += 1).chr}."
+              .col-lg-11.col-md-11.col-sm-11.col-xs-11
+                %h4
+                  = @groups[order_group.group_id].name.upcase
+                  %br
+                  = @groups[order_group.group_id].description
           .panel-body
             - i = 0
             - @order_lines.each do |order_line|
@@ -20,18 +29,27 @@
                 - i = i + 1
                 .panel.panel-default
                   .panel-heading
-                    = "#{i}."
-                    = t(@qheads[order_line.qhead_id].name)
+                    .row
+                      .col-lg-1.col-md-1.col-sm-1.col-xs-1
+                        %h5
+                          = "#{i}."
+                      .col-lg-11.col-md-11.col-sm-11.col-xs-11
+                        = @qheads[order_line.qhead_id].name
+                        %br
+                        = @qheads[order_line.qhead_id].description
                   .panel-body
-                    %table{:border => '0px;'}
+                    %table.table.table-condensed.table-bordered.table-striped.table-hover
                       %tbody
                         - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
                           %tr
-                            %td{:width=>'20px'}
+                            %td{:width=>'20px', :style=>'vertical-align: middle;'}
                               %input{type: 'radio', class:'radio', id:"id_#{order_line.id}", name:"id_#{order_line.id}", value: qline.id}
-                            %td{:width=>'30px'}
+                            %td{:width=>'30px', :style=>'vertical-align: middle;'}
                               .text-center= qline.score.to_i
-                            %td= qline.name
+                            %td
+                              = qline.name
+                              %p
+                              = qline.description
   .panel-footer
     = button_tag class: 'btn btn-default', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
       %span.glyphicon.glyphicon-floppy-save
