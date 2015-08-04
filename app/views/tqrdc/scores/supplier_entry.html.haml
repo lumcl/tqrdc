@@ -38,7 +38,7 @@
                         %br
                         = @qheads[order_line.qhead_id].description
                   .panel-body
-                    %table.table.table-condensed.table-bordered.table-striped.table-hover
+                    %table.table.table-condensed.table-bordered.table-hover
                       %tbody
                         - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
                           %tr

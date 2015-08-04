@@ -6,6 +6,8 @@
     = f.input :password
     = f.input :username
     = f.input :role
+    = f.input :territory
+    = #f.input :supplier, :as => :autocomplete, :source_query => autocomplete_supplier_name_tqrdc_suppliers_url , :items => 20, :minLength => 1
 
   .form-actions
     .clearfix

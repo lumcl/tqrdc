@@ -14,9 +14,13 @@
       %tr
         %th= t('action')
 
-        %th= t('attributes.id')
-
         %th= t('attributes.supplier')
+
+        %th= t('attributes.vname')
+
+        %th= "EMAIL"
+
+        %th= t('attributes.mtype')
 
         %th= t('attributes.commodity_mgr_id')
 
@@ -33,9 +37,13 @@
             = link_to t('delete'), tqrdc_supplier, :method => :delete, :data => { :confirm => t('confirm_delete')}
 
 
-          %td= tqrdc_supplier.id
-
           %td= tqrdc_supplier.supplier
+
+          %td= tqrdc_supplier.vname
+
+          %td= tqrdc_supplier.email
+
+          %td= tqrdc_supplier.mtype
 
           %td= tqrdc_supplier.commodity_mgr_id
 

@@ -7,11 +7,17 @@
 
     = f.input :supplier
 
+    = f.input :vname
+
+    = f.input :email
+
     = f.input :commodity_mgr_id
 
     = f.input :start_period
 
     = f.input :end_period
+
+    = f.input :mtype , collection: Figaro.env.mtype.split(",")
 
 
   .form-actions

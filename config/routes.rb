@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     resources :qheads
     resources :qlines  #browser若要訪問，就要加上這段
     resources :flows
-    resources :suppliers
+    resources :suppliers do
+      get :autocomplete_supplier_name, :on => :collection
+    end
     resources :orders
     resources :order_groups
     resources :order_lines

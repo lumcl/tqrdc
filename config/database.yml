@@ -11,9 +11,10 @@ default: &default
 
 development:
   adapter: oracle_enhanced
-  database: "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 172.28.18.201)(PORT = 1521)))(CONNECT_DATA = (SID =  m1)(SERVER = DEDICATED)))"
-  username: ruby2
-  password: ruby
+  database: "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 172.91.1.60)(PORT = 1521)))(CONNECT_DATA = (SID =  orcl)(SERVER = DEDICATED)))"
+  #database: "(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 172.28.18.201)(PORT = 1521)))(CONNECT_DATA = (SID =  m1)(SERVER = DEDICATED)))"
+  username: tqrdc
+  password: tqrdc
   pool: 5
   timeout: 5000
 

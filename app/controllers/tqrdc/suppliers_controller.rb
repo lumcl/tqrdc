@@ -1,6 +1,7 @@
 class Tqrdc::SuppliersController < ApplicationController
   before_action :set_tqrdc_supplier, only: [:show, :edit, :update, :destroy]
 
+  autocomplete :supplier, :vname, {class_name: 'Tqrdc::Supplier'}
   # GET /tqrdc/suppliers
   # GET /tqrdc/suppliers.json
   def index
@@ -69,6 +70,6 @@ class Tqrdc::SuppliersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tqrdc_supplier_params
-      params.require(:tqrdc_supplier).permit(:id, :supplier, :commodity_mgr_id, :start_period, :end_period)
+      params.require(:tqrdc_supplier).permit(:id, :supplier, :vname, :email , :commodity_mgr_id, :start_period, :end_period , :mtype)
     end
 end

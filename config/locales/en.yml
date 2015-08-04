@@ -46,6 +46,7 @@ en:
   new_tqrdc_order_group: '創建新評分子流程'
   new_tqrdc_order_line: '輸入評分分數'
 
+
   attributes:
     user: '用戶'
     created_at: '建立時間'
@@ -70,7 +71,7 @@ en:
     score: '分數'
     tqrdc/qhead: '題目'
     group_id: '分組號'
-    remark: '說明'
+    remark: '備註'
     tqrdc/qline: '選項內容'
     qhead_id: '題目'
     tqrdc/flow: '流程走向'
@@ -130,6 +131,10 @@ en:
     u2_qline: 'Supervisor簽核日期'
     u3_qline: 'Reviewer簽核日期'
     u4_qline: 'Approver簽核日期'
+    vname: '供應商名稱'
+    mtype: '電子/機構分類'
+    start_period: '起始年月'
+    end_period: '結束年月'
 
   views:
       pagination:
