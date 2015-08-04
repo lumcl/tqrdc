@@ -9,11 +9,11 @@
 
     = f.input :description
 
-    = f.input :qhead_id
+    = f.input :qhead_id , collection: Tqrdc::Qhead.all
 
-    = f.input :role
+    = f.input :role , collection: Figaro.env.role.split(",")
 
-    = f.input :territory
+    = f.input :territory , collection: Figaro.env.territory.split(",")
 
     = f.input :user_id
 
