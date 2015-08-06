@@ -13,15 +13,12 @@
       - @order_groups.each do |order_group|
         .panel.panel-default
           .panel-heading.panel-title
-            .row
-              .col-lg-1.col-md-1.col-sm-1.col-xs-1
-                %h4
-                  = "#{(ascii += 1).chr}."
-              .col-lg-11.col-md-11.col-sm-11.col-xs-11
-                %h4
-                  = @groups[order_group.group_id].name.upcase
-                  %br
-                  = @groups[order_group.group_id].description
+            .pull-left{:style=>'width:35px;'}
+              = "#{(ascii += 1).chr}."
+            .pull-left
+              = @groups[order_group.group_id].name.upcase
+              = @groups[order_group.group_id].description
+            .clearfix
           .panel-body
             - i = 0
             - @order_lines.each do |order_line|
@@ -29,30 +26,40 @@
                 - i = i + 1
                 .panel.panel-default
                   .panel-heading
-                    .row
-                      .col-lg-1.col-md-1.col-sm-1.col-xs-1
-                        %h5
-                          = "#{i}."
-                      .col-lg-11.col-md-11.col-sm-11.col-xs-11
+                    %h5
+                      .pull-left{:style=>'width:35px;'}
+                        = "#{i}."
+                      .pull-left
                         = @qheads[order_line.qhead_id].name
-                        %br
+                        %p
                         = @qheads[order_line.qhead_id].description
+                      .clearfix
                   .panel-body
-                    %table.table.table-condensed.table-bordered.table-hover
+                    %table.table.table-condensed.table-hover
                       %tbody
                         - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
-                          %tr
+                          %tr.radio-option{:id => "#{order_line.id}_#{qline.id}" }
                             %td{:width=>'20px', :style=>'vertical-align: middle;'}
-                              %input{type: 'radio', class:'radio', id:"id_#{order_line.id}", name:"id_#{order_line.id}", value: qline.id}
+                              %input{type: 'radio', class:'radio', id:"rd_#{order_line.id}_#{qline.id}", name:"rd_#{order_line.id}", value: qline.id}
                             %td{:width=>'30px', :style=>'vertical-align: middle;'}
                               .text-center= qline.score.to_i
                             %td
                               = qline.name
-                              %p
+                              %br
                               = qline.description
+                    %textarea.form-control{:name => "cm_#{order_line.id}", :id => "cm_#{order_line.id}", :placeholder => 'Comments / 意見'}
   .panel-footer
     = button_tag class: 'btn btn-default', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
       %span.glyphicon.glyphicon-floppy-save
       = t('save')
     %input{:type=>'reset', :class => 'btn btn-default'}
 
+:javascript
+  $(document).ready(function () {
+    $('.radio-option').each(function(){
+        $(this).dblclick(function () {
+          $('#rd_'+this.id).click();
+        })
+    });
+
+  });

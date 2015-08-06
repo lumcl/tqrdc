@@ -33,5 +33,5 @@ end
 group :development, :test do
   gem 'rubocop'
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
+  #gem 'web-console', '~> 2.0'
 end

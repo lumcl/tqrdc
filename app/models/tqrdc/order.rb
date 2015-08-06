@@ -5,6 +5,19 @@ class Tqrdc::Order < ActiveRecord::Base
 
   validates_uniqueness_of :supplier_id, :scope => [:period]
 
+
+  def self.update_scores(params)
+    order_line_ids = Array.new
+    qline_ids = Array.new
+    params.keys.each do |key|
+      order_line_ids.append key.split('_')[1]
+      qline_ids.append params[key]
+    end
+    order_lines = Tqrdc::OrderLine.find order_line_ids
+    qlines = Tqrdc::Qline.find qline_ids
+
+  end
+
   def self.monthly_create_order
     period = Time.now.strftime('%Y%m')
     suppliers = Tqrdc::Supplier
