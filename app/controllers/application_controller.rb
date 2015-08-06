@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
+  #config.web_console.whitelisted_ips = '172.91.132.0/16'
+
   def text_area_to_array(text_area)
     array = Array.new
     buf = text_area.split("\n")
