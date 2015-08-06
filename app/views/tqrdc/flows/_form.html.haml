@@ -15,7 +15,8 @@
 
     = f.input :territory , collection: Figaro.env.territory.split(",")
 
-    = f.input :user_id
+    = f.input :user , :as => :autocomplete, :source_query => autocomplete_user_email_users_url, :items => 20, :minLength => 1 ,
+     :hint => '請使用大寫輸入負責人, 1個字符后系統會給出建議清單'
 
     = f.input :seq
 

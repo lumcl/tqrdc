@@ -3,10 +3,14 @@
   %li=# link_to 'Edit account', edit_user_registration_path
   %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
   %li= link_to 'Users', users_path if current_user.role == 'admin'
+  %li= link_to '供應商主檔', tqrdc_suppliers_path if current_user.role == 'admin'
+  %li= link_to '題目群組', tqrdc_groups_path if current_user.role == 'admin'
+  %li= link_to '題目', tqrdc_qheads_path if current_user.role == 'admin'
+  %li= link_to '題目選項', tqrdc_qlines_path if current_user.role == 'admin'
+  %li= link_to '流程設定', tqrdc_flows_path if current_user.role == 'admin'
 -else
   %li= link_to 'Sign in', new_user_session_path
 
 - if user_signed_in? and current_user.role == 'supplier'
   %li= link_to t('attributes.u1_score'), supplier_entry_tqrdc_scores_path
-
 

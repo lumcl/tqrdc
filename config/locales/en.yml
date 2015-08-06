@@ -39,13 +39,14 @@ en:
   new_user: '創建用戶'
   edit_user: '編輯用戶'
 
-  new_tqrdc_group: '創建新TQRDC評分類別' #
+  new_tqrdc_group: '新TQRDC評分類別' #
   new_tqrdc_qhead: '創建新題目'
   new_tqrdc_qline: '創建新題目下拉選單'
+  new_tqrdc_supplier: '創建供應商'
+  new_tqrdc_flow: '設定流程走向'
   new_tqrdc_order: '創建新評分主流程'
   new_tqrdc_order_group: '創建新評分子流程'
   new_tqrdc_order_line: '輸入評分分數'
-
 
   attributes:
     user: '用戶'
@@ -71,7 +72,7 @@ en:
     score: '分數'
     tqrdc/qhead: '題目'
     group_id: '分組號'
-    remark: '備註'
+    remark: '備註 '
     tqrdc/qline: '選項內容'
     qhead_id: '題目'
     tqrdc/flow: '流程走向'

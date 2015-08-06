@@ -1,6 +1,5 @@
 class Tqrdc::FlowsController < ApplicationController
   before_action :set_tqrdc_flow, only: [:show, :edit, :update, :destroy]
-
   # GET /tqrdc/flows
   # GET /tqrdc/flows.json
   def index

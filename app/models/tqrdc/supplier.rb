@@ -8,6 +8,8 @@ class Tqrdc::Supplier < ActiveRecord::Base
   validates_presence_of :mtype
   #validates_inclusion_of :mtype, :in => ["M", "E"] , :message => "只能選擇輸入E(電子)或 M(機構)"
   validates_presence_of :commodity_mgr_id
+  has_many :orders , :class_name => 'Tqrdc::Order'
+
   def to_s
     vname
   end
