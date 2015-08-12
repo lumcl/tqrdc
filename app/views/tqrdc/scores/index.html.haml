@@ -1,0 +1,37 @@
+%h3= t('attributes.score')
+
+= form_tag(tqrdc_scores_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :period, nil, placeholder: t('attributes.period'), class: 'form-control input-sm', value: params[:period]
+  = text_field_tag :territory, nil, placeholder: t('attributes.territory'), class: 'form-control input-sm', value: params[:territory]
+  = text_field_tag :supplier, nil, placeholder: t('attributes.supplier'), class: 'form-control input-sm', value: params[:supplier]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+%p
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered
+    %thead
+      %tr
+        %th= t('action')
+        %th= t('attributes.period')
+        %th= t('attributes.territory')
+        %th= t('attributes.status')
+        %th= t('attributes.supplier')
+        %th= t('attributes.vname')
+        %th= t('attributes.mtype')
+        %th= t('attributes.total')
+        %th= t('attributes.commodity_mgr_id')
+    %tbody
+      - @orders.each do |order|
+        %tr
+          %td
+            = link_to t('eval'), edit_tqrdc_score_url({:id => order.id})
+          %td= order.period
+          %td= order.territory
+          %td= order.status
+          %td= order.lifnr
+          %td= order.vname
+          %td= order.mtype
+          %td= order.total
+          %td= order.username
+
+= paginate @orders

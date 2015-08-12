@@ -4,6 +4,7 @@ class Tqrdc::OrderLinesController < ApplicationController
   # GET /tqrdc/order_lines
   # GET /tqrdc/order_lines.json
   def index
+
     @tqrdc_order_lines = Tqrdc::OrderLine.all.page
   end
 

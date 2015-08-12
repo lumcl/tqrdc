@@ -1,0 +1,62 @@
+= form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
+
+  - ascii = 64
+  - @order.order_groups.each do |order_group|
+    %h2.panel-heading
+      .pull-left{:style=>'width:35px;'}
+        %b= "#{(ascii += 1).chr}."
+      .pull-left
+        %b= @groups[order_group.group_id].name.upcase
+        %b= @groups[order_group.group_id].description
+      .clearfix
+    - i = 0
+    - @order.order_lines.each do |order_line|
+      - if order_line.order_group_id == order_group.id
+        %table.table-responsive.table.table-condensed.table-bordered.small
+          %thead
+            %tr
+              %th{:width=> '10px'}
+                = "#{i += 1}."
+              %th
+                = @qheads[order_line.qhead_id].name
+                %p
+                = @qheads[order_line.qhead_id].description
+              %th{:width=> '30px'}
+                = t('attributes.score')
+              %th{:width=> '30px'}
+                = t('attributes.u1_user')
+              %th{:width=> '30px'}
+                = t('attributes.u2_user')
+              %th{:width=> '30px'}
+                = t('attributes.u3_user')
+              %th{:width=> '30px'}
+                = t('attributes.u4_user')
+          %tbody
+            - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
+              %tr
+                %td
+                %td
+                  = qline.name
+                  %br
+                  = qline.description
+                %td.text-center{:style=>'vertical-align: middle;'}
+                  = qline.score.to_i
+                %td.text-center{:style=>'vertical-align: middle;'}
+                  %input{type: 'radio', class:'radio', id:"rd_u1_#{order_line.id}_#{qline.id}", name:"rd_u1_#{order_line.id}", value: qline.id,
+                    disabled: "#{order_line.check_editable(current_user.id,1)}"}
+                %td.text-center{:style=>'vertical-align: middle;'}
+                  %input{type: 'radio', class:'radio', id:"rd_u2_#{order_line.id}_#{qline.id}", name:"rd_u2_#{order_line.id}", value: qline.id,
+                    disabled: "#{order_line.check_editable(current_user.id,2)}"}
+                %td.text-center{:style=>'vertical-align: middle;'}
+                  %input{type: 'radio', class:'radio', id:"rd_u3_#{order_line.id}_#{qline.id}", name:"rd_u3_#{order_line.id}", value: qline.id,
+                    disabled: "#{order_line.check_editable(current_user.id,3)}"}
+                %td.text-center{:style=>'vertical-align: middle;'}
+                  %input{type: 'radio', class:'radio', id:"rd_u4_#{order_line.id}_#{qline.id}", name:"rd_u4_#{order_line.id}", value: qline.id,
+                    disabled: "#{order_line.check_editable(current_user.id,4)}"}
+    %hr
+
+  .form-actions
+    .clearfix
+    = button_tag class: 'btn btn-danger', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
+      %span.glyphicon.glyphicon-floppy-save
+      = t('save')

@@ -1,58 +1,56 @@
-.panel.panel-default
-  .panel.panel-heading
-    .panel-title
-      %h4
-        = "TQRDC - #{@order.supplier} #{@order.period} 评分"
-    = button_tag class: 'btn btn-default small', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
-      %span.glyphicon.glyphicon-floppy-save
-      = t('save')
-    %input{:type=>'reset', :class => 'btn btn-default'}
-  .panel-body
-    = form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
-      - ascii = 64
-      - @order_groups.each do |order_group|
-        .panel.panel-default
-          .panel-heading.panel-title
-            .pull-left{:style=>'width:35px;'}
-              = "#{(ascii += 1).chr}."
-            .pull-left
-              = @groups[order_group.group_id].name.upcase
-              = @groups[order_group.group_id].description
-            .clearfix
-          .panel-body
-            - i = 0
-            - @order_lines.each do |order_line|
-              - if order_line.order_group_id == order_group.id
-                - i = i + 1
-                .panel.panel-default
-                  .panel-heading
-                    %h5
-                      .pull-left{:style=>'width:35px;'}
-                        = "#{i}."
-                      .pull-left
-                        = @qheads[order_line.qhead_id].name
-                        %p
-                        = @qheads[order_line.qhead_id].description
-                      .clearfix
-                  .panel-body
-                    %table.table.table-condensed.table-hover
-                      %tbody
-                        - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
-                          %tr.radio-option{:id => "#{order_line.id}_#{qline.id}" }
-                            %td{:width=>'20px', :style=>'vertical-align: middle;'}
-                              %input{type: 'radio', class:'radio', id:"rd_#{order_line.id}_#{qline.id}", name:"rd_#{order_line.id}", value: qline.id}
-                            %td{:width=>'30px', :style=>'vertical-align: middle;'}
-                              .text-center= qline.score.to_i
-                            %td
-                              = qline.name
-                              %br
-                              = qline.description
-                    %textarea.form-control{:name => "cm_#{order_line.id}", :id => "cm_#{order_line.id}", :placeholder => 'Comments / 意見'}
-  .panel-footer
-    = button_tag class: 'btn btn-default', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
-      %span.glyphicon.glyphicon-floppy-save
-      = t('save')
-    %input{:type=>'reset', :class => 'btn btn-default'}
+= form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
+
+  .well.small
+    %h4
+      = "TQRDC - #{@order.supplier} #{@order.period} 评分"
+
+  = button_tag class: 'btn btn-default small', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
+    %span.glyphicon.glyphicon-floppy-save
+    = t('save')
+  %input{:type=>'reset', :class => 'btn btn-default'}
+  %p
+
+  - ascii = 64
+  - @order_groups.each do |order_group|
+    .panel.panel-default
+      .panel-heading.panel-title
+        .pull-left{:style=>'width:35px;'}
+          = "#{(ascii += 1).chr}."
+        .pull-left
+          = @groups[order_group.group_id].name.upcase
+          = @groups[order_group.group_id].description
+        .clearfix
+      .panel-body
+        - i = 0
+        - @order_lines.each do |order_line|
+          - if order_line.order_group_id == order_group.id
+            - i = i + 1
+            .panel.panel-default
+              .panel-heading
+                %h5
+                  .pull-left{:style=>'width:35px;'}
+                    = "#{i}."
+                  .pull-left
+                    = @qheads[order_line.qhead_id].name
+                    %br
+                    = @qheads[order_line.qhead_id].description
+                  .clearfix
+              .panel-body
+                %table.table.table-condensed.table-hover
+                  %tbody
+                    - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
+                      %tr.radio-option{:id => "#{order_line.id}_#{qline.id}" }
+                        %td{:width=>'20px', :style=>'vertical-align: middle;'}
+                          %input{type: 'radio', class:'radio', id:"rd_#{order_line.id}_#{qline.id}", name:"rd_#{order_line.id}", value: qline.id}
+                        %td{:width=>'30px', :style=>'vertical-align: middle;'}
+                          .text-center= qline.score.to_i
+                        %td
+                          = qline.name
+                          %br
+                          = qline.description
+                    %tr
+                      %td{:colspan => '3'}
+                        %textarea.form-control{:name => "cm_#{order_line.id}", :id => "cm_#{order_line.id}", :placeholder => 'Comments / 意見'}
 
 :javascript
   $(document).ready(function () {
