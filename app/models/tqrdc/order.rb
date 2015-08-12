@@ -97,14 +97,14 @@ class Tqrdc::Order < ActiveRecord::Base
                 :status => 'CREATE',
                 :qhead_id => qhead.id,
                 :final_score => 0,
-                :u1_role => htable["#{qhead.id}_#{1}"].role,
-                :u1_user_id => htable["#{qhead.id}_#{1}"].user_id,
+                :u1_role => htable["#{qhead.id}_1"].role,
+                :u1_user_id => htable["#{qhead.id}_1"].user_id,
                 :u2_role => htable["#{qhead.id}_#{2}"].role,
-                :u2_user_id => htable["#{qhead.id}_#{2}"].user_id,
-                :u3_role => htable["#{qhead.id}_#{3}"].role,
-                :u3_user_id => htable["#{qhead.id}_#{3}"].user_id,
-                :u4_role => htable["#{qhead.id}_#{4}"].role,
-                :u4_user_id => htable["#{qhead.id}_#{4}"].user_id
+                :u2_user_id => htable["#{qhead.id}_2"].user_id,
+                :u3_role => htable["#{qhead.id}_3"].role,
+                :u3_user_id => htable["#{qhead.id}_3"].user_id,
+                :u4_role => htable["#{qhead.id}_4"].role,
+                :u4_user_id => htable["#{qhead.id}_4"].user_id
             )
           end #qheads.each do |qhead|
 
