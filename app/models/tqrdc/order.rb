@@ -86,6 +86,7 @@ class Tqrdc::Order < ActiveRecord::Base
 
           htable = {}
           list.each do |row|
+            row.user_id = supplier.commodity_mgr_id if row.user_id.nil?
             htable["#{row.qhead_id}_#{row.seq}"] = row
           end
 
@@ -99,7 +100,7 @@ class Tqrdc::Order < ActiveRecord::Base
                 :final_score => 0,
                 :u1_role => htable["#{qhead.id}_1"].role,
                 :u1_user_id => htable["#{qhead.id}_1"].user_id,
-                :u2_role => htable["#{qhead.id}_#{2}"].role,
+                :u2_role => htable["#{qhead.id}_2"].role,
                 :u2_user_id => htable["#{qhead.id}_2"].user_id,
                 :u3_role => htable["#{qhead.id}_3"].role,
                 :u3_user_id => htable["#{qhead.id}_3"].user_id,
@@ -113,12 +114,6 @@ class Tqrdc::Order < ActiveRecord::Base
       end #suppliers.each do |supplier|
 
     end #qrdc::Order.transaction
-
-  end
-
-  private
-
-  def get_user_info()
 
   end
 
