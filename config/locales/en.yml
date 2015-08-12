@@ -47,6 +47,7 @@ en:
   new_tqrdc_order: '創建新評分主流程'
   new_tqrdc_order_group: '創建新評分子流程'
   new_tqrdc_order_line: '輸入評分分數'
+  eval: '評分'
 
   attributes:
     user: '用戶'
@@ -108,10 +109,10 @@ en:
     u2_score: 'Supervisor評分'
     u3_score: 'Reviewer評分'
     u4_score: 'Approver評分'
-    u1_user: 'Applicant'
-    u2_user: 'Supervisor'
-    u3_user: 'Reviewer'
-    u4_user: 'Approver'
+    u1_user: '申請'
+    u2_user: '審查'
+    u3_user: '審核'
+    u4_user: '核准'
     u1_qline: 'Applicant選項'
     u2_qline: 'Supervisor選項'
     u3_qline: 'Reviewer選項'
@@ -136,6 +137,7 @@ en:
     mtype: '電子/機構分類'
     start_period: '起始年月'
     end_period: '結束年月'
+    commodity_mgr: '責任採購'
 
   views:
       pagination:
