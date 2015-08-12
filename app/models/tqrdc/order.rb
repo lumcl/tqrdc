@@ -42,6 +42,11 @@ class Tqrdc::Order < ActiveRecord::Base
               :status => 'CREATE',
               :total => 0
           )
+
+          list = Tqrdc::Flow.where(:territory => supplier.territory )
+                     .select(:qhead_id, :role ,:user_id ,:seq , :next_seq)
+                     .order(:qhead_id, :seq => :asc)
+
           qheads = Tqrdc::Qhead.where(:group_id => group.id).order(:name => :asc)
           qheads.each do |qhead|
             Tqrdc::OrderLine.create(
@@ -49,7 +54,7 @@ class Tqrdc::Order < ActiveRecord::Base
                 :order_group_id => order_group.id,
                 :status => 'CREATE',
                 :qhead_id => qhead.id,
-                :final_score => 0
+                :final_score => 0,
             )
           end #qheads.each do |qhead|
 
