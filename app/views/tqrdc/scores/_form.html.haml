@@ -42,17 +42,25 @@
                 %td.text-center{:style=>'vertical-align: middle;'}
                   = qline.score.to_i
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  %input{type: 'radio', class:'radio', id:"rd_u1_#{order_line.id}_#{qline.id}", name:"rd_u1_#{order_line.id}", value: qline.id,
-                    disabled: "#{order_line.check_editable(current_user.id,1)}"}
+                  - if order_line.u1_user_id == current_user.id
+                    %input{type: 'radio', class:'radio', id:"rd_u1_#{order_line.id}_#{qline.id}", name:"rd_u1_#{order_line.id}", value: qline.id, checked: (order_line.u1_qline_id == qline.id)}
+                  - elsif order_line.u1_qline_id == qline.id
+                    V
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  %input{type: 'radio', class:'radio', id:"rd_u2_#{order_line.id}_#{qline.id}", name:"rd_u2_#{order_line.id}", value: qline.id,
-                    disabled: "#{order_line.check_editable(current_user.id,2)}"}
+                  - if order_line.u2_user_id == current_user.id
+                    %input{type: 'radio', class:'radio', id:"rd_u2_#{order_line.id}_#{qline.id}", name:"rd_u2_#{order_line.id}", value: qline.id, checked: (order_line.u2_qline_id == qline.id)}
+                  - elsif order_line.u2_qline_id == qline.id
+                    V
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  %input{type: 'radio', class:'radio', id:"rd_u3_#{order_line.id}_#{qline.id}", name:"rd_u3_#{order_line.id}", value: qline.id,
-                    disabled: "#{order_line.check_editable(current_user.id,3)}"}
+                  - if order_line.u3_user_id == current_user.id
+                    %input{type: 'radio', class:'radio', id:"rd_u3_#{order_line.id}_#{qline.id}", name:"rd_u3_#{order_line.id}", value: qline.id, checked: (order_line.u3_qline_id == qline.id)}
+                  - elsif order_line.u3_qline_id == qline.id
+                    V
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  %input{type: 'radio', class:'radio', id:"rd_u4_#{order_line.id}_#{qline.id}", name:"rd_u4_#{order_line.id}", value: qline.id,
-                    disabled: "#{order_line.check_editable(current_user.id,4)}"}
+                  - if order_line.u4_user_id == current_user.id
+                    %input{type: 'radio', class:'radio', id:"rd_u4_#{order_line.id}_#{qline.id}", name:"rd_u4_#{order_line.id}", value: qline.id, checked: (order_line.u4_qline_id == qline.id)}
+                  - elsif order_line.u4_qline_id == qline.id
+                    V
     %hr
 
   .form-actions
