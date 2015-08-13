@@ -1,3 +1,25 @@
+.panel.panel-default
+  .panel-body
+    .col-xs-6
+      %dl.dl-horizontal
+        %dt= t('attributes.supplier')
+        %dd
+          = @order.supplier.supplier
+          = @order.supplier
+        %dt= t('attributes.period')
+        %dd
+          = @order.period
+        %dt= t('attributes.u1_user')
+        %dd= @u1_users.join(',')
+        %dt= t('attributes.u2_user')
+        %dd= @u2_users.join(',')
+        %dt= t('attributes.u3_user')
+        %dd= @u3_users.join(',')
+        %dt= t('attributes.u4_user')
+        %dd= @u4_users.join(',')
+    .col-xs-6
+      %dl.dl-horizontal
+
 = form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
 
   - ascii = 64
@@ -42,25 +64,39 @@
                 %td.text-center{:style=>'vertical-align: middle;'}
                   = qline.score.to_i
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  - if order_line.u1_user_id == current_user.id
+                  - if order_line.u1_user_id == current_user.id and order_line.u1_sign_date.nil?
                     %input{type: 'radio', class:'radio', id:"rd_u1_#{order_line.id}_#{qline.id}", name:"rd_u1_#{order_line.id}", value: qline.id, checked: (order_line.u1_qline_id == qline.id)}
                   - elsif order_line.u1_qline_id == qline.id
                     V
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  - if order_line.u2_user_id == current_user.id
+                  - if order_line.u2_user_id == current_user.id and order_line.u2_sign_date.nil?
                     %input{type: 'radio', class:'radio', id:"rd_u2_#{order_line.id}_#{qline.id}", name:"rd_u2_#{order_line.id}", value: qline.id, checked: (order_line.u2_qline_id == qline.id)}
                   - elsif order_line.u2_qline_id == qline.id
                     V
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  - if order_line.u3_user_id == current_user.id
+                  - if order_line.u3_user_id == current_user.id and order_line.u3_sign_date.nil?
                     %input{type: 'radio', class:'radio', id:"rd_u3_#{order_line.id}_#{qline.id}", name:"rd_u3_#{order_line.id}", value: qline.id, checked: (order_line.u3_qline_id == qline.id)}
                   - elsif order_line.u3_qline_id == qline.id
                     V
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  - if order_line.u4_user_id == current_user.id
+                  - if order_line.u4_user_id == current_user.id and order_line.u4_sign_date.nil?
                     %input{type: 'radio', class:'radio', id:"rd_u4_#{order_line.id}_#{qline.id}", name:"rd_u4_#{order_line.id}", value: qline.id, checked: (order_line.u4_qline_id == qline.id)}
                   - elsif order_line.u4_qline_id == qline.id
                     V
+          %tfoot
+            %tr
+              %td
+              %td{colspan:6}
+                - if order_line.u1_user_id == current_user.id
+                  %textarea.form-control{:name => "cm_u1_#{order_line.id}", :id => "cm_u1_#{order_line.id}", :placeholder => 'Comments / 意見'}
+                - elsif order_line.u2_user_id == current_user.id
+                  %textarea.form-control{:name => "cm_u2_#{order_line.id}", :id => "cm_u2_#{order_line.id}", :placeholder => 'Comments / 意見'}
+                - elsif order_line.u3_user_id == current_user.id
+                  %textarea.form-control{:name => "cm_u3_#{order_line.id}", :id => "cm_u3_#{order_line.id}", :placeholder => 'Comments / 意見'}
+                - else order_line.u4_user_id == current_user.id
+                  %textarea.form-control{:name => "cm_u4_#{order_line.id}", :id => "cm_u4_#{order_line.id}", :placeholder => 'Comments / 意見'}
+
+
     %hr
 
   .form-actions
