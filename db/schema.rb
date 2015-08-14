@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803053554) do
+ActiveRecord::Schema.define(version: 20150813093613) do
 
   create_table "tqrdc_flow", force: :cascade do |t|
     t.string   "name"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150803053554) do
     t.float    "total"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "seq",         precision: 38
   end
 
   add_index "tqrdc_order", ["period"], name: "index_tqrdc_order_on_period"
@@ -106,6 +107,7 @@ ActiveRecord::Schema.define(version: 20150803053554) do
     t.integer  "u4_qline_id",    precision: 38
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.integer  "seq",            precision: 38
   end
 
   add_index "tqrdc_order_line", ["order_group_id"], name: "i_tqr_ord_lin_ord_gro_id"

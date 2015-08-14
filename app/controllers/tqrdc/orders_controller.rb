@@ -69,6 +69,6 @@ class Tqrdc::OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tqrdc_order_params
-      params.require(:tqrdc_order).permit(:id, :supplier_id, :period, :status, :territory, :total)
+      params.require(:tqrdc_order).permit(:id, :supplier_id, :period, :status, :territory, :total , :seq)
     end
 end

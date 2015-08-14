@@ -4,7 +4,7 @@ class Tqrdc::QlinesController < ApplicationController
   # GET /tqrdc/qlines
   # GET /tqrdc/qlines.json
   def index
-    @tqrdc_qlines = Tqrdc::Qline.all.page
+    @tqrdc_qlines = Tqrdc::Qline.all.order(:id).page params[:page]
   end
 
   # GET /tqrdc/qlines/1
