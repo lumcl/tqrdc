@@ -11,13 +11,16 @@
 
     = f.input :email
 
-    = f.input :commodity_mgr_id
+    = f.input :commodity_mgr, :as => :autocomplete, :source_query => autocomplete_user_email_users_url, :items => 20, :minLength => 1,
+      :hint => '請使用大寫輸入責任採購, 1個字符后系統會給出建議清單'
 
     = f.input :start_period
 
     = f.input :end_period
 
     = f.input :mtype , collection: Figaro.env.mtype.split(",")
+
+    = f.input :territory , collection: Figaro.env.territory.split(",")
 
 
   .form-actions

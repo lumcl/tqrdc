@@ -70,6 +70,6 @@ class Tqrdc::SuppliersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tqrdc_supplier_params
-      params.require(:tqrdc_supplier).permit(:id, :supplier, :vname, :email , :commodity_mgr_id, :start_period, :end_period , :mtype)
+      params.require(:tqrdc_supplier).permit(:id, :supplier, :vname, :email , :commodity_mgr_id, :start_period, :end_period , :mtype , :territory)
     end
 end

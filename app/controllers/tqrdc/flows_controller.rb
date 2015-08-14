@@ -3,7 +3,8 @@ class Tqrdc::FlowsController < ApplicationController
   # GET /tqrdc/flows
   # GET /tqrdc/flows.json
   def index
-    @tqrdc_flows = Tqrdc::Flow.all.page
+    #@tqrdc_flows = Tqrdc::Flow.all.page #有分頁按鈕，但是沒有作用
+    @tqrdc_flows = Tqrdc::Flow.all.order(:id).page params[:page]
   end
 
   # GET /tqrdc/flows/1

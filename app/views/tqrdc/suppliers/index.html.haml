@@ -28,6 +28,8 @@
 
         %th= t('attributes.end_period')
 
+        %th= t('attributes.territory')
+
     %tbody
       - @tqrdc_suppliers.each do |tqrdc_supplier|
         %tr
@@ -50,6 +52,8 @@
           %td= tqrdc_supplier.start_period
 
           %td= tqrdc_supplier.end_period
+
+          %td= tqrdc_supplier.territory
 
 
 %h5
