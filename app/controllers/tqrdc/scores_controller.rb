@@ -1,5 +1,5 @@
 class Tqrdc::ScoresController < ApplicationController
-
+  before_action :set_tqrdc_order, only: [:show, :edit]
 
   def index
     #order.status != close
@@ -28,9 +28,7 @@ class Tqrdc::ScoresController < ApplicationController
 
   end
 
-
   def edit
-    #@order = Tqrdc::Order.includes(:order_groups, :order_lines).find params[:id]
     user_selections = "
       ((tqrdc_order_line.u1_user_id = #{current_user.id}) or
        (tqrdc_order_line.u2_user_id = #{current_user.id}) or
@@ -42,38 +40,12 @@ class Tqrdc::ScoresController < ApplicationController
                  .where('tqrdc_order_group.id = tqrdc_order_line.order_group_id')
                  .where(user_selections)
                  .find params[:id]
+  end
 
-    @qheads = {}
-    Tqrdc::Qhead.all.each do |qhead|
-      @qheads[qhead.id] = qhead
-    end
-
-    @groups = {}
-    Tqrdc::Group.all.each do |group|
-      @groups[group.id] = group
-    end
-
-    sql = "
-      select distinct '1' utype,username from tqrdc_order_line a join users u on u.id = a.u1_user_id where a.order_id = #{params[:id]}
-      union
-      select distinct '2',username from tqrdc_order_line a join users u on u.id = a.u2_user_id where a.order_id = #{params[:id]}
-      union
-      select distinct '3',username from tqrdc_order_line a join users u on u.id = a.u3_user_id where a.order_id = #{params[:id]}
-      union
-      select distinct '4',username from tqrdc_order_line a join users u on u.id = a.u4_user_id where a.order_id = #{params[:id]}
-    "
-    @u1_users = []
-    @u2_users = []
-    @u3_users = []
-    @u4_users = []
-
-    Tqrdc::Order.find_by_sql(sql).each do |row|
-      @u1_users.append row.username if row.utype == '1'
-      @u2_users.append row.username if row.utype == '2'
-      @u3_users.append row.username if row.utype == '3'
-      @u4_users.append row.username if row.utype == '4'
-    end
-
+  def show
+    @order = Tqrdc::Order
+                 .eager_load(:order_groups, :order_lines)
+                 .find params[:id]
   end
 
   def supplier_entry
@@ -103,7 +75,49 @@ class Tqrdc::ScoresController < ApplicationController
   end
 
   def update_scores
-    msg = Tqrdc::Order.update_scores(params, current_user.id, request.ip)
-    render :text => msg
+    order_id = Tqrdc::Order.update_scores(params, request.ip)
+    redirect_to url_for(:action => :show, :id=> order_id)
   end
+
+  private
+
+  def set_tqrdc_order
+    @qheads = {}
+    Tqrdc::Qhead.all.each do |qhead|
+      @qheads[qhead.id] = qhead
+    end
+
+    @groups = {}
+    Tqrdc::Group.all.each do |group|
+      @groups[group.id] = group
+    end
+
+    @qlines = {}
+    Tqrdc::Qline.all.each do |qline|
+      @qheads[qline.id] = qline
+    end
+
+    sql = "
+      select distinct '1' utype,username,u.id from tqrdc_order_line a join users u on u.id = a.u1_user_id where a.order_id = #{params[:id]}
+      union
+      select distinct '2',username,u.id from tqrdc_order_line a join users u on u.id = a.u2_user_id where a.order_id = #{params[:id]}
+      union
+      select distinct '3',username,u.id from tqrdc_order_line a join users u on u.id = a.u3_user_id where a.order_id = #{params[:id]}
+      union
+      select distinct '4',username,u.id from tqrdc_order_line a join users u on u.id = a.u4_user_id where a.order_id = #{params[:id]}
+    "
+    @u1_users = []
+    @u2_users = []
+    @u3_users = []
+    @u4_users = []
+    @users = {}
+    Tqrdc::Order.find_by_sql(sql).each do |row|
+      @u1_users.append row.username if row.utype == '1'
+      @u2_users.append row.username if row.utype == '2'
+      @u3_users.append row.username if row.utype == '3'
+      @u4_users.append row.username if row.utype == '4'
+      @users[row.id] = row.username
+    end
+  end
+
 end

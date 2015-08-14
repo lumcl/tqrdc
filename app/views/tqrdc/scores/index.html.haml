@@ -24,6 +24,7 @@
       - @orders.each do |order|
         %tr
           %td
+            = link_to t('show'), show_tqrdc_score_url({:id => order.id})
             = link_to t('eval'), edit_tqrdc_score_url({:id => order.id})
           %td= order.period
           %td= order.territory

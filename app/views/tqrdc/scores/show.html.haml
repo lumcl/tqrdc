@@ -1,0 +1,133 @@
+%h1 TQRDC
+%table.table.table-condensed.table-striped.table-bordered.small
+  %tbody
+    %tr
+      %td{width:'10%'}
+        .text-right
+          %b= t('attributes.supplier')
+      %td{width: '40%'}
+        = @order.supplier.supplier
+        = @order.supplier
+      %td{width: '10%'}
+        .text-right
+          %b= t('attributes.period')
+      %td{width: '40%'}
+        = @order.period
+    %tr
+      %td.text-right
+        %b= t('attributes.u1_user')
+      %td= @u1_users.join(', ')
+      %td
+      %td
+    %tr
+      %td.text-right
+        %b= t('attributes.u2_user')
+      %td= @u2_users.join(', ')
+      %td
+      %td
+    %tr
+      %td.text-right
+        %b= t('attributes.u3_user')
+      %td= @u3_users.join(', ')
+      %td
+      %td
+    %tr
+      %td.text-right
+        %b= t('attributes.u4_user')
+      %td= @u4_users.join(', ')
+      %td
+      %td
+
+- ascii = 64
+- @order.order_groups.each do |order_group|
+  %h2.panel-heading
+    .pull-left{:style=>'width:35px;'}
+      %b= "#{(ascii += 1).chr}."
+    .pull-left
+      %b= @groups[order_group.group_id].name.upcase
+      %b= @groups[order_group.group_id].description
+    .clearfix
+  - i = 0
+  - @order.order_lines.each do |order_line|
+    - if order_line.order_group_id == order_group.id
+      %table.table.table-condensed.table-bordered.small
+        %thead
+          %tr
+            %th{:width=> '10px'}
+              = "#{i += 1}."
+            %th
+              = @qheads[order_line.qhead_id].name
+              %p
+              = @qheads[order_line.qhead_id].description
+            %th{:width=> '30px', :class=> 'text-center'}
+              = t('attributes.score')
+            %th{:width=> '30px', :class=> 'text-center'}
+              %div{'data-toggle'=> 'tooltip', :title=> @users[order_line.u1_user_id]}
+                = t('attributes.u1_user')
+            %th{:width=> '30px', :class=> 'text-center'}
+              %div{'data-toggle'=> 'tooltip', :title=> @users[order_line.u2_user_id]}
+                = t('attributes.u2_user')
+            %th{:width=> '30px', :class=> 'text-center'}
+              %div{'data-toggle'=> 'tooltip', :title=> @users[order_line.u3_user_id]}
+                = t('attributes.u3_user')
+            %th{:width=> '30px', :class=> 'text-center'}
+              %div{'data-toggle'=> 'tooltip', :title=> @users[order_line.u4_user_id]}
+                = t('attributes.u4_user')
+        %tbody
+          - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
+            %tr
+              %td
+              %td
+                = qline.name
+                %br
+                = qline.description
+              %td.text-center{:style=>'vertical-align: middle;'}
+                = qline.score.to_i
+              %td.text-center{:style=>'vertical-align: middle;'}
+                - if order_line.u1_qline_id == qline.id
+                  %div{'data-toggle'=> 'tooltip', :title=> order_line.u1_comment}
+                    %span.glyphicon.glyphicon-ok
+              %td.text-center{:style=>'vertical-align: middle;'}
+                - if order_line.u2_qline_id == qline.id
+                  %div{'data-toggle'=> 'tooltip', :title=> order_line.u2_comment}
+                    %span.glyphicon.glyphicon-ok
+              %td.text-center{:style=>'vertical-align: middle;'}
+                - if order_line.u3_qline_id == qline.id
+                  %div{'data-toggle'=> 'tooltip', :title=> order_line.u3_comment}
+                    %span.glyphicon.glyphicon-ok
+              %td.text-center{:style=>'vertical-align: middle;'}
+                - if order_line.u4_qline_id == qline.id
+                  %div{'data-toggle'=> 'tooltip', :title=> order_line.u4_comment}
+                    %span.glyphicon.glyphicon-ok
+          %tr{:id=>"cm_#{order_line.id}"}
+            %td
+            %td= t('attributes.remark')
+            %td
+            %td.text-center{:style=>'vertical-align: middle;'}
+              - unless order_line.u1_comment.blank?
+                %div{'data-toggle'=> 'tooltip', :title=> order_line.u1_comment}
+                  %span.glyphicon.glyphicon-star
+            %td.text-center{:style=>'vertical-align: middle;'}
+              - unless order_line.u2_comment.blank?
+                %div{'data-toggle'=> 'tooltip', :title=> order_line.u2_comment}
+                  %span.glyphicon.glyphicon-star
+            %td.text-center{:style=>'vertical-align: middle;'}
+              - unless order_line.u3_comment.blank?
+                %div{'data-toggle'=> 'tooltip', :title=> order_line.u3_comment}
+                  %span.glyphicon.glyphicon-star
+            %td.text-center{:style=>'vertical-align: middle;'}
+              - unless order_line.u4_comment.blank?
+                %div{'data-toggle'=> 'tooltip', :title=> order_line.u4_comment}
+                  %span.glyphicon.glyphicon-star
+
+%hr
+
+
+:javascript
+  $(document).ready(function () {
+
+    $('[data-toggle="tooltip"]').each(function(){
+      $(this).tooltip();
+    });
+
+  });

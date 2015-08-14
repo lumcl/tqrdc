@@ -6,7 +6,83 @@ class Tqrdc::Order < ActiveRecord::Base
   validates_uniqueness_of :supplier_id, :scope => [:period]
 
 
-  def self.update_scores(params, current_user_id, ip)
+  def self.update_scores(params, ip)
+    #rd_u1_#{order_line.id}
+    #cm_u1_#{order_line.id}
+
+    order_line_ids = []
+    qline_ids = []
+
+    params.keys.each do |key|
+      if key[0..1] == 'rd' or key[0..1] == 'cm'
+        order_line_ids.append key.split('_')[2] unless order_line_ids.include?(key.split('_')[2])
+        qline_ids.append params[key] if key[0..1] == 'rd'
+      end
+    end
+
+    order_lines = Tqrdc::OrderLine.find order_line_ids
+    qlines = Tqrdc::Qline.find qline_ids
+
+    htable = {}
+    order_lines.each do |order_line|
+      htable[order_line.id.to_s] = order_line
+    end
+
+    qline_table = {}
+    qlines.each do |qline|
+      qline_table[qline.id.to_s] = qline
+    end
+
+    params.keys.each do |key|
+      buf = key.split('_')
+      if buf[0] == 'rd'
+        qline = qline_table[params[key]] if qline_table[params[key]]
+        if qline
+          if buf[1] == 'u1'
+            htable[buf[2]].u1_score = qline.score
+            htable[buf[2]].u1_sign_date = Time.now
+            htable[buf[2]].u1_qline_id = qline.id
+            htable[buf[2]].u1_ip = ip
+          elsif buf[1] == 'u2'
+            htable[buf[2]].u2_score = qline.score
+            htable[buf[2]].u2_sign_date = Time.now
+            htable[buf[2]].u2_qline_id = qline.id
+            htable[buf[2]].u2_ip = ip
+          elsif buf[1] == 'u3'
+            htable[buf[2]].u3_score = qline.score
+            htable[buf[2]].u3_sign_date = Time.now
+            htable[buf[2]].u3_qline_id = qline.id
+            htable[buf[2]].u3_ip = ip
+          elsif buf[1] == 'u4'
+            htable[buf[2]].u4_score = qline.score
+            htable[buf[2]].u4_sign_date = Time.now
+            htable[buf[2]].u4_qline_id = qline.id
+            htable[buf[2]].u4_ip = ip
+          end
+        end
+      elsif buf[0] == 'cm'
+        unless params[key].nil? or params[key].empty?
+          if buf[1] == 'u1'
+            htable[buf[2]].u1_comment = params[key]
+          elsif buf[1] == 'u2'
+            htable[buf[2]].u2_comment = params[key]
+          elsif buf[1] == 'u3'
+            htable[buf[2]].u3_comment = params[key]
+          elsif buf[1] == 'u4'
+            htable[buf[2]].u4_comment = params[key]
+          end
+        end
+      end
+    end
+
+    order_lines.each do |order_line|
+      order_line.save if order_line.changed?
+    end
+
+    return order_lines.first.order_id
+  end
+
+  def self.update_scores_1(params, current_user_id, ip)
     # position = u1, u2, u3, u4
     #rd_1"=>"6", "cm_1"=>"xxxxx",
     order_line_ids = Array.new
