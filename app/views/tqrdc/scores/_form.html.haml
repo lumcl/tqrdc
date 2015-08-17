@@ -82,22 +82,22 @@
                 %td.text-center{:style=>'vertical-align: middle;'}
                   = qline.score.to_i
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  - if order_line.u1_user_id == current_user.id
+                  - if order_line.u1_user_id == current_user.id and @order.seq == 1 and order_line.seq == 1
                     %input{type: 'radio', class:'radio', id:"rd_u1_#{order_line.id}_#{qline.id}", name:"rd_u1_#{order_line.id}", value: qline.id, checked: (order_line.u1_qline_id == qline.id)}
                   - elsif order_line.u1_qline_id == qline.id
                     %div{'data-toggle'=> 'tooltip', :title=> order_line.u1_comment} V
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  - if order_line.u2_user_id == current_user.id and order_line.u2_sign_date.nil?
+                  - if order_line.u2_user_id == current_user.id and @order.seq == 2 and order_line.seq == 2
                     %input{type: 'radio', class:'radio', id:"rd_u2_#{order_line.id}_#{qline.id}", name:"rd_u2_#{order_line.id}", value: qline.id, checked: (order_line.u2_qline_id == qline.id)}
                   - elsif order_line.u2_qline_id == qline.id
                     %div{'data-toggle'=> 'tooltip', :title=> order_line.u2_comment} V
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  - if order_line.u3_user_id == current_user.id and order_line.u3_sign_date.nil?
+                  - if order_line.u3_user_id == current_user.id and @order.seq == 3 and order_line.seq == 3
                     %input{type: 'radio', class:'radio', id:"rd_u3_#{order_line.id}_#{qline.id}", name:"rd_u3_#{order_line.id}", value: qline.id, checked: (order_line.u3_qline_id == qline.id)}
                   - elsif order_line.u3_qline_id == qline.id
                     %div{'data-toggle'=> 'tooltip', :title=> order_line.u3_comment} V
                 %td.text-center{:style=>'vertical-align: middle;'}
-                  - if order_line.u4_user_id == current_user.id and order_line.u4_sign_date.nil?
+                  - if order_line.u4_user_id == current_user.id and @order.seq == 4 and order_line.seq == 4
                     %input{type: 'radio', class:'radio', id:"rd_u4_#{order_line.id}_#{qline.id}", name:"rd_u4_#{order_line.id}", value: qline.id, checked: (order_line.u4_qline_id == qline.id)}
                   - elsif order_line.u4_qline_id == qline.id
                     %div{'data-toggle'=> 'tooltip', :title=> order_line.u4_comment} V
@@ -105,17 +105,17 @@
             %tr
               %td
               %td{colspan:6}
-                - if order_line.u1_user_id == current_user.id
-                  %textarea.form-control{:name => "cm_u1_#{order_line.id}", :id => "cm_u1_#{order_line.id}", :placeholder => 'Comments / 意見'}
+                - if order_line.u1_user_id == current_user.id and @order.seq == 1 and order_line.seq == 1
+                  %textarea.form-control.small{:name => "cm_u1_#{order_line.id}", :id => "cm_u1_#{order_line.id}", :placeholder => 'Comments / 意見'}
                     = order_line.u1_comment
-                - elsif order_line.u2_user_id == current_user.id
-                  %textarea.form-control{:name => "cm_u2_#{order_line.id}", :id => "cm_u2_#{order_line.id}", :placeholder => 'Comments / 意見'}
+                - elsif order_line.u2_user_id == current_user.id and @order.seq == 2 and order_line.seq == 2
+                  %textarea.form-control.small{:name => "cm_u2_#{order_line.id}", :id => "cm_u2_#{order_line.id}", :placeholder => 'Comments / 意見'}
                     = order_line.u2_comment
-                - elsif order_line.u3_user_id == current_user.id
-                  %textarea.form-control{:name => "cm_u3_#{order_line.id}", :id => "cm_u3_#{order_line.id}", :placeholder => 'Comments / 意見'}
+                - elsif order_line.u3_user_id == current_user.id and @order.seq == 3 and order_line.seq == 3
+                  %textarea.form-control.small{:name => "cm_u3_#{order_line.id}", :id => "cm_u3_#{order_line.id}", :placeholder => 'Comments / 意見'}
                     = order_line.u3_comment
-                - else order_line.u4_user_id == current_user.id
-                  %textarea.form-control{:name => "cm_u4_#{order_line.id}", :id => "cm_u4_#{order_line.id}", :placeholder => 'Comments / 意見'}
+                - else order_line.u4_user_id == current_user.id and @order.seq == 4 and order_line.seq == 4
+                  %textarea.form-control.small{:name => "cm_u4_#{order_line.id}", :id => "cm_u4_#{order_line.id}", :placeholder => 'Comments / 意見'}
                     = order_line.u4_comment
     %hr
 
@@ -124,6 +124,7 @@
     = button_tag class: 'btn btn-danger', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
       %span.glyphicon.glyphicon-floppy-save
       = t('save')
+
 
 :javascript
   $(document).ready(function () {

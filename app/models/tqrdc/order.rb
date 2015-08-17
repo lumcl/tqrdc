@@ -82,53 +82,16 @@ class Tqrdc::Order < ActiveRecord::Base
     return order_lines.first.order_id
   end
 
-  def self.update_scores_1(params, current_user_id, ip)
-    # position = u1, u2, u3, u4
-    #rd_1"=>"6", "cm_1"=>"xxxxx",
-    order_line_ids = Array.new
-    qline_ids = Array.new
+  def self.submit(order_id, user_id)
+    order = Tqrdc::Order.find order_id
+    order_lines = Tqrdc::OrderLine
+                      .where("u#{order.seq}_user_id = #{user_id}")
+                      .where("seq = #{order.seq}")
+                      .update_all({:seq => order.seq + 1})
 
-    params.keys.each do |key|
-      if key[0..1] == 'rd' or key[0..1] == 'cm'
-        order_line_ids.append key.split('_')[1] unless order_line_ids.include?(key.split('_')[1])
-        qline_ids.append params[key] if key[0..1] == 'rd'
-      end
-    end
+    # .eager_load(:order_groups, :order_lines)
+    # .find order_id
 
-    # assumptions < 1000 id
-    order_lines = Tqrdc::OrderLine.find order_line_ids
-    qlines = Tqrdc::Qline.find qline_ids
-
-    order_lines.each do |order_line|
-      score = 0
-      qline_id = params["rd_#{order_line.id}"] || ''
-      unless qline_id == ''
-        qlines.each do |row|
-          if row.id == qline_id.to_i
-            score = row.score
-            break
-          end
-        end
-      end
-      comment = params["cm_#{order_line.id}"] || ''
-
-      if current_user_id == order_line.u1_user_id
-        seq = '1'
-      elsif current_user_id == order_line.u2_user_id
-        seq = '2'
-      elsif current_user_id == order_line.u3_user_id
-        seq = '3'
-      else
-        seq = '4'
-      end
-
-      eval("order_line.u#{seq}_sign_date = Time.now")
-      eval("order_line.u#{seq}_score = score")
-      eval("order_line.u#{seq}_qline_id = qline_id")
-      eval("order_line.u#{seq}_ip = ip")
-      eval("order_line.u#{seq}_comment = comment")
-    end
-    order_line.save
   end
 
   def self.monthly_create_order

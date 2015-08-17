@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       get :supplier_entry, :on => :collection
       get :supplier_enquiry, :on => :collection
       post :update_scores, :on => :collection
+      get :submit, :on => :member
     end
 
     resources :groups do

@@ -1,3 +1,8 @@
+%h5.hidden-print
+  = link_to t('edit'), edit_tqrdc_score_path(@order)
+  \|
+  = link_to t('back'), tqrdc_scores_path
+
 %h1 TQRDC
 %table.table.table-condensed.table-striped.table-bordered.small
   %tbody
@@ -99,29 +104,49 @@
                 - if order_line.u4_qline_id == qline.id
                   %div{'data-toggle'=> 'tooltip', :title=> order_line.u4_comment}
                     %span.glyphicon.glyphicon-ok
-          %tr{:id=>"cm_#{order_line.id}"}
-            %td
-            %td= t('attributes.remark')
-            %td
-            %td.text-center{:style=>'vertical-align: middle;'}
-              - unless order_line.u1_comment.blank?
-                %div{'data-toggle'=> 'tooltip', :title=> order_line.u1_comment}
-                  %span.glyphicon.glyphicon-star
-            %td.text-center{:style=>'vertical-align: middle;'}
-              - unless order_line.u2_comment.blank?
-                %div{'data-toggle'=> 'tooltip', :title=> order_line.u2_comment}
-                  %span.glyphicon.glyphicon-star
-            %td.text-center{:style=>'vertical-align: middle;'}
-              - unless order_line.u3_comment.blank?
-                %div{'data-toggle'=> 'tooltip', :title=> order_line.u3_comment}
-                  %span.glyphicon.glyphicon-star
-            %td.text-center{:style=>'vertical-align: middle;'}
-              - unless order_line.u4_comment.blank?
-                %div{'data-toggle'=> 'tooltip', :title=> order_line.u4_comment}
-                  %span.glyphicon.glyphicon-star
+          - unless order_line.u1_comment.blank?
+            %tr
+              %td
+              %td{:colspan => 6}
+                .col-xs-2.col-sm-1
+                  .text-right
+                    %kbd= @users[order_line.u1_user_id]
+                .col-xs-10.col-sm-11
+                  = order_line.u1_comment
+          - unless order_line.u2_comment.blank?
+            %tr
+              %td
+              %td{:colspan => 6}
+                .col-xs-2.col-sm-1
+                  .text-right
+                    %kbd= @users[order_line.u2_user_id]
+                .col-xs-10.col-sm-11
+                  = order_line.u2_comment
+          - unless order_line.u3_comment.blank?
+            %tr
+              %td
+              %td{:colspan => 6}
+                .col-xs-2.col-sm-1
+                  .text-right
+                    %kbd= @users[order_line.u3_user_id]
+                .col-xs-10.col-sm-11
+                  = order_line.u3_comment
+          - unless order_line.u4_comment.blank?
+            %tr
+              %td
+              %td{:colspan => 6}
+                .col-xs-2.col-sm-1
+                  .text-right
+                    %kbd= @users[order_line.u4_user_id]
+                .col-xs-10.col-sm-11
+                  = order_line.u4_comment
 
 %hr
 
+%h5.hidden-print
+  = link_to t('edit'), edit_tqrdc_score_path(@order)
+  \|
+  = link_to t('back'), tqrdc_scores_path
 
 :javascript
   $(document).ready(function () {

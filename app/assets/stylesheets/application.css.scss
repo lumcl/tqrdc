@@ -17,3 +17,4 @@
 th{background-color: #F8F8F8;}
 a:hover {color: red; text-decoration:underline;}
 .container-form{max-width: 768px;}
+@media print{.no-print{display: none !important;}}

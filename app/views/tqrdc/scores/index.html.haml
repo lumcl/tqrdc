@@ -8,31 +8,40 @@
     %span.glyphicon.glyphicon-search
 %p
 .table-responsive
-  %table.table.table-hover.table-condensed.table-bordered
+  %table.table.table-hover.table-condensed.table-bordered.small
     %thead
       %tr
-        %th= t('action')
-        %th= t('attributes.period')
-        %th= t('attributes.territory')
-        %th= t('attributes.status')
-        %th= t('attributes.supplier')
-        %th= t('attributes.vname')
-        %th= t('attributes.mtype')
-        %th= t('attributes.total')
-        %th= t('attributes.commodity_mgr_id')
+        %th.text-center= t('action')
+        %th.text-center= t('attributes.period')
+        %th.text-center= t('attributes.territory')
+        %th.text-center= t('attributes.status')
+        %th.text-center= t('attributes.supplier')
+        %th.text-center= t('attributes.vname')
+        %th.text-center= t('attributes.mtype')
+        %th.text-center= t('attributes.total')
+        %th.text-center= t('attributes.seq')
+        %th.text-center= t('question')
+        %th.text-center= t('no_reply')
     %tbody
       - @orders.each do |order|
-        %tr
+        %tr{:id=>"order_#{order.id}"}
           %td
-            = link_to t('show'), show_tqrdc_score_url({:id => order.id})
-            = link_to t('eval'), edit_tqrdc_score_url({:id => order.id})
-          %td= order.period
+            %a{:name=> "order_#{order.id}", :href=>'#'}
+            = link_to t('show'), url_for(:action=>'show', :id=> order.id)
+            - if order.question > 0
+              |
+              = link_to t('eval'), edit_tqrdc_score_url({:id => order.id})
+            - if order.question > 0 and order.no_answer == 0
+              |
+              = link_to t('submit'), submit_tqrdc_score_url({:id => order.id})
           %td= order.territory
           %td= order.status
           %td= order.lifnr
           %td= order.vname
           %td= order.mtype
-          %td= order.total
-          %td= order.username
+          %td.text-right= order.total
+          %td.text-center= t("attributes.u#{order.seq}_user")
+          %td.text-center= order.question
+          %td.text-center= order.no_answer
 
 = paginate @orders
