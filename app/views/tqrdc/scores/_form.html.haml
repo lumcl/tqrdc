@@ -1,65 +1,88 @@
-%table.table.table-responsive.table-condensed.table-striped.table-bordered
+%a{:name=>'top', :href=>'#'}
+%h5.hidden-print
+  = link_to t('edit'), edit_tqrdc_score_path(@order)
+  \|
+  = link_to t('back'), tqrdc_scores_path({:anchor => "order_#{@order.id}"})
+  - @order.order_groups.each do |order_group|
+    |
+    = link_to "#{@groups[order_group.group_id].name} #{@groups[order_group.group_id].description}", "##{@groups[order_group.group_id].name.upcase}"
+
+%table.table.table-condensed.table-striped.table-bordered.small
   %tbody
     %tr
-      %td{width:'10%'}
-        .text-right
+      %td{width:'15%'}
+        .text-right.text-primary
           %b= t('attributes.supplier')
-      %td{width: '40%'}
+      %td{width: '35%'}
         = @order.supplier.supplier
         = @order.supplier
-      %td{width: '10%'}
-        .text-right
+      %td{width: '15%'}
+        .text-right.text-primary
           %b= t('attributes.period')
-      %td{width: '40%'}
+      %td{width: '35%'}
         = @order.period
     %tr
-      %td.text-right
+      %td.text-right.text-primary
         %b= t('attributes.u1_user')
       %td= @u1_users.join(', ')
-      %td
-      %td
+      %td.text-right.text-primary= t('attributes.u1_tot')
+      %td= @order.u1_tot.to_i
     %tr
-      %td.text-right
+      %td.text-right.text-primary
         %b= t('attributes.u2_user')
       %td= @u2_users.join(', ')
-      %td
-      %td
+      %td.text-right.text-primary= t('attributes.u2_tot')
+      %td= @order.u2_tot.to_i
     %tr
-      %td.text-right
+      %td.text-right.text-primary
         %b= t('attributes.u3_user')
       %td= @u3_users.join(', ')
-      %td
-      %td
+      %td.text-right.text-primary= t('attributes.u3_tot')
+      %td= @order.u3_tot.to_i
     %tr
-      %td.text-right
+      %td.text-right.text-primary
         %b= t('attributes.u4_user')
       %td= @u4_users.join(', ')
-      %td
-      %td
+      %td.text-right.text-primary= t('attributes.u4_tot')
+      %td= @order.u4_tot.to_i
+
 
 
 = form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
 
   - ascii = 64
   - @order.order_groups.each do |order_group|
-    %h2.panel-heading
-      .pull-left{:style=>'width:35px;'}
-        %b= "#{(ascii += 1).chr}."
-      .pull-left
-        %b= @groups[order_group.group_id].name.upcase
-        %b= @groups[order_group.group_id].description
-      .clearfix
+    %a{:name=> @groups[order_group.group_id].name.upcase, :href=>"#"}
+    %table.table.table-condensed.table-bordered.small
+      %tr
+        %th{:width=> '20px'}
+        %td
+          %h4
+            %b= "#{(ascii += 1).chr}."
+            %b= @groups[order_group.group_id].name.upcase
+            %b= @groups[order_group.group_id].description
+        %td{:width=> '30px', :class=> 'text-center',:style=>'vertical-align: middle;'}
+          %a{:href=>'#top'}
+            .glyphicon.glyphicon-arrow-up
+        %td{:width=> '30px', :class=> 'text-center',:style=>'vertical-align: middle;'}
+          %b= order_group.u1_tot.to_i
+        %td{:width=> '30px', :class=> 'text-center',:style=>'vertical-align: middle;'}
+          %b= order_group.u2_tot.to_i
+        %td{:width=> '30px', :class=> 'text-center',:style=>'vertical-align: middle;'}
+          %b= order_group.u3_tot.to_i
+        %td{:width=> '30px', :class=> 'text-center',:style=>'vertical-align: middle;'}
+          %b= order_group.u4_tot.to_i
     - i = 0
     - @order.order_lines.each do |order_line|
       - if order_line.order_group_id == order_group.id
         %table.table-responsive.table.table-condensed.table-bordered.small
           %thead
             %tr
-              %th{:width=> '10px'}
+              %th{:width=> '20px'}
                 = "#{i += 1}."
               %th
-                = @qheads[order_line.qhead_id].name
-                %p
+                .text-primary
+                  = @qheads[order_line.qhead_id].name
                 = @qheads[order_line.qhead_id].description
               %th{:width=> '30px', :class=> 'text-center'}
                 = t('attributes.score')
@@ -76,8 +99,8 @@
               %tr
                 %td
                 %td
-                  = qline.name
-                  %br
+                  .text-primary
+                    = qline.name
                   = qline.description
                 %td.text-center{:style=>'vertical-align: middle;'}
                   = qline.score.to_i
@@ -101,6 +124,59 @@
                     %input{type: 'radio', class:'radio', id:"rd_u4_#{order_line.id}_#{qline.id}", name:"rd_u4_#{order_line.id}", value: qline.id, checked: (order_line.u4_qline_id == qline.id)}
                   - elsif order_line.u4_qline_id == qline.id
                     %div{'data-toggle'=> 'tooltip', :title=> order_line.u4_comment} V
+
+            - unless order_line.u1_comment.blank? and order_line.u2_comment.blank? and order_line.u3_comment.blank? and order_line.u4_comment.blank?
+              %tr
+                %td
+                %td{:colspan => 6}
+                  - unless order_line.u1_comment.blank?
+                    .media
+                      .media-left.small
+                        %img.media-object{:src=>'/person.jpg', :alt=>'*'}
+                      .media-body
+                        %h6.media-heading
+                          = t('attributes.u1_user')
+                          %span.text-primary
+                            = @users[order_line.u1_user_id]
+                          %small
+                            = order_line.u1_sign_date.strftime('%Y-%m-%d %H:%M') unless order_line.u1_sign_date.nil?
+                        = order_line.u1_comment
+                  - unless order_line.u2_comment.blank?
+                    .media
+                      .media-left.small
+                        %img.media-object{:src=>'/person.jpg', :alt=>'*'}
+                      .media-body
+                        %h6.media-heading
+                          = t('attributes.u2_user')
+                          %span.text-primary
+                            = @users[order_line.u2_user_id]
+                          %small
+                            = order_line.u2_sign_date.strftime('%Y-%m-%d %H:%M') unless order_line.u2_sign_date.nil?
+                        = order_line.u2_comment
+                  - unless order_line.u3_comment.blank?
+                    .media
+                      .media-left.small
+                        %img.media-object{:src=>'/person.jpg', :alt=>'*'}
+                      .media-body
+                        %h6.media-heading
+                          = t('attributes.u3_user')
+                          %span.text-primary
+                            = @users[order_line.u3_user_id]
+                          %small
+                            = order_line.u3_sign_date.strftime('%Y-%m-%d %H:%M') unless order_line.u3_sign_date.nil?
+                        = order_line.u3_comment
+                  - unless order_line.u4_comment.blank?
+                    .media
+                      .media-left.small
+                        %img.media-object{:src=>'/person.jpg', :alt=>'*'}
+                      .media-body
+                        %h6.media-heading
+                          = t('attributes.u4_user')
+                          %span.text-primary
+                            = @users[order_line.u4_user_id]
+                          %small
+                            = order_line.u4_sign_date.strftime('%Y-%m-%d %H:%M') unless order_line.u4_sign_date.nil?
+                        = order_line.u4_comment
           %tfoot
             %tr
               %td

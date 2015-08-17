@@ -131,7 +131,7 @@ class Tqrdc::ScoresController < ApplicationController
 
     @qlines = {}
     Tqrdc::Qline.all.each do |qline|
-      @qheads[qline.id] = qline
+      @qlines[qline.id] = qline
     end
 
     sql = "
