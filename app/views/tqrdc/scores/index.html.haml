@@ -1,7 +1,7 @@
 %h3= t('attributes.score')
 
 = form_tag(tqrdc_scores_url, method: 'get', class: 'form-inline') do
-  = text_field_tag :period, nil, placeholder: t('attributes.period'), class: 'form-control input-sm', value: params[:period]
+  = text_field_tag :period, nil, placeholder: t('attributes.period'), class: 'form-control input-sm', value: params[:period] || (Time.now - 1.month).strftime('%Y%m')
   = text_field_tag :territory, nil, placeholder: t('attributes.territory'), class: 'form-control input-sm', value: params[:territory]
   = text_field_tag :supplier, nil, placeholder: t('attributes.supplier'), class: 'form-control input-sm', value: params[:supplier]
   = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do

@@ -7,7 +7,7 @@ class Tqrdc::ScoresController < ApplicationController
     #order_line.uXuser_id == current_user_id
 
     supplier = params[:supplier] || ''
-    period = params[:period] || ''
+    period = params[:period] || (Time.now - 1.month).strftime('%Y%m')
     territory = params[:territory] || ''
 
     sql = "

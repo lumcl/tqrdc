@@ -73,7 +73,7 @@
         %td{:width=> '30px', :class=> 'text-center',:style=>'vertical-align: middle;'}
           %b= order_group.u4_tot.to_i
     - i = 0
-    - @order.order_lines.each do |order_line|
+    - (@order.order_lines.sort_by &:id).each do |order_line|
       - if order_line.order_group_id == order_group.id
         %table.table-responsive.table.table-condensed.table-bordered.small
           %thead
