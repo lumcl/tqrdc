@@ -133,7 +133,8 @@ class Tqrdc::Order < ActiveRecord::Base
             :period => period,
             :status => 'CREATE',
             :territory => supplier.territory,
-            :total => 0
+            :total => 0,
+            :seq => 1
         )
 
         Tqrdc::Group.all.order(:id => :asc).each do |group|
@@ -169,7 +170,8 @@ class Tqrdc::Order < ActiveRecord::Base
                 :u3_role => htable["#{qhead.id}_3"].role,
                 :u3_user_id => htable["#{qhead.id}_3"].user_id,
                 :u4_role => htable["#{qhead.id}_4"].role,
-                :u4_user_id => htable["#{qhead.id}_4"].user_id
+                :u4_user_id => htable["#{qhead.id}_4"].user_id,
+                :seq => 1
             )
           end #qheads.each do |qhead|
 
