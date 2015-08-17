@@ -116,6 +116,7 @@ en:
     u2_user: '審查'
     u3_user: '審核'
     u4_user: '核准'
+    u5_user: '歸檔'
     u1_qline: 'Applicant選項'
     u2_qline: 'Supervisor選項'
     u3_qline: 'Reviewer選項'
