@@ -34,6 +34,7 @@
             - if order.question > 0 and order.no_answer == 0
               |
               = link_to t('submit'), submit_tqrdc_score_url({:id => order.id})
+          %td= order.period
           %td= order.territory
           %td= order.status
           %td= order.lifnr

@@ -20,9 +20,9 @@ class Tqrdc::ScoresController < ApplicationController
         end question,
         case
           when x.seq = 1 then (select count(*) from tqrdc_order_line u1 where u1.order_id = x.id and u1.u1_user_id = #{current_user.id} and u1.u1_qline_id is null and u1.seq = x.seq)
-          when x.seq = 2 then (select count(*) from tqrdc_order_line u2 where u2.order_id = x.id and u2.u2_user_id = #{current_user.id} and u2.u1_qline_id is null and u2.seq = x.seq)
-          when x.seq = 3 then (select count(*) from tqrdc_order_line u3 where u3.order_id = x.id and u3.u3_user_id = #{current_user.id} and u3.u1_qline_id is null and u3.seq = x.seq)
-          when x.seq = 4 then (select count(*) from tqrdc_order_line u4 where u4.order_id = x.id and u4.u4_user_id = #{current_user.id} and u4.u1_qline_id is null and u4.seq = x.seq)
+          when x.seq = 2 then (select count(*) from tqrdc_order_line u2 where u2.order_id = x.id and u2.u2_user_id = #{current_user.id} and u2.u2_qline_id is null and u2.seq = x.seq)
+          when x.seq = 3 then (select count(*) from tqrdc_order_line u3 where u3.order_id = x.id and u3.u3_user_id = #{current_user.id} and u3.u3_qline_id is null and u3.seq = x.seq)
+          when x.seq = 4 then (select count(*) from tqrdc_order_line u4 where u4.order_id = x.id and u4.u4_user_id = #{current_user.id} and u4.u4_qline_id is null and u4.seq = x.seq)
         end no_answer
       from (
           select distinct a.id,a.period,a.territory,a.status,b.supplier lifnr,b.vname,b.mtype,a.total,u.username,a.seq
