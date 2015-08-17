@@ -75,24 +75,49 @@ class Tqrdc::Order < ActiveRecord::Base
       end
     end
 
-    order_lines.each do |order_line|
-      order_line.save if order_line.changed?
+    Tqrdc::Order.transaction do
+      Tqrdc::OrderLine.transaction do
+        order_lines.each do |order_line|
+          order_line.save if order_line.changed?
+        end
+      end
+      Tqrdc::OrderGroup.transaction do
+        sql = "
+          update tqrdc_order_group a set
+           u1_tot=(select sum(b.u1_score) from tqrdc_order_line b where b.order_group_id=a.id and b.order_id=a.order_id),
+           u2_tot=(select sum(b.u2_score) from tqrdc_order_line b where b.order_group_id=a.id and b.order_id=a.order_id),
+           u3_tot=(select sum(b.u3_score) from tqrdc_order_line b where b.order_group_id=a.id and b.order_id=a.order_id),
+           u4_tot=(select sum(b.u4_score) from tqrdc_order_line b where b.order_group_id=a.id and b.order_id=a.order_id)
+          where a.order_id = #{order_lines.first.order.id}
+        "
+        Tqrdc::OrderGroup.connection.execute sql
+      end
+
+      sql = "
+        update tqrdc_order a set
+         u1_tot=(select sum(b.u1_score) from tqrdc_order_line b where b.order_id=a.id),
+         u2_tot=(select sum(b.u2_score) from tqrdc_order_line b where b.order_id=a.id),
+         u3_tot=(select sum(b.u3_score) from tqrdc_order_line b where b.order_id=a.id),
+         u4_tot=(select sum(b.u4_score) from tqrdc_order_line b where b.order_id=a.id)
+        where a.id = #{order_lines.first.order.id}
+      "
+      Tqrdc::OrderGroup.connection.execute sql
     end
 
     return order_lines.first.order_id
   end
 
-  def self.submit(order_id, user_id)
-    order = Tqrdc::Order.find order_id
-    order_lines = Tqrdc::OrderLine
-                      .where("u#{order.seq}_user_id = #{user_id}")
-                      .where("seq = #{order.seq}")
-                      .update_all({:seq => order.seq + 1})
-
-    # .eager_load(:order_groups, :order_lines)
-    # .find order_id
-
-  end
+  # def self.submit(order_id, user_id)
+  #   order = Tqrdc::Order.find order_id
+  #   Tqrdc::OrderLine
+  #       .where("u#{order.seq}_user_id = #{user_id}")
+  #       .where("seq = #{order.seq}")
+  #       .update_all({:seq => order.seq + 1})
+  #
+  #
+  #   # .eager_load(:order_groups, :order_lines)
+  #   # .find order_id
+  # end
 
   def self.monthly_create_order
     period = Time.now.strftime('%Y%m')
