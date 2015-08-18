@@ -125,6 +125,12 @@ class Tqrdc::Order < ActiveRecord::Base
                     .where("'#{period}' between start_period and end_period")
                     .order(:territory => :asc, :supplier => :asc)
 
+    sql = "select a.* from tqrdc_supplier a left join tqrdc_order b
+              on a.id = b.supplier_id and b.period='#{period}'
+            where '#{period}' between a.start_period and a.end_period
+            and b.id is null  order by a.territory , supplier asc "
+    suppliers = Tqrdc::Supplier.find_by_sql sql
+
     Tqrdc::Order.transaction do
 
       suppliers.each do |supplier|

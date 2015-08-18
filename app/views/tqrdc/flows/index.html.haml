@@ -5,6 +5,8 @@
 
 = form_tag(tqrdc_flows_url, method: 'get', class: 'form-inline') do
   = text_field_tag :name, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:name]
+  = text_field_tag :territory, nil, placeholder: t('attributes.territory'), class: 'form-control input-sm', value: params[:territory]
+  = text_field_tag :seq, nil, placeholder: t('attributes.seq'), class: 'form-control input-sm', value: params[:seq]
   = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
     %span.glyphicon.glyphicon-search
 

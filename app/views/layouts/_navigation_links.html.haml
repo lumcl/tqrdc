@@ -8,6 +8,7 @@
   %li= link_to '題目', tqrdc_qheads_path if current_user.role == 'admin'
   %li= link_to '題目選項', tqrdc_qlines_path if current_user.role == 'admin'
   %li= link_to '流程設定', tqrdc_flows_path if current_user.role == 'admin'
+  %li= link_to 'Job設定', tqrdc_jobs_path if current_user.role == 'admin'
 -else
   %li= link_to 'Sign in', new_user_session_path
 

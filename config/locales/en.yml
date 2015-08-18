@@ -47,6 +47,7 @@ en:
   new_tqrdc_order: '創建新評分主流程'
   new_tqrdc_order_group: '創建新評分子流程'
   new_tqrdc_order_line: '輸入評分分數'
+  new_tqrdc_job: '設定Email Job'
   eval: '評分'
   submit: '提交'
   question: '題目'
@@ -142,6 +143,17 @@ en:
     start_period: '起始年月'
     end_period: '結束年月'
     commodity_mgr: '責任採購'
+    object_name: '名稱'
+    object_id: 'ID'
+    job_owner: '擁有者'
+    job_params: '參數'
+    job_class: '類別'
+    job_action: '動作'
+    job_flag: '標記'
+    job_start_time: '起始時間'
+    job_run_time: '執行時間'
+    job_end_time: '結束時間'
+    comment: '說明'
 
   views:
       pagination:

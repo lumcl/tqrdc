@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :orders
     resources :order_groups
     resources :order_lines
+    resources :jobs
   end
 
   root to: 'visitors#index' #首頁
