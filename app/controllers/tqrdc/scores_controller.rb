@@ -130,8 +130,11 @@ class Tqrdc::ScoresController < ApplicationController
     end
 
     @qlines = {}
-    Tqrdc::Qline.all.each do |qline|
-      @qlines[qline.id] = qline
+    #Tqrdc::Qline.select(:id,:name,:qhead_id,:description).all.order(:id).each do |qline|
+    Tqrdc::Qline.find_by_sql('select * from tqrdc_qline order by id').each do |qline|
+      array = @qlines[qline.qhead_id] || []
+      array.append qline
+      @qlines[qline.qhead_id] = array
     end
 
     sql = "

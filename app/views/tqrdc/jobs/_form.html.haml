@@ -9,10 +9,11 @@
     = f.input :job_params
     = f.input :job_class
     = f.input :job_action
-    = f.input :job_flag
-    = f.input :job_start_time
-    = f.input :job_run_time
-    = f.input :job_end_time
+    =# f.input :job_flag
+    .form-inline
+      = f.input :job_start_time
+      = f.input :job_run_time
+      = f.input :job_end_time
     = f.input :comment
 
   .form-actions

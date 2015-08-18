@@ -95,7 +95,7 @@
               %th{:width=> '30px', :class=> 'text-center'}
                 = t('attributes.u4_user')
           %tbody
-            - Tqrdc::Qline.where(:qhead_id => order_line.qhead.id).each do |qline|
+            - @qlines[order_line.qhead_id].each do |qline|
               %tr
                 %td
                 %td
