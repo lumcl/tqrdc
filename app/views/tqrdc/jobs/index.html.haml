@@ -1,0 +1,52 @@
+%h3= t('attributes.tqrdc_job')
+
+%h5
+  = link_to t('new_tqrdc_job'), new_tqrdc_job_path
+
+= form_tag(tqrdc_jobs_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :name, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:name]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered
+    %thead
+      %tr
+        %th= t('action')
+        %th= t('attributes.object_name')
+        %th= t('attributes.object_id')
+        %th= t('attributes.email')
+        %th= t('attributes.job_owner')
+        %th= t('attributes.job_params')
+        %th= t('attributes.job_class')
+        %th= t('attributes.job_action')
+        %th= t('attributes.job_flag')
+        %th= t('attributes.job_start_time')
+        %th= t('attributes.job_run_time')
+        %th= t('attributes.job_end_time')
+        %th= t('attributes.comment')
+    %tbody
+      - @tqrdc_jobs.each do |tqrdc_job|
+        %tr
+          %td
+            = link_to t('edit'), edit_tqrdc_job_path(tqrdc_job)
+            |
+            = link_to t('delete'), tqrdc_job, :method => :delete, :data => { :confirm => t('confirm_delete')}
+
+          %td= tqrdc_job.object_name
+          %td= tqrdc_job.object_id
+          %td= tqrdc_job.email
+          %td= tqrdc_job.job_owner
+          %td= tqrdc_job.job_params
+          %td= tqrdc_job.job_class
+          %td= tqrdc_job.job_action
+          %td= tqrdc_job.job_flag
+          %td= tqrdc_job.job_start_time
+          %td= tqrdc_job.job_run_time
+          %td= tqrdc_job.job_end_time
+          %td= tqrdc_job.comment
+
+%h5
+  = link_to t('new_tqrdc_job'), new_tqrdc_job_path
+
+= paginate @tqrdc_jobs unless @tqrdc_jobs.empty?

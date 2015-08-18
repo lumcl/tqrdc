@@ -1,0 +1,22 @@
+= simple_form_for(@tqrdc_job) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :object_name
+    = f.input :object_id
+    = f.input :email
+    = f.input :job_owner
+    = f.input :job_params
+    = f.input :job_class
+    = f.input :job_action
+    = f.input :job_flag
+    = f.input :job_start_time
+    = f.input :job_run_time
+    = f.input :job_end_time
+    = f.input :comment
+
+  .form-actions
+    .clearfix
+    = button_tag class: 'btn btn-danger', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
+      %span.glyphicon.glyphicon-floppy-save
+      = t('save')

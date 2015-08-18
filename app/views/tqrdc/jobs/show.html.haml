@@ -1,0 +1,12 @@
+%h3= t('attributes.tqrdc_job')
+%h5
+  = link_to t('edit'), edit_tqrdc_job_path(@tqrdc_job)
+  \|
+  = link_to t('back'), tqrdc_jobs_path
+
+= render partial: 'layouts/show', :locals => {object: @tqrdc_job}
+
+%h5
+  = link_to t('edit'), edit_tqrdc_job_path(@tqrdc_job)
+  \|
+  = link_to t('back'), tqrdc_jobs_path
