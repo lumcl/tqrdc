@@ -40,7 +40,7 @@
           %td= order.lifnr
           %td= order.vname
           %td= order.mtype
-          %td.text-right= order.total
+          %td.text-right= order.total.to_i
           %td.text-center= t("attributes.u#{order.seq}_user")
           %td.text-center= order.question
           %td.text-center= order.no_answer
