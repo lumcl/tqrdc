@@ -189,4 +189,29 @@ class Tqrdc::Order < ActiveRecord::Base
 
   end
 
+  def self.wip
+    sql = "
+        select distinct o.id,s.vname,s.supplier,o.territory,o.period,o.u1_user_id user_id, u.email, u.username, o.seq from (
+            select distinct a.id,a.supplier_id, a.period, a.territory, b.u1_user_id, a.seq from tqrdc_order a
+              join tqrdc_order_line b on b.order_id = a.id and b.seq=a.seq
+            where a.status <> 'CLOSE' and a.seq = 1
+            union
+            select distinct a.id,a.supplier_id, a.period, a.territory, b.u2_user_id, a.seq from tqrdc_order a
+              join tqrdc_order_line b on b.order_id = a.id and b.seq=a.seq
+            where a.status <> 'CLOSE' and a.seq = 2
+            union
+            select distinct a.id,a.supplier_id, a.period, a.territory, b.u3_user_id, a.seq from tqrdc_order a
+              join tqrdc_order_line b on b.order_id = a.id and b.seq=a.seq
+            where a.status <> 'CLOSE' and a.seq = 3
+            union
+            select distinct a.id,a.supplier_id, a.period, a.territory, b.u4_user_id, a.seq from tqrdc_order a
+              join tqrdc_order_line b on b.order_id = a.id and b.seq=a.seq
+            where a.status <> 'CLOSE' and a.seq = 4
+        ) o
+         join tqrdc_supplier s on s.id = o.supplier_id
+         join users u on u.id = o.u1_user_id
+      order by o.id
+    "
+  end
+
 end
