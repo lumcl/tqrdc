@@ -55,6 +55,15 @@ class Tqrdc::ScoresController < ApplicationController
                  .where('tqrdc_order_group.id = tqrdc_order_line.order_group_id')
                  .where(user_selections)
                  .find params[:id]
+
+    if params[:ds] == 'y' and @order.seq > 1
+      @order.order_lines.each do |line|
+        if eval("line.u#{@order.seq}_user_id") == current_user.id
+          eval("line.u#{@order.seq}_qline_id = line.u#{@order.seq - 1}_qline_id")
+        end
+      end
+    end
+
   end
 
   def show

@@ -1,6 +1,6 @@
 %a{:name=>'top', :href=>'#'}
 %h5.hidden-print
-  = link_to t('edit'), edit_tqrdc_score_path(@order)
+  = link_to t('default_score'), edit_tqrdc_score_path({:id=>@order.id, :ds=>'y'})
   \|
   = link_to t('back'), tqrdc_scores_path({:anchor => "order_#{@order.id}"})
   - @order.order_groups.each do |order_group|
@@ -201,6 +201,14 @@
       %span.glyphicon.glyphicon-floppy-save
       = t('save')
 
+
+%h5.hidden-print
+  = link_to t('default_score'), edit_tqrdc_score_path({:id=>@order.id, :ds=>'y'})
+  \|
+  = link_to t('back'), tqrdc_scores_path({:anchor => "order_#{@order.id}"})
+  - @order.order_groups.each do |order_group|
+    |
+    = link_to "#{@groups[order_group.group_id].name} #{@groups[order_group.group_id].description}", "##{@groups[order_group.group_id].name.upcase}"
 
 :javascript
   $(document).ready(function () {
