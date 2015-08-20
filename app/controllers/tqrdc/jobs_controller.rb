@@ -69,6 +69,6 @@ class Tqrdc::JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tqrdc_job_params
-      params.require(:tqrdc_job).permit(:object_name, :object_id, :email, :job_owner, :job_params, :job_class, :job_action, :job_flag, :job_start_time, :job_run_time, :job_end_time, :comment)
+      params.require(:tqrdc_job).permit(:object_name, :objectid, :email, :job_owner, :job_params, :job_class, :job_action, :job_flag, :job_start_time, :job_run_time, :job_end_time, :comment)
     end
 end

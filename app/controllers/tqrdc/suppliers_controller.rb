@@ -5,7 +5,10 @@ class Tqrdc::SuppliersController < ApplicationController
   # GET /tqrdc/suppliers
   # GET /tqrdc/suppliers.json
   def index
-    @tqrdc_suppliers = Tqrdc::Supplier.all.page
+    name = params[:vname] || ''
+    @tqrdc_suppliers = Tqrdc::Supplier
+                           .where("vname like '%#{name}%' ")
+                           .order(:vname).page params[:page]
   end
 
   # GET /tqrdc/suppliers/1

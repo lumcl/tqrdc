@@ -52,6 +52,7 @@ en:
   submit: '提交'
   question: '題目'
   no_reply: '未答'
+  default_score: '默認評分'
 
   attributes:
     user: '用戶'
@@ -138,7 +139,7 @@ en:
     u2_qline: 'Supervisor簽核日期'
     u3_qline: 'Reviewer簽核日期'
     u4_qline: 'Approver簽核日期'
-    vname: '供應商'
+    vname: '供應商名'
     mtype: '電子/機構分類'
     start_period: '起始年月'
     end_period: '結束年月'

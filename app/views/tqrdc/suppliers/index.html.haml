@@ -4,7 +4,7 @@
   = link_to t('new_tqrdc_supplier'), new_tqrdc_supplier_path
 
 = form_tag(tqrdc_suppliers_url, method: 'get', class: 'form-inline') do
-  = text_field_tag :name, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:name]
+  = text_field_tag :vname, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:vname]
   = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
     %span.glyphicon.glyphicon-search
 

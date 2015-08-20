@@ -2,7 +2,7 @@ class CreateTqrdcJob < ActiveRecord::Migration
   def change
     create_table :tqrdc_job do |t|
       t.text :object_name
-      t.integer :object_id
+      t.integer :objectid
       t.text :email
       t.string :job_owner
       t.string :job_params
