@@ -1,0 +1,39 @@
+%h3= t('attributes.order_summary')
+
+= form_tag(order_summary_tqrdc_reports_path, method: 'get', class: 'form-inline') do
+  = text_field_tag :period, nil, placeholder: t('attributes.period'), class: 'form-control input-sm', value: params[:period] || (Time.now - 1.month).strftime('%Y%m')
+  = text_field_tag :territory, nil, placeholder: t('attributes.territory'), class: 'form-control input-sm', value: params[:territory]
+  = text_field_tag :supplier, nil, placeholder: t('attributes.supplier'), class: 'form-control input-sm', value: params[:supplier]
+  = text_field_tag :mtype, nil, placeholder: t('attributes.mtype'), class: 'form-control input-sm', value: params[:mtype]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered.small
+    %thead
+      %tr
+        %th.text-center= t('action')
+        %th.text-center= t('attributes.period')
+        %th.text-center= t('attributes.territory')
+        %th.text-center= t('attributes.supplier')
+        %th.text-center= t('attributes.vname')
+        %th.text-center= t('attributes.mtype')
+        %th.text-center= t('attributes.total')
+        - @groups.keys.sort.each do |key|
+          - group = @groups[key]
+          %th.text-center
+            = group[:name][0]
+            = group[:description]
+    %tbody
+      - @orders.keys.sort.each do |key|
+        - order = @orders[key]
+        %tr
+          %td
+          %td= order[:period]
+          %td= order[:territory]
+          %td= order[:lifnr]
+          %td= order[:vname]
+          %td= order[:mtype]
+          %td.text-center.text-primary= order[:total].to_i
+          - @groups.keys.sort.each do |group_id|
+            %td.text-center= order[group_id].to_i

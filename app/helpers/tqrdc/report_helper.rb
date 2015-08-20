@@ -1,0 +1,2 @@
+module Tqrdc::ReportHelper
+end

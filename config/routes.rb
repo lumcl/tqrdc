@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   namespace :tqrdc do
+
+    resources :reports do
+      get :order_summary, :on => :collection
+    end
+
     resources :scores do
       get :supplier_entry, :on => :collection
       get :supplier_enquiry, :on => :collection
