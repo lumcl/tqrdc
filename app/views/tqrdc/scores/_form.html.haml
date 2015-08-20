@@ -190,7 +190,7 @@
                 - elsif order_line.u3_user_id == current_user.id and @order.seq == 3 and order_line.seq == 3
                   %textarea.form-control.small{:name => "cm_u3_#{order_line.id}", :id => "cm_u3_#{order_line.id}", :placeholder => 'Comments / 意見'}
                     = order_line.u3_comment
-                - else order_line.u4_user_id == current_user.id and @order.seq == 4 and order_line.seq == 4
+                - elsif order_line.u4_user_id == current_user.id and @order.seq == 4 and order_line.seq == 4
                   %textarea.form-control.small{:name => "cm_u4_#{order_line.id}", :id => "cm_u4_#{order_line.id}", :placeholder => 'Comments / 意見'}
                     = order_line.u4_comment
     %hr
