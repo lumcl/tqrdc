@@ -29,6 +29,8 @@
         - order = @orders[key]
         %tr
           %td
+            %a{:name=> order[:id], :href=>'#'}
+            = link_to t('show'), url_for(:action=>'show', :id=> order[:id])
           %td= order[:period]
           %td= order[:territory]
           %td= order[:lifnr]

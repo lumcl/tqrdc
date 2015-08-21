@@ -1,0 +1,50 @@
+%a{:name=>'top', :href=>'#'}
+%h5.hidden-print
+  = link_to t('back'), tqrdc_scores_path({:anchor => "order_#{@order.id}"})
+  - @order.order_groups.each do |order_group|
+    |
+    = link_to "#{@groups[order_group.group_id].name} #{@groups[order_group.group_id].description}", "##{@groups[order_group.group_id].name.upcase}"
+
+- ascii = 64
+- @order.order_groups.each do |order_group|
+  %a{:name=> @groups[order_group.group_id].name.upcase, :href=>"#"}
+  %table.table.table-condensed.table-bordered.small
+    %thead
+      %tr
+        %td{:width=> '20px' , :colspan=> '5'}
+          %h4
+            %b= "#{(ascii += 1).chr}."
+            %b= @groups[order_group.group_id].name.upcase
+            %b= @groups[order_group.group_id].description
+      %tr
+        %th{:width=> '10px'}
+        %th{:width=> "30%", :class=> 'text-center'}
+          = t('attributes.tqrdc/qhead')
+        %th.text-center
+          = t('attributes.tqrdc/qline')
+        %th{:width=> '30px', :class=> 'text-center'}
+          = t('attributes.score')
+        %th{:width=> '30px', :class=> 'text-center'}
+          = t('attributes.u4_user')
+    %tbody
+      - i = 0
+      - (@order.order_lines.sort_by &:id).each do |order_line|
+        - if order_line.order_group_id == order_group.id
+          - @qlines[order_line.qhead_id].each do |qline|
+            -if order_line.u4_qline_id == qline.id
+              %tr
+                %td
+                  = "#{i += 1}."
+                %td
+                  .text-primary
+                    = @qheads[order_line.qhead_id].name
+                  = @qheads[order_line.qhead_id].description
+                %td
+                  .text-primary
+                    = qline.name
+                  = qline.description
+                %td.text-center{:style=>'vertical-align: middle;'}
+                  = qline.score.to_i
+                %td.text-center{:style=>'vertical-align: middle;'}
+                  - if order_line.u4_qline_id == qline.id
+                    = order_line.u4_user

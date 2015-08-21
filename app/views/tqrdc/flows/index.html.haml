@@ -34,11 +34,6 @@
 
         %th= t('attributes.next_seq')
 
-        %th= t('attributes.owner_id')
-
-        %th= t('attributes.creator_id')
-
-        %th= t('attributes.updater_id')
 
     %tbody
       - @tqrdc_flows.each do |tqrdc_flow|
@@ -66,12 +61,6 @@
           %td= tqrdc_flow.seq
 
           %td= tqrdc_flow.next_seq
-
-          %td= tqrdc_flow.owner
-
-          %td= tqrdc_flow.creator
-
-          %td= tqrdc_flow.updater
 
 
 %h5

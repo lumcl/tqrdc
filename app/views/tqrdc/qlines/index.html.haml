@@ -26,11 +26,6 @@
 
         %th= t('attributes.qhead_id')
 
-        %th= t('attributes.owner_id')
-
-        %th= t('attributes.creator_id')
-
-        %th= t('attributes.updater_id')
 
     %tbody
       - @tqrdc_qlines.each do |tqrdc_qline|
@@ -53,11 +48,6 @@
 
           %td= tqrdc_qline.qhead
 
-          %td= tqrdc_qline.owner
-
-          %td= tqrdc_qline.creator
-
-          %td= tqrdc_qline.updater
 
 
 %h5

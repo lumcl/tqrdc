@@ -26,11 +26,6 @@
 
         %th= t('attributes.remark')
 
-        %th= t('attributes.owner_id')
-
-        %th= t('attributes.creator_id')
-
-        %th= t('attributes.updater_id')
 
     %tbody
       - @tqrdc_qheads.each do |tqrdc_qhead|
@@ -51,11 +46,6 @@
 
           %td= tqrdc_qhead.remark
 
-          %td= tqrdc_qhead.owner
-
-          %td= tqrdc_qhead.creator
-
-          %td= tqrdc_qhead.updater
 
 
 %h5

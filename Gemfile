@@ -23,6 +23,7 @@ gem 'thin'
 gem 'kaminari'
 gem 'paperclip', '~> 4.3.0'
 gem 'tzinfo-data'
+gem 'chart-js-rails' #for chart.js
 
 group :development do
   gem 'better_errors'

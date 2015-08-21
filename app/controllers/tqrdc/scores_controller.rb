@@ -7,7 +7,7 @@ class Tqrdc::ScoresController < ApplicationController
     #order_line.uXuser_id == current_user_id
 
     supplier = params[:supplier] || ''
-    period = params[:period] || (Time.now - 1.month).strftime('%Y%m')
+    period = params[:period] || (Time.now - 0.month).strftime('%Y%m')
     territory = params[:territory] || ''
 
     sql = "
@@ -114,6 +114,7 @@ class Tqrdc::ScoresController < ApplicationController
       if count == 0
         order.seq = order.seq + 1
         order.total = order.u4_tot if order.seq == 5
+        order.status = "CLOSE"
         order.save
         Tqrdc::Job.create!({
                                :job_action => 'notice',
@@ -129,6 +130,7 @@ class Tqrdc::ScoresController < ApplicationController
       if order.seq == 5
         Tqrdc::Order.connection.execute "update tqrdc_order_group set total=u4_tot where order_id = #{order.id}"
         Tqrdc::Order.connection.execute "update tqrdc_order_line set final_score=u4_score where order_id = #{order.id} "
+        Tqrdc::Order.connection.execute "update tqrdc_order_line set status='CLOSE' where order_id = #{order.id} "
       end
     end
     redirect_to tqrdc_scores_path({:anchor => "order_#{order.id}"})
