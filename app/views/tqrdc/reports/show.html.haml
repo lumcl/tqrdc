@@ -1,9 +1,13 @@
+%script{src: '/js/chart.min.js'}
+
 %a{:name=>'top', :href=>'#'}
 %h5.hidden-print
   = link_to t('back'), tqrdc_scores_path({:anchor => "order_#{@order.id}"})
   - @order.order_groups.each do |order_group|
     |
     = link_to "#{@groups[order_group.group_id].name} #{@groups[order_group.group_id].description}", "##{@groups[order_group.group_id].name.upcase}"
+
+%canvas#canvas{:width=>'300', :height=>'300'}
 
 - ascii = 64
 - @order.order_groups.each do |order_group|
@@ -18,7 +22,7 @@
             %b= @groups[order_group.group_id].description
       %tr
         %th{:width=> '10px'}
-        %th{:width=> "30%", :class=> 'text-center'}
+        %th{:width=> '30%', :class=> 'text-center'}
           = t('attributes.tqrdc/qhead')
         %th.text-center
           = t('attributes.tqrdc/qline')
@@ -48,3 +52,25 @@
                 %td.text-center{:style=>'vertical-align: middle;'}
                   - if order_line.u4_qline_id == qline.id
                     = order_line.u4_user
+
+:javascript
+  var radarChartData = {
+      labels: [#{@labels.join(',')}],
+      datasets: [
+          {
+              label: "TQRDC",
+              fillColor: "rgba(151,187,205,0.2)",
+              strokeColor: "rgba(151,187,205,1)",
+              pointColor: "rgba(151,187,205,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(151,187,205,1)",
+              data: [#{@values.join(',')}]
+          }
+      ]
+  };
+
+  window.onload = function(){
+      window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
+      });
+  }
