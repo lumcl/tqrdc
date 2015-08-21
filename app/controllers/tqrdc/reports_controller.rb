@@ -24,7 +24,7 @@ class Tqrdc::ReportsController < ApplicationController
     order_groups.each do |row|
       text = "#{row.name}"
       @labels.append "'#{text}'"
-      @values.append row.total
+      @values.append ((row.total / row.score) * 100).to_i
     end
 
   end

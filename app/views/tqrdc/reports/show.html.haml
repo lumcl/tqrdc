@@ -14,12 +14,15 @@
   %a{:name=> @groups[order_group.group_id].name.upcase, :href=>"#"}
   %table.table.table-condensed.table-bordered.small
     %thead
-      %tr
-        %td{:width=> '20px' , :colspan=> '5'}
+      %tr.text-primary
+        %td{:colspan=> '3'}
           %h4
             %b= "#{(ascii += 1).chr}."
             %b= @groups[order_group.group_id].name.upcase
             %b= @groups[order_group.group_id].description
+        %td.text-center{:colspan => '2'}
+          %h4
+            %b= "#{order_group.total.to_i}"
       %tr
         %th{:width=> '10px'}
         %th{:width=> '30%', :class=> 'text-center'}
@@ -28,7 +31,7 @@
           = t('attributes.tqrdc/qline')
         %th{:width=> '30px', :class=> 'text-center'}
           = t('attributes.score')
-        %th{:width=> '30px', :class=> 'text-center'}
+        %th{:width=> '100px', :class=> 'text-center'}
           = t('attributes.u4_user')
     %tbody
       - i = 0
