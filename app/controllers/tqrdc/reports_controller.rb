@@ -51,11 +51,14 @@ class Tqrdc::ReportsController < ApplicationController
 
     sql = "
       select distinct '4' as utype,username,u.id from tqrdc_order_line a join users u on u.id = a.u4_user_id where a.order_id = #{params[:id]}    "
+    sql =" select distinct '4' as utype,username,u.id ,a.order_id,g.group_id  from tqrdc_order_line a join users u on u.id = a.u4_user_id
+            join tqrdc_order_group g on a.order_id = g.order_id and a.order_group_id = g.id  where a.order_id = #{params[:id]}"
     @u4_users = []
     @users = {}
     Tqrdc::Order.find_by_sql(sql).each do |row|
       @u4_users.append row.username if row.utype == '4'
-      @users[row.id] = row.username
+      #@users[row.id] = row.username
+      @users[row.group_id] = row.username
     end
   end
 

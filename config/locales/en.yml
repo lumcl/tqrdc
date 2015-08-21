@@ -155,6 +155,7 @@ en:
     job_run_time: '執行時間'
     job_end_time: '結束時間'
     comment: '說明'
+    order_summary: '總表'
 
   views:
       pagination:

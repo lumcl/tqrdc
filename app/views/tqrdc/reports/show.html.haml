@@ -2,12 +2,45 @@
 
 %a{:name=>'top', :href=>'#'}
 %h5.hidden-print
-  = link_to t('back'), tqrdc_scores_path({:anchor => "order_#{@order.id}"})
+  = link_to t('back'), :back
   - @order.order_groups.each do |order_group|
     |
     = link_to "#{@groups[order_group.group_id].name} #{@groups[order_group.group_id].description}", "##{@groups[order_group.group_id].name.upcase}"
 
-%canvas#canvas{:width=>'300', :height=>'300'}
+.row
+  .col-xs-6
+    %table.table.table-condensed.table-stripped.table-bordered.small
+      %tbody
+        %tr
+          %th.text-primary{:colspan => 2}
+            %h4.text-center
+              %b= @order.supplier
+          %th.text-primary
+            %h4.text-center
+              %b= @order.total.to_i
+        %tr
+          %td.text-right{:width => '10%'}
+            %b= @order.supplier.supplier
+            %b="/"
+            %b= @order.period
+            %b="/"
+            %b= @order.territory
+          %td.text-center{:width => "10%"}
+            %b= t('attributes.u4_user')
+          %td.text-center{:width => "10%"}
+            %b= t('attributes.score')
+
+        -@order.order_groups.each do |order_group|
+          %tr
+            %td.text-right
+              %b= @groups[order_group.group_id].name.upcase
+            %td.text-primary.text-center
+              %b= @users[order_group.group_id]
+            %td.text-center
+              %b= "#{order_group.total.to_i}"
+
+  .col-xs-6
+    %canvas#canvas{:width=>'300', :height=>'275'}
 
 - ascii = 64
 - @order.order_groups.each do |order_group|
