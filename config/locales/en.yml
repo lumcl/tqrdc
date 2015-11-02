@@ -156,6 +156,8 @@ en:
     job_end_time: '結束時間'
     comment: '說明'
     order_summary: '總表'
+    disty: '代理商'
+    maker: '原廠備註'
 
   views:
       pagination:

@@ -74,6 +74,7 @@ class Tqrdc::Email
         from Figaro.env.admin_email
         #to users[user_id].first.email
         to 'jill.lin@l-e-i.com'
+        cc 'jill.lin@l-e-i.com'
         subject 'TQRDC Reminder List 待簽核清单'
 
         html_part do
@@ -115,6 +116,7 @@ class Tqrdc::Email
       from from
       #to to
       to 'jill.lin@l-e-i.com'
+      cc 'jill.lin@l-e-i.com'
       subject "TQRDC #{order.supplier.name} #{order.territory} #{order.period} 待簽核"
       body "\n
             Please click below link for approval \n

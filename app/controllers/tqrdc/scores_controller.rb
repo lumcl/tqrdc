@@ -7,8 +7,9 @@ class Tqrdc::ScoresController < ApplicationController
     #order_line.uXuser_id == current_user_id
 
     supplier = params[:supplier] || ''
-    period = params[:period] || (Time.now - 0.month).strftime('%Y%m')
+    period = params[:period] || (Time.now - 1.month).strftime('%Y%m')
     territory = params[:territory] || ''
+    vname = params[:vname] || ''
 
     sql = "
       select x.id,x.period,x.territory,x.status,x.lifnr,x.vname,x.mtype,x.total,x.username,x.seq,
@@ -27,19 +28,20 @@ class Tqrdc::ScoresController < ApplicationController
       from (
           select distinct a.id,a.period,a.territory,a.status,b.supplier lifnr,b.vname,b.mtype,a.total,u.username,a.seq
           from tqrdc_order a
-            join tqrdc_supplier b on b.id = a.supplier_id and b.supplier like '%#{supplier}%'
+            join tqrdc_supplier b on b.id = a.supplier_id and b.supplier like '%#{supplier}%' and b.vname like '%#{vname}%'
             join users u on u.id = b.commodity_mgr_id
             join tqrdc_order_line c on c.order_id = a.id and c.status <> 'CLOSE' and
                  (c.u1_user_id = #{current_user.id} or c.u2_user_id = #{current_user.id} or c.u3_user_id = #{current_user.id} or c.u4_user_id =#{current_user.id})
           where a.status <> 'CLOSE' and a.period like '%#{period}%' and a.territory like '%#{territory}%'
           ) x
-      order by period,territory,mtype,lifnr
+      order by question desc
     "
+    #order by period,territory,mtype,lifnr
     orders = Tqrdc::Order.find_by_sql sql
 
     #paging
     @page = (params[:page] || 1).to_i
-    @orders = Kaminari.paginate_array(orders).page(@page)
+    @orders = Kaminari.paginate_array(orders).page(@page).per(50)
 
   end
 
@@ -100,7 +102,7 @@ class Tqrdc::ScoresController < ApplicationController
 
   def update_scores
     order_id = Tqrdc::Order.update_scores(params, request.ip)
-    redirect_to url_for(:action => :show, :id => order_id)
+    redirect_to tqrdc_scores_path
   end
 
   def submit

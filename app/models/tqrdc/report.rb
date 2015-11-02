@@ -12,6 +12,7 @@ class Tqrdc::Report
         and a.territory like '%#{params[:territory] || ''}%'
         and d.supplier like '%#{params[:supplier] || ''}%'
         and d.mtype like '#{params[:mtype] || ''}%'
+        and d.vname like '#{params[:supplier_name] || ''}%'
     "
     records = Tqrdc::Order.find_by_sql sql
     groups = {}

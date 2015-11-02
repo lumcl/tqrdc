@@ -29,6 +29,10 @@
         %th= t('attributes.end_period')
 
         %th= t('attributes.territory')
+        
+        %th= t('attributes.disty')
+
+        %th=t('attributes.maker')
 
     %tbody
       - @tqrdc_suppliers.each do |tqrdc_supplier|
@@ -54,7 +58,10 @@
           %td= tqrdc_supplier.end_period
 
           %td= tqrdc_supplier.territory
+          
+          %td= tqrdc_supplier.disty
 
+          %td= tqrdc_supplier.maker
 
 %h5
   = link_to t('new_tqrdc_supplier'), new_tqrdc_supplier_path

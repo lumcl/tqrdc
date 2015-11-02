@@ -120,7 +120,7 @@ class Tqrdc::Order < ActiveRecord::Base
   # end
 
   def self.monthly_create_order
-    period = Time.now.strftime('%Y%m')
+    period = (Time.now - 1.month).strftime('%Y%m')
     suppliers = Tqrdc::Supplier
                     .where("'#{period}' between start_period and end_period")
                     .order(:territory => :asc, :supplier => :asc)

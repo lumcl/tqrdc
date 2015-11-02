@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813093613) do
+ActiveRecord::Schema.define(version: 20151030093553) do
 
   create_table "tqrdc_flow", force: :cascade do |t|
     t.string   "name"
@@ -44,6 +44,23 @@ ActiveRecord::Schema.define(version: 20150813093613) do
 
   add_index "tqrdc_group", ["name"], name: "index_tqrdc_group_on_name"
 
+  create_table "tqrdc_job", force: :cascade do |t|
+    t.text     "object_name"
+    t.integer  "objectid",                   precision: 38
+    t.text     "email"
+    t.string   "job_owner"
+    t.string   "job_params"
+    t.string   "job_class"
+    t.string   "job_action"
+    t.boolean  "job_flag",       limit: nil
+    t.datetime "job_start_time"
+    t.datetime "job_run_time"
+    t.datetime "job_end_time"
+    t.text     "comment"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
+
   create_table "tqrdc_order", force: :cascade do |t|
     t.integer  "supplier_id", precision: 38
     t.string   "period"
@@ -53,6 +70,10 @@ ActiveRecord::Schema.define(version: 20150813093613) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "seq",         precision: 38
+    t.integer  "u1_tot",      precision: 38
+    t.integer  "u2_tot",      precision: 38
+    t.integer  "u3_tot",      precision: 38
+    t.integer  "u4_tot",      precision: 38
   end
 
   add_index "tqrdc_order", ["period"], name: "index_tqrdc_order_on_period"
@@ -66,6 +87,10 @@ ActiveRecord::Schema.define(version: 20150813093613) do
     t.float    "total"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "u1_tot",     precision: 38
+    t.integer  "u2_tot",     precision: 38
+    t.integer  "u3_tot",     precision: 38
+    t.integer  "u4_tot",     precision: 38
   end
 
   add_index "tqrdc_order_group", ["group_id"], name: "i_tqrdc_order_group_group_id"
@@ -156,6 +181,9 @@ ActiveRecord::Schema.define(version: 20150813093613) do
     t.string   "vname"
     t.string   "email"
     t.string   "mtype"
+    t.string   "disty"
+    t.string   "maker"
+    t.string   "vtext"
   end
 
   add_index "tqrdc_supplier", ["supplier"], name: "i_tqrdc_supplier_supplier"
@@ -179,8 +207,8 @@ ActiveRecord::Schema.define(version: 20150813093613) do
     t.string   "territory"
   end
 
-  add_index "users", ["email"], name: "index_user_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "i_user_reset_password_token", unique: true
-  add_index "users", ["username"], name: "index_user_on_username", unique: true
+  add_index "users", ["email"], name: "sys_c0059456714", unique: true
+  add_index "users", ["reset_password_token"], name: "sys_c0059456716", unique: true
+  add_index "users", ["username"], name: "sys_c0059456715", unique: true
 
 end
