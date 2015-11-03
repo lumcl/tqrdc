@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030093553) do
+ActiveRecord::Schema.define(version: 20151102234311) do
 
   create_table "tqrdc_flow", force: :cascade do |t|
     t.string   "name"
@@ -79,6 +79,19 @@ ActiveRecord::Schema.define(version: 20151030093553) do
   add_index "tqrdc_order", ["period"], name: "index_tqrdc_order_on_period"
   add_index "tqrdc_order", ["supplier_id"], name: "i_tqrdc_order_supplier_id"
   add_index "tqrdc_order", ["territory"], name: "index_tqrdc_order_on_territory"
+
+  create_table "tqrdc_order_file", force: :cascade do |t|
+    t.integer  "order_id",           precision: 38
+    t.string   "filename"
+    t.string   "tqrdc_file_name"
+    t.string   "tqrdc_content_type"
+    t.integer  "tqrdc_file_size",    precision: 38
+    t.datetime "tqrdc_updated_at"
+    t.text     "remark"
+    t.integer  "owner_id",           precision: 38
+    t.integer  "creator_id",         precision: 38
+    t.integer  "updater_id",         precision: 38
+  end
 
   create_table "tqrdc_order_group", force: :cascade do |t|
     t.integer  "order_id",   precision: 38

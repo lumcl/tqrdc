@@ -1,7 +1,7 @@
 source 'https://ruby.taobao.org'
 #ruby '2.0.0'
 gem 'rails', '4.2.3'
-gem 'ruby-oci8'
+gem 'ruby-oci8' , '2.1.8'
 #gem 'activerecord-oracle_enhanced-adapter', '~> 1.5.5'
 gem 'activerecord-oracle_enhanced-adapter', github: 'rsim/oracle-enhanced', branch: 'rails42'
 gem 'sqlite3'
