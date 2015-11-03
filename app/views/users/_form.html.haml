@@ -2,11 +2,12 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :email
+    = f.input :email if current_user.role == 'admin'
+    = f.input :email, :readonly => 'readonly' unless current_user.role == 'admin'
     = f.input :password
-    = f.input :username
-    = f.input :role
-    = f.input :territory , collection: Figaro.env.territory.split(",")
+    = f.input :username if current_user.role == 'admin'
+    = f.input :role if current_user.role == 'admin'
+    = f.input :territory , collection: Figaro.env.territory.split(",") if current_user.role == 'admin'
     = #f.input :supplier, :as => :autocomplete, :source_query => autocomplete_supplier_name_tqrdc_suppliers_url , :items => 20, :minLength => 1
 
   .form-actions

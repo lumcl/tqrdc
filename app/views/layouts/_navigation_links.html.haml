@@ -15,4 +15,4 @@
 
 - if user_signed_in? #and current_user.role == 'supplier'
   %li= link_to t('eval'), tqrdc_scores_path #link_to t('attributes.u1_score'), supplier_entry_tqrdc_scores_path
-
+  %li= link_to '修改密碼', edit_user_path(current_user.id)
