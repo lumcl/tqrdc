@@ -53,7 +53,7 @@ class Tqrdc::ScoresController < ApplicationController
        (tqrdc_order_line.u4_user_id = #{current_user.id}))
     "
     @order = Tqrdc::Order
-                 .eager_load(:order_groups, :order_lines)
+                 .eager_load(:order_groups, :order_lines, :order_files)
                  .where('tqrdc_order_group.id = tqrdc_order_line.order_group_id')
                  .where(user_selections)
                  .find params[:id]
@@ -66,11 +66,14 @@ class Tqrdc::ScoresController < ApplicationController
       end
     end
 
+    @tqrdc_order_file = Tqrdc::OrderFile.new
+    @tqrdc_order_file.order = @order
+
   end
 
   def show
     @order = Tqrdc::Order
-                 .eager_load(:order_groups, :order_lines)
+                 .eager_load(:order_groups, :order_lines, :order_files)
                  .find params[:id]
   end
 

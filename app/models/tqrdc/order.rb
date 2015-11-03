@@ -2,6 +2,8 @@ class Tqrdc::Order < ActiveRecord::Base
   belongs_to :supplier, :class_name => 'Tqrdc::Supplier'
   has_many :order_groups, :class_name => 'Tqrdc::OrderGroup', :dependent => :destroy
   has_many :order_lines, :class_name => 'Tqrdc::OrderLine', :dependent => :destroy
+  has_many :order_files, :class_name => 'Tqrdc::OrderFile', :dependent => :destroy
+
 
   validates_uniqueness_of :supplier_id, :scope => [:period]
 

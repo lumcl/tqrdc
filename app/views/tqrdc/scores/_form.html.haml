@@ -46,7 +46,39 @@
       %td.text-right.text-primary= t('attributes.u4_tot')
       %td= @order.u4_tot.to_i
 
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered
+    %thead
+      %tr
+        %th= t('action')
+        %th= t('attributes.filename')
+        %th= t('attributes.description')
+        %th.text-right= '檔案大小'
+        %th.text-right= '上傳時間'
+        %th= t('attributes.creator')
+    %tbody
+      - @order.order_files.sort_by(&:id).each do |file|
+        %tr
+          %td
+            = link_to t('download'), file
+            = "|" if file.creator_id == current_user.id
+            = link_to t('delete'), file, :method => :delete, :data => { :confirm => t('confirm_delete')} if file.creator_id == current_user.id
+          %td= file.filename
+          %td= file.remark
+          %td.text-right= number_to_human_size file.tqrdc_file_size
+          %td.text-right= file.created_at.strftime('%Y%m%d %H:%M')
+          %td= file.creator_id == nil ? '' : file.creator.name
 
+#upload_file
+  %script{src: '/js/bootstrap.file-input.js'}
+  = simple_form_for @tqrdc_order_file, html:{class: 'form-inline'} do |f|
+    = f.input :order_id, as: :hidden
+    = f.input_field :tqrdc, label: false, as: :file, title:'選擇上傳檔案'
+    = f.input_field :remark, as: :string, :size => '50', :placeholder => '備註', :class=>'form-control'
+    = button_tag class: 'btn btn-danger', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
+      %span.glyphicon.glyphicon-circle-arrow-up
+      上傳檔案
+%br
 
 = form_tag(update_scores_tqrdc_scores_url, method: 'post') do |f|
 
@@ -218,3 +250,9 @@
     });
 
   });
+
+  $(document).ready(function () {
+
+     $('input[type=file]').bootstrapFileInput();
+
+  })

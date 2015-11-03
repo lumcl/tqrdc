@@ -47,6 +47,27 @@
       %td.text-right.text-primary= t('attributes.u4_tot')
       %td= @order.u4_tot.to_i
 
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered
+    %thead
+      %tr
+        %th= t('action')
+        %th= t('attributes.filename')
+        %th= t('attributes.description')
+        %th.text-right= '檔案大小'
+        %th.text-right= '上傳時間'
+        %th= t('attributes.creator')
+    %tbody
+      - @order.order_files.sort_by(&:id).each do |file|
+        %tr
+          %td
+            = link_to t('download'), file
+          %td= file.filename
+          %td= file.remark
+          %td.text-right= number_to_human_size file.tqrdc_file_size
+          %td.text-right= file.created_at.strftime('%Y%m%d %H:%M')
+          %td= file.creator_id == nil ? '' : file.creator.name
+
 - ascii = 64
 - @order.order_groups.each do |order_group|
   %a{:name=> @groups[order_group.group_id].name.upcase, :href=>"#"}

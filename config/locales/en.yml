@@ -38,6 +38,7 @@ en:
   password_for_confirmation: '請輸入現有密碼, 以便確認資料更新.'
   new_user: '創建用戶'
   edit_user: '編輯用戶'
+  download: '下載'
 
   new_tqrdc_group: '新TQRDC評分類別' #
   new_tqrdc_qhead: '創建新題目'
@@ -158,6 +159,7 @@ en:
     order_summary: '總表'
     disty: '代理商'
     maker: '原廠備註'
+    filename: '檔案名稱'
 
   views:
       pagination:
