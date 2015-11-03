@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   namespace :tqrdc do
+    resources :order_files
+  end
+  namespace :tqrdc do
 
     resources :reports do
       get :order_summary, :on => :collection

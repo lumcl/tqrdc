@@ -1,0 +1,42 @@
+%h3= t('attributes.tqrdc_order_file')
+
+%h5
+  = link_to t('new_tqrdc_order_file'), new_tqrdc_order_file_path
+
+= form_tag(tqrdc_order_files_url, method: 'get', class: 'form-inline') do
+  = text_field_tag :name, nil, placeholder: t('attributes.name'), class: 'form-control input-sm', value: params[:name]
+  = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
+    %span.glyphicon.glyphicon-search
+
+.table-responsive
+  %table.table.table-hover.table-condensed.table-bordered
+    %thead
+      %tr
+        %th= t('action')
+        %th= t('attributes.order_id')
+        %th= t('attributes.filename')
+        %th= t('attributes.tqrdc')
+        %th= t('attributes.remark')
+        %th= t('attributes.owner_id')
+        %th= t('attributes.creator_id')
+        %th= t('attributes.updater_id')
+    %tbody
+      - @tqrdc_order_files.each do |tqrdc_order_file|
+        %tr
+          %td
+            = link_to t('edit'), edit_tqrdc_order_file_path(tqrdc_order_file)
+            |
+            = link_to t('delete'), tqrdc_order_file, :method => :delete, :data => { :confirm => t('confirm_delete')}
+
+          %td= tqrdc_order_file.order_id
+          %td= tqrdc_order_file.filename
+          %td= tqrdc_order_file.tqrdc
+          %td= tqrdc_order_file.remark
+          %td= tqrdc_order_file.owner_id
+          %td= tqrdc_order_file.creator_id
+          %td= tqrdc_order_file.updater_id
+
+%h5
+  = link_to t('new_tqrdc_order_file'), new_tqrdc_order_file_path
+
+= paginate @tqrdc_order_files unless @tqrdc_order_files.empty?

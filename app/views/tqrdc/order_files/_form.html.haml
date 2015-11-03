@@ -1,0 +1,17 @@
+= simple_form_for(@tqrdc_order_file) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :order_id
+    = f.input :filename
+    = f.input :tqrdc
+    = f.input :remark
+    = f.input :owner_id
+    = f.input :creator_id
+    = f.input :updater_id
+
+  .form-actions
+    .clearfix
+    = button_tag class: 'btn btn-danger', type: 'button', onclick: "$(this).button('loading');this.form.submit();", data:{loading_text: t('saving')} do
+      %span.glyphicon.glyphicon-floppy-save
+      = t('save')

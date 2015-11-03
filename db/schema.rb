@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151102234311) do
+ActiveRecord::Schema.define(version: 20151103091046) do
 
   create_table "tqrdc_flow", force: :cascade do |t|
     t.string   "name"
@@ -91,6 +91,8 @@ ActiveRecord::Schema.define(version: 20151102234311) do
     t.integer  "owner_id",           precision: 38
     t.integer  "creator_id",         precision: 38
     t.integer  "updater_id",         precision: 38
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "tqrdc_order_group", force: :cascade do |t|
@@ -220,8 +222,8 @@ ActiveRecord::Schema.define(version: 20151102234311) do
     t.string   "territory"
   end
 
-  add_index "users", ["email"], name: "sys_c0059456714", unique: true
-  add_index "users", ["reset_password_token"], name: "sys_c0059456716", unique: true
-  add_index "users", ["username"], name: "sys_c0059456715", unique: true
+  add_index "users", ["email"], name: "index_user_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "i_user_reset_password_token", unique: true
+  add_index "users", ["username"], name: "index_user_on_username", unique: true
 
 end
