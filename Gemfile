@@ -1,7 +1,7 @@
 source 'https://ruby.taobao.org'
 #ruby '2.0.0'
 gem 'rails', '4.2.3'
-gem 'ruby-oci8' , '2.1.8'
+gem 'ruby-oci8','2.2.0.2'
 #gem 'activerecord-oracle_enhanced-adapter', '~> 1.5.5'
 gem 'activerecord-oracle_enhanced-adapter', github: 'rsim/oracle-enhanced', branch: 'rails42'
 gem 'sqlite3'
@@ -23,6 +23,8 @@ gem 'thin'
 gem 'kaminari'
 gem 'paperclip', '~> 4.3.0'
 gem 'tzinfo-data'
+gem 'axlsx', '~> 2.0', '>= 2.0.1'
+gem 'axlsx_rails', '~> 0.4.0'
 #gem 'chart-js-rails' #for chart.js
 
 group :development do

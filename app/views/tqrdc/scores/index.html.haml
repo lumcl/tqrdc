@@ -7,6 +7,8 @@
   = text_field_tag :vname, nil, placeholder: t('attributes.vname'), class: 'form-control input-sm', value: params[:vname]
   = button_tag class: 'btn btn-success btn-form-submit', type: 'button' do
     %span.glyphicon.glyphicon-search
+  = link_to '導出Excel', tqrdc_scores_url({:period => params[:period], :territory=> params[:territory], :supplier=>params[:supplier], :vname=> params[:vname], :output=>'excel'})
+
 %p
 .table-responsive
   %table.table.table-hover.table-condensed.table-bordered.small

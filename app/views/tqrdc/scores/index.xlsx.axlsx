@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Tqrdc") do |sheet|
+  sheet.add_row [t('attributes.period'), t('attributes.territory'), t('attributes.status'), t('attributes.supplier'),t('attributes.vname'),t('attributes.mtype'),t('attributes.total'),t('attributes.seq'),t('question'),t('no_reply')]
+  @rows.each do |row|
+    sheet.add_row [row.period, row.territory, row.status, row.lifnr, row.vname,row.mtype,row.total,t("attributes.u#{row.seq}_user"),row.question,row.no_answer],
+          :types => [:string,:string,:string]
+  end
+end

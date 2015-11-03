@@ -39,10 +39,14 @@ class Tqrdc::ScoresController < ApplicationController
     #order by period,territory,mtype,lifnr
     orders = Tqrdc::Order.find_by_sql sql
 
-    #paging
-    @page = (params[:page] || 1).to_i
-    @orders = Kaminari.paginate_array(orders).page(@page).per(50)
-
+    if params[:output] == 'excel'
+      @rows = orders
+      render xlsx: 'list', template: 'tqrdc/scores/index.xlsx'
+    else
+      #paging
+      @page = (params[:page] || 1).to_i
+      @orders = Kaminari.paginate_array(orders).page(@page).per(50)
+    end
   end
 
   def edit
